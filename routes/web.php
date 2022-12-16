@@ -28,6 +28,8 @@ Route::get('email/verify/{id}/{hash}', 'Auth\VerificationController@verify')->na
 Route::get('email/resend', 'Auth\VerificationController@resend')->name('verification.resend');
 
 Route::group(['middleware' => ['auth']], function() {
+    // Route::get('/', 'HomeController@index')->name('home');
     Route::get('/', 'HomeController@index')->name('home');
-
+    // invoice routes
+    Route::resource('invoice', 'InvoiceController');
 });

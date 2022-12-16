@@ -14,9 +14,9 @@
 </head>
 <body class="hold-transition login-page">
     <div class="login-box">
-        <div class="login-logo">
+        {{-- <div class="login-logo">
             <img src="{{ asset('dist/img/logo.png') }}" width="150" />
-        </div>
+        </div> --}}
         <div class="card card-primary card-outline card-maroon">
             <div class="card-body login-card-body">
             <p class="login-box-msg">Sign in to start your session</p>

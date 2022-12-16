@@ -26,7 +26,7 @@
 <section class="content">
     <div class="container-fluid">
         <!-- Small boxes (Stat box) -->
-        <div class="row">
+        {{-- <div class="row">
             <div class="col-lg-3 col-6">
                 <!-- small box -->
                 <div class="small-box bg-info">
@@ -86,160 +86,9 @@
                 </div>
             </div>
             <!-- ./col -->
-        </div>
+        </div> --}}
         <!-- /. row -->
-        <div class="row">
-            <div class="col-md-6" style="height: 300px;overflow: scroll;">
-                <h3><strong>Receipt Vouchers</strong></h3>
-                <table id="example2" class="bg-white table-bordered table-striped table-sm" role="grid" aria-describedby="example1_info" style="width:100%;">
-                    <thead>
-                        <tr role="row">
-                            <th class="sorting sorting_asc" tabindex="0" aria-controls="example1" rowspan="1" colspan="1">S.No</th>
-                            <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" >Date</th>
-                            <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" >Company</th>
-                            <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" >Invoice #</th>
-                            <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" >Total</th>
-                            <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" >Status</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach($receipts as $key => $receipt)
-                            <tr class="odd">
-                                <td class="dtr-control sorting_1" tabindex="0">{{$key +1}}</td>
-                                <td>{{$receipt->date_time}}</td>
-                                <td>
-                                    <a href="{{ route('companies.show', $receipt->transactionable->quotation->company->id ) }}" class='btn btn-ghost-success'>
-                                    {{ $receipt->transactionable->quotation->company->name }}
-                                    </a>
-                                </td>
-                                <td>{{$receipt->transactionable ? $receipt->transactionable->invoice_no : '' }}</td>
-                                <td>{{$receipt->total}}</td>
-                                <td>@include('components.datatables_status', [
-                                    'msg' => ($receipt->status) ? 'complete' : 'pending',
-                                    'type' => ($receipt->status) ? 'success' : 'danger',
-                                    ])
-                                </td>
-                            </tr>
-                        @endforeach
-                    </tbody>
-                </table>
-                <br>
-                <a href="{{route('receipts.index')}}" class="btn btn-block bg-custom btn-sm">View More</a>
-            </div>
-            <div class="col-md-6" style="height: 300px;overflow: scroll;">
-                <h3><strong>Cheques Notifications</strong></h3>
-                <table id="example2" class="bg-white table-bordered table-striped table-sm" role="grid" aria-describedby="example1_info" style="width:100%;">
-                    <thead>
-                        <tr role="row">
-                            <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" >Company</th>
-                            <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" >Type</th>
-                            <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" >Bank/Cheque Clearance Date</th>
-                            <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" >Bank/Cheque No</th>
-                            <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" >Total</th>
-                            <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" >Status</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach($cheques as $key => $cheque)
-                            <tr class="odd">
-                                <td>
-                                    @if(isset($cheque->transactionable->quotation->company))
-                                        <a href="{{ route('companies.show', $cheque->transactionable->quotation->company->id ) }}" class='btn btn-ghost-success'>
-                                        {{ $cheque->transactionable->quotation->company->name }}
-                                        </a>
-                                    @endif
-                                    @if(isset($cheque->transactionable->lpoout->vendor))
-                                        <a href="{{ route('vendors.show', $cheque->transactionable->lpoout->vendor->id ) }}" class='btn btn-ghost-success'>
-                                        {{ $cheque->transactionable->lpoout->vendor->name }}
-                                        </a>
-                                    @endif
-                                </td>
-                                <td>{{ isset($cheque->transactionable->quotation) ? "Receipt" : "Payment"}}</td>
-                                <td>{{$cheque->clearance_date}}</td>
-                                <td>{{$cheque->payment_no}}</td>
-                                <td>{{$cheque->total}}</td>
-                                <td>@include('components.datatables_status', [
-                                    'msg' => ($cheque->status) ? 'complete' : 'pending',
-                                    'type' => ($cheque->status) ? 'success' : 'danger',
-                                    ])
-                                </td>
-                            </tr>
-                        @endforeach
-                    </tbody>
-                </table>
-                <br>
-                <a href="{{route('cheques.index')}}" class="btn btn-block btn-md">View More</a>
-            </div>
-        </div>
-        <!-- /.expiry table -->
-        <hr>
-        <div class="row">
-            <div class="col-md-6" style="height: 300px;overflow: scroll;">
-                <h3><strong>Documents </strong></h3>
-                <table id="example2" class="bg-white table-bordered table-striped table-sm" role="grid" aria-describedby="example1_info" style="width:100%;">
-                    <thead>
-                        <tr role="row">
-                            <th class="sorting sorting_asc" tabindex="0" aria-controls="example1" rowspan="1" colspan="1">S.No</th>
-                            <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" id="asd">Name</th>
-                            <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" >Type</th>
-                            <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" >Date</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach($documents as $key => $document)
-                            <tr class="odd">
-                                <td class="dtr-control sorting_1" tabindex="0">{{$key +1}}</td>
-                                <td>{{$document->name}}</td>
-                                <td>{{ $document->type}}</td>
-                                <td>{{$document->date}}</td>
-                            </tr>
-                        @endforeach
-                    </tbody>
-                </table>
-                <br>
-                <a href="{{route('document.index')}}" class="btn btn-block bg-custom btn-sm">View More</a>
-            </div>
-            <div class="col-md-6" style="height: 300px;overflow: scroll;">
-                <h3><strong>Staff Profiles</strong></h3>
-                <table id="example2" class="bg-white table-bordered table-striped table-sm" role="grid" aria-describedby="example1_info" style="width:100%;">
-                    <thead>
-                        <tr role="row">
-                            <th class="sorting sorting_asc" tabindex="0" aria-controls="example1" rowspan="1" colspan="1">No</th>
-                            <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" >{{__('models/stafprofile.fields.name')}}</th>
-                            <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" >Type</th>
-                            <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" >Expiry date</th>
-                            <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" >Update</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach($staff_profiles as $key => $staff_profile)
-                            @if ($staff_profile->passport_expiry != null && $staff_profile->passport_expiry < $exp_date)
-                                <x-staf_expiry_row :id=" $staff_profile->id" :name="$staff_profile->name" type="Passport" :date="$staff_profile->passport_expiry" :number="$number"/>                       
-                                @php($number++)    
-                            @endif
-                            @if ($staff_profile->visa_expiry != null && $staff_profile->visa_expiry < $exp_date)
-                                <x-staf_expiry_row :id=" $staff_profile->id" :name="$staff_profile->name" type="Visa" :date="$staff_profile->visa_expiry" :number="$number"/>                       
-                                @php($number++)    
-                            @endif
-                            @if ($staff_profile->emirates_id_expiry != null && $staff_profile->emirates_id_expiry < $exp_date)
-                                <x-staf_expiry_row :id=" $staff_profile->id" :name="$staff_profile->name" type="Emirates Id Expiry" :date="$staff_profile->emirates_id_expiry" :number="$number"/>                       
-                                @php($number++)    
-                            @endif
-                            @if ($staff_profile->labor_card_expiry != null && $staff_profile->labor_card_expiry < $exp_date)
-                                <x-staf_expiry_row :id=" $staff_profile->id" :name="$staff_profile->name" type="Labor Card Expiry" :date="$staff_profile->labor_card_expiry" :number="$number"/>                       
-                                @php($number++)    
-                            @endif
-                            @if ($staff_profile->driver_permit_expiry != null && $staff_profile->driver_permit_expiry < $exp_date)
-                                <x-staf_expiry_row :id=" $staff_profile->id" :name="$staff_profile->name" type="Driver Permit Expiry" :date="$staff_profile->driver_permit_expiry" :number="$number"/>                       
-                                @php($number++)    
-                            @endif
-                        @endforeach
-                    </tbody>
-                </table>
-                <br>
-                <a href="{{route('staf.index')}}" class="btn btn-block btn-md">View More</a>
-            </div>
-        </div>
+        
     </div><!-- /.container-fluid -->
 </section>
 @endsection
