@@ -12,6 +12,8 @@ use App\Http\Requests\CreateUserRequest;
 use App\Http\Requests\UpdateUserRequest;
 use App\Http\Requests\ProfileUserRequest;
 use App\Http\Controllers\AppBaseController;
+use App\User;
+use Illuminate\Http\Request;
 
 class UserController extends AppBaseController
 {
@@ -22,18 +24,53 @@ class UserController extends AppBaseController
     {
         $this->userRepository = $userRepo;
     }
-
-    /**
-     * Display a listing of the SystemUser.
+     /**
+     * Get users for select2 plugin.
      *
-     * @param UserDataTable $userDataTable
      * @return Response
      */
-    public function index(UserDataTable $userDataTable)
+    public function getUser(Request $request)
     {
-        return $userDataTable->render('users.index');
+        $search = $request->name;
+    
+        if($search == ''){
+            $users = $this->userRepository->model()::orderby('name','asc')->select('id','name')->limit(5)->get(); 
+        }else{
+            $users =$this->userRepository->model()::orderby('name','asc')->select('id','name')->where('name', 'like', '%' .$search . '%')->limit(5)->get();
+        }
+    
+        $response = array();
+        foreach($users as $user){
+            $response[] = array(
+                "id"=>$user->id,
+                "text"=>$user->name
+            );
+        }
+        return response()->json($response); 
     }
+    // Add company by ajax
+    public function addUser(Request $request)
+    {
+        $validator = \Validator::make($request->all(), [
+            'user_name' => 'required',
+        ]);
 
+        if ($validator->fails())
+        {
+            $errors = $validator->messages()->get('*');
+            return response()->json($errors, 422);
+        }
+
+        $input = $request->all();
+        $user = $this->userRepository->invoiceUser([
+            'name' => $input['user_name']
+        ]);
+        
+        if($user)
+            return response()->json($user);
+        else
+            return response()->json('Unable to add user!', 423);
+    }
     /**
      * Show the form for creating a new SystemUser.
      *

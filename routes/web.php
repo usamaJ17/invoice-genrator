@@ -32,4 +32,6 @@ Route::group(['middleware' => ['auth']], function() {
     Route::get('/', 'HomeController@index')->name('home');
     // invoice routes
     Route::resource('invoice', 'InvoiceController');
+    Route::post('user/get','UserController@getUser')->name('getUsers');
+    Route::post('user/add','UserController@addUser')->name('addUsers');
 });

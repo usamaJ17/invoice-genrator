@@ -22,7 +22,7 @@ class CreateInvoiceTable extends Migration
             $table->string('type')->nullable();
             $table->integer('payment')->nullable();
             $table->string('lpo')->nullable();
-            $table->text('adress')->nullable();
+            $table->text('address')->nullable();
             $table->string('remarks')->nullable();
             $table->integer('total')->nullable();
             $table->integer('discount')->nullable();

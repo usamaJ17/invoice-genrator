@@ -39,7 +39,13 @@ class UserRepository extends BaseRepository
     {
         return User::class;
     }
-
+    public function invoiceUser($input)
+    {
+        $user = User::create([
+            'name' => $input['name'],
+        ]);
+        return $user;
+    }
     public function createUser($input)
     {
         $user = User::create([

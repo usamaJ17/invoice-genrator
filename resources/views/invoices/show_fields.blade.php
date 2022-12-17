@@ -1,83 +1,189 @@
 <div class="row">
-    <div class="col-md-4 col-sm-6">
-        <!-- Name Field -->
+    <div class="col-md-3 col-sm-6">
         <li class="callout callout-danger list-group-item mb-3 shadow">
-            <b>@lang('models/companies.fields.name')</b> <br><a class="text-left">{{ $company->name }}</a>
-        </li>
-        <!-- Contact No Field -->
-        <li class="callout callout-danger list-group-item mb-3 shadow">
-            <b>@lang('models/companies.fields.contact_no')</b> <br><a class="text-left">{{ $company->contact_no }}</a>
-        </li>
-        <!-- Location Field -->
-        <li class="callout callout-danger list-group-item mb-3 shadow">
-            <b>@lang('models/companies.fields.location')</b> <br><a class="text-left">{{ $company->location }}</a>
-        </li>
-        <!-- Billing Pob Field -->
-        <li class="callout callout-danger list-group-item mb-3 shadow">
-            <b>@lang('models/companies.fields.billing_pob')</b> <br><a class="text-left">{{ $company->billing_pob }}</a>
-        </li>
-        <!-- Shipping Contact Person Field -->
-        <li class="callout callout-danger list-group-item mb-3 shadow">
-            <b>@lang('models/companies.fields.shipping_contact_person')</b> <br><a class="text-left">{{ $company->shipping_contact_person }}</a>
-        </li>
-        <!-- credit_limit Field -->
-		<li class="callout callout-danger list-group-item mb-3 shadow">
-		    <b>@lang('models/companies.fields.credit_limit')</b> <a class="float-right">{{ $company->credit_limit }}</a>
-        </li>
-        <!-- payment_terms Field -->
-		<li class="callout callout-danger list-group-item mb-3 shadow">
-		    <b>@lang('models/companies.fields.payment_terms')</b> <a class="float-right">{{ $company->payment_terms }}</a>
-		</li>
-    </div>
-    <div class="col-md-4 col-sm-6">
-        <!-- Email Field -->
-        <li class="callout callout-danger list-group-item mb-3 shadow">
-            <b>@lang('models/companies.fields.email')</b> <br><a class="text-left">{{ $company->email }}</a>
-        </li>
-        <!-- Contact No Two Field -->
-        <li class="callout callout-danger list-group-item mb-3 shadow">
-            <b>@lang('models/companies.fields.contact_no_two')</b> <br><a class="text-left">{{ $company->contact_no_two }}</a>
-        </li>
-        <!-- Billing Address Field -->
-        <li class="callout callout-danger list-group-item mb-3 shadow">
-            <b>@lang('models/companies.fields.billing_address')</b> <br><a class="text-left">{{ $company->billing_address }}</a>
-        </li>
-        <!-- Billing Email Field -->
-        <li class="callout callout-danger list-group-item mb-3 shadow">
-            <b>@lang('models/companies.fields.billing_email')</b> <br><a class="text-left">{{ $company->billing_email }}</a>
-        </li>
-        <!-- Shipping Pob Field -->
-        <li class="callout callout-danger list-group-item mb-3 shadow">
-            <b>@lang('models/companies.fields.shipping_pob')</b> <br><a class="text-left">{{ $company->shipping_pob }}</a>
+            <b>@lang('models/invoices.fields.created_at')</b> <br><a class="text-left">{{ $invoice->created_at }}</a>
         </li>
     </div>
-    <div class="col-md-4 col-sm-6">
-
-        <!-- Contact Person Field -->
+    <div class="col-md-3 col-sm-6">
         <li class="callout callout-danger list-group-item mb-3 shadow">
-            <b>@lang('models/companies.fields.contact_person')</b> <br><a class="text-left">{{ $company->contact_person }}</a>
-        </li>
-        <!-- Vat No Field -->
-        <li class="callout callout-danger list-group-item mb-3 shadow">
-            <b>@lang('models/companies.fields.vat_no')</b> <br><a class="text-left">{{ $company->vat_no }}</a>
-        </li>
-        <!-- Billing Contact Person Field -->
-        <li class="callout callout-danger list-group-item mb-3 shadow">
-            <b>@lang('models/companies.fields.billing_contact_person')</b> <br><a class="text-left">{{ $company->billing_contact_person }}</a>
-        </li>
-        <!-- Shipping Address Field -->
-        <li class="callout callout-danger list-group-item mb-3 shadow">
-            <b>@lang('models/companies.fields.shipping_address')</b> <br><a class="text-left">{{ $company->shipping_address }}</a>
-        </li>
-        <!-- Shipping Email Field -->
-        <li class="callout callout-danger list-group-item mb-3 shadow">
-            <b>@lang('models/companies.fields.shipping_email')</b> <br><a class="text-left">{{ $company->shipping_email }}</a>
+            <b>@lang('models/invoices.fields.no')</b> <br><a class="text-left">{{ $invoice->invoice_no }}</a>
         </li>
     </div>
-    
-    
-    
-    <div class="col-md-4 col-sm-6">
-        
+    <div class="col-md-3 col-sm-6">
+        <li class="callout callout-danger list-group-item mb-3 shadow">
+            <b>@lang('models/invoices.fields.type')</b> <br><a class="text-left">{{ $invoice->type }}</a>
+        </li>
     </div>
+    <div class="col-md-3 col-sm-6">
+        <li class="callout callout-danger list-group-item mb-3 shadow">
+            <b>@lang('models/invoices.fields.name')</b> <br><a class="text-left">{{ $invoice->user->name}}</a>
+        </li>
+    </div> 
+    <div class="col-md-3 col-sm-6">
+        <li class="callout callout-danger list-group-item mb-3 shadow">
+            <b>@lang('models/invoices.fields.authorized')</b> <br><a class="text-left">{{ $invoice->authorized}}</a>
+        </li>
+    </div>  
+    <div class="col-md-3 col-sm-6">
+        <li class="callout callout-danger list-group-item mb-3 shadow">
+            <b>@lang('models/invoices.fields.phone')</b> <br><a class="text-left">{{ $invoice->phone}}</a>
+        </li>
+    </div>   
+    <div class="col-md-3 col-sm-6">
+        <li class="callout callout-danger list-group-item mb-3 shadow">
+            <b>@lang('models/invoices.fields.lpo')</b> <br><a class="text-left">{{ $invoice->lpo}}</a>
+        </li>
+    </div>   
+    <div class="col-md-3 col-sm-6">
+        <li class="callout callout-danger list-group-item mb-3 shadow">
+            <b>@lang('models/invoices.fields.payment')</b> <br><a class="text-left">{{ $invoice->payment}}</a>
+        </li>
+    </div>    
+    <div class="col-md-3 col-sm-6">
+        <li class="callout callout-danger list-group-item mb-3 shadow">
+            <b>@lang('models/invoices.fields.trn')</b> <br><a class="text-left">{{ $invoice->trn}}</a>
+        </li>
+    </div>      
+    <div class="col-md-3 col-sm-6">
+        <li class="callout callout-danger list-group-item mb-3 shadow">
+            <b>@lang('models/invoices.fields.address')</b> <br><a class="text-left">{{ $invoice->address}}</a>
+        </li>
+    </div>  
+    <div class="col-md-3 col-sm-6">
+        <li class="callout callout-danger list-group-item mb-3 shadow">
+            <b>@lang('models/invoices.fields.remarks')</b> <br><a class="text-left">{{ $invoice->remarks}}</a>
+        </li>
+    </div>   
 </div>
+
+<h3>Products</h3>
+@foreach ($products as $product)
+<br>
+    <div class="row">
+        @if ($invoice->type=='rental')
+        <div class="col-md-3 col-sm-6">
+            <li class="callout callout-danger list-group-item mb-3 shadow">
+                <b>@lang('models/products.fields.start_date')</b> <br><a class="text-left">{{ $product->start_date}}</a>
+            </li>
+        </div>
+        <div class="col-md-3 col-sm-6">
+            <li class="callout callout-danger list-group-item mb-3 shadow">
+                <b>@lang('models/products.fields.end_date')</b> <br><a class="text-left">{{ $product->end_date}}</a>
+            </li>
+        </div>
+        <div class="col-md-3 col-sm-6">
+            <li class="callout callout-danger list-group-item mb-3 shadow">
+                <b>@lang('models/products.fields.period')</b> <br><a class="text-left">{{ $product->period}}</a>
+            </li>
+        </div>
+        <div class="col-md-3 col-sm-6">
+            <li class="callout callout-danger list-group-item mb-3 shadow">
+                <b>@lang('models/products.fields.rental')</b> <br><a class="text-left">{{ $product->rental}}</a>
+            </li>
+        </div>
+        @endif
+        <div class="col-md-3 col-sm-6">
+            <li class="callout callout-danger list-group-item mb-3 shadow">
+                <b>@lang('models/products.fields.name')</b> <br><a class="text-left">{{ $product->name }}</a>
+            </li>
+        </div>
+        <div class="col-md-3 col-sm-6">
+            <li class="callout callout-danger list-group-item mb-3 shadow">
+                <b>@lang('models/products.fields.unit')</b> <br><a class="text-left">{{ $product->unit}}</a>
+            </li>
+        </div> 
+        @if ($invoice->type!='rental')
+        <div class="col-md-3 col-sm-6">
+            <li class="callout callout-danger list-group-item mb-3 shadow">
+                <b>@lang('models/products.fields.code')</b> <br><a class="text-left">{{ $product->code}}</a>
+            </li>
+        </div>  
+        @endif
+        @if ($invoice->type=='rental')
+        <div class="col-md-3 col-sm-6">
+            <li class="callout callout-danger list-group-item mb-3 shadow">
+                <b>@lang('models/products.fields.period')</b> <br><a class="text-left">{{ $product->period}}</a>
+            </li>
+        </div>
+        <div class="col-md-3 col-sm-6">
+            <li class="callout callout-danger list-group-item mb-3 shadow">
+                <b>@lang('models/products.fields.rental')</b> <br><a class="text-left">{{ $product->rental}}</a>
+            </li>
+        </div>
+        @endif
+        <div class="col-md-3 col-sm-6">
+            <li class="callout callout-danger list-group-item mb-3 shadow">
+                <b>@lang('models/products.fields.price')</b> <br><a class="text-left">{{ $product->price}}</a>
+            </li>
+        </div>   
+        <div class="col-md-3 col-sm-6">
+            <li class="callout callout-danger list-group-item mb-3 shadow">
+                <b>@lang('models/products.fields.qty')</b> <br><a class="text-left">{{ $product->qty}}</a>
+            </li>
+        </div>   
+        <div class="col-md-3 col-sm-6">
+            <li class="callout callout-danger list-group-item mb-3 shadow">
+                <b>@lang('models/products.fields.amount')</b> <br><a class="text-left">{{ $product->amount}}</a>
+            </li>
+        </div>    
+    </div>
+@endforeach
+@if ($invoice->type=='service')
+<h3>Service</h3>
+<div class="row">
+        <div class="col-md-3 col-sm-6">
+            <li class="callout callout-danger list-group-item mb-3 shadow">
+                <b>@lang('models/services.fields.number')</b> <br><a class="text-left">{{ $service->number}}</a>
+            </li>
+        </div> 
+        <div class="col-md-3 col-sm-6">
+            <li class="callout callout-danger list-group-item mb-3 shadow">
+                <b>@lang('models/services.fields.name')</b> <br><a class="text-left">{{ $service->name}}</a>
+            </li>
+        </div> 
+        <div class="col-md-3 col-sm-6">
+            <li class="callout callout-danger list-group-item mb-3 shadow">
+                <b>@lang('models/services.fields.model')</b> <br><a class="text-left">{{ $service->model}}</a>
+            </li>
+        </div> 
+        <div class="col-md-3 col-sm-6">
+            <li class="callout callout-danger list-group-item mb-3 shadow">
+                <b>@lang('models/services.fields.brand')</b> <br><a class="text-left">{{ $service->brand}}</a>
+            </li>
+        </div> 
+        <div class="col-md-3 col-sm-6">
+            <li class="callout callout-danger list-group-item mb-3 shadow">
+                <b>@lang('models/services.fields.amount')</b> <br><a class="text-left">{{ $service->amount}}</a>
+            </li>
+        </div> 
+    </div>
+@endif
+<h3>Total</h3>
+<div class="row">
+    <div class="col-md-3 col-sm-6">
+        <li class="callout callout-danger list-group-item mb-3 shadow">
+            <b>@lang('models/invoices.fields.total')</b> <br><a class="text-left">{{ $invoice->total}}</a>
+        </li>
+    </div> 
+    <div class="col-md-3 col-sm-6">
+        <li class="callout callout-danger list-group-item mb-3 shadow">
+            <b>@lang('models/invoices.fields.discount')</b> <br><a class="text-left">{{ $invoice->discount}}</a>
+        </li>
+    </div> 
+    <div class="col-md-3 col-sm-6">
+        <li class="callout callout-danger list-group-item mb-3 shadow">
+            <b>@lang('models/invoices.fields.gross')</b> <br><a class="text-left">{{ $invoice->gross}}</a>
+        </li>
+    </div> 
+    <div class="col-md-3 col-sm-6">
+        <li class="callout callout-danger list-group-item mb-3 shadow">
+            <b>@lang('models/invoices.fields.vat')</b> <br><a class="text-left">{{ $invoice->vat}}</a>
+        </li>
+    </div> 
+    <div class="col-md-3 col-sm-6">
+        <li class="callout callout-danger list-group-item mb-3 shadow">
+            <b>@lang('models/invoices.fields.vat_amount')</b> <br><a class="text-left">{{ $invoice->vat_amount}}</a>
+        </li>
+    </div> 
+</div>
+

@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Invoice extends Model
 {   
    public $table = 'invoice';
+   public $primaryKey = 'invoice_no';
    public $fillable = [
     'user_id ',
     'authorized',
@@ -16,7 +17,7 @@ class Invoice extends Model
     'type',
     'payment',
     'lpo',
-    'adress',
+    'address',
     'remarks',
     'total',
     'discount',
