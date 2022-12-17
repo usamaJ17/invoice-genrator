@@ -90,7 +90,7 @@
     <div class="col-sm-4">
         <div class="form-group ">
             {!! Form::label('payment', __('models/invoices.fields.payment') .' *') !!}
-            {!! Form::number('payment', 0, ['class' => $errors->has('payment') ? 'form-control is-invalid' : 'form-control']) !!}
+            {!! Form::number('payment', null, ['class' => $errors->has('payment') ? 'form-control is-invalid' : 'form-control']) !!}
             @if ($errors->has('payment'))
                 <span class="invalid-feedback">
                     <strong>{{ $errors->first('payment') }}</strong>
@@ -146,20 +146,29 @@
 {{-- basic invoice fields (same for all) end --}}
 
 {{-- products fields (few difference-- will be handeled by a jquery script) --}}
-<h3>Add Products :</h3>
+<h3>Products :</h3>
 <br>
 @if (str_contains(url()->current(), '/create'))
 <a class="btn btn-success mb-2" id="add_new_exp_field"><i class="fa fa-plus"></i> Add Product</a>
 <input type="hidden" name="total_row" value=1 id="total_row">
 @endif
 
+@if (str_contains(url()->current(), '/create'))
 <div class="row" id="exp_file_row">
     @include(strtolower(__('models/invoices.plural')).'.product_fields')
 </div>
+@endif
+@if (str_contains(url()->current(), '/edit'))
+@foreach ($products as $product)
+<div class="row" id="exp_file_row">
+    @include(strtolower(__('models/invoices.plural')).'.edit_product_fields')
+</div>
+@endforeach
+@endif
 
 {{-- products fields (few difference-- will be handeled by a jquery script) -end --}}
 
-{{-- products fields (few difference-- will be handeled by a jquery script) --}}
+{{-- products Services  --}}
 
 <br>
 <h3 class="services">Service :</h3>
@@ -252,14 +261,19 @@
     {{-- -- exp_doc uplode field name change script-- --}}
        <script type="text/javascript">
         $(document).ready(function() {
-            // change fileds based on type
-            $('.sale_field').hide();
-            var sale_fields=$('.sale_field').find(':input');
-            $.each(sale_fields, function( key, field ) {
-                    field.value='';
+            $('.date').daterangepicker({
+                singleDatePicker: true,
+                timePicker: false,
+                locale: {
+                    format: 'YYYY-MM-DD'
+                }
             });
-            // console.log(asd);
-            $('.services').hide();
+            // change fileds based on type
+            @if(isset($invoice->type))
+                var type="{{$invoice->type}}"
+                handelFields(type);
+            @endif
+            $('.sale_field').hide();
             $('input[type=radio][name=type]').change(function() {
                 handelFields(this.value);
             });

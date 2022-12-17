@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Product extends Model
 {
     public $table = 'product';
+    public $primaryKey = 'product_id';
     public $fillable = [
     'invoice_no ',
     'start_date',

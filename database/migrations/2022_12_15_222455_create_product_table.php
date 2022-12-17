@@ -22,7 +22,7 @@ class CreateProductTable extends Migration
             $table->string('code')->nullable();
             $table->string('rental')->nullable();
             $table->string('period')->nullable();
-            $table->integer('unit')->nullable();
+            $table->string('unit')->nullable();
             $table->integer('price')->nullable();
             $table->integer('qty')->nullable();
             $table->integer('amount')->nullable();

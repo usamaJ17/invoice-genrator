@@ -11,7 +11,7 @@
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
                         <li class="breadcrumb-item"><a href="{!! route('invoice.index') !!}">@lang('models/invoices.singular')</a></li>
-                        <li class="breadcrumb-item active">@lang('crud.edit')</li>
+                        <li class="breadcrumb-item active">@lang('crud.detail')</li>
                     </ol>
                 </div>
             </div>

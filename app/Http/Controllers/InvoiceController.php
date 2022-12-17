@@ -123,7 +123,23 @@ class InvoiceController extends Controller
      */
     public function edit($id)
     {
-        //
+        $invoice = Invoice::with('user')->find($id);
+        $products=Product::where('invoice_no','=',$invoice->invoice_no)->get();
+        $service=Service::where('invoice_no','=',$invoice->invoice_no)->first();
+        $users=User::orderby('name','asc')->select('id','name')->get();
+        // dd($user);
+        $data = array();
+        foreach($users as $user){
+            $data += [$user->id=>$user->name];
+        }
+
+        if (empty($invoice)) {
+            Flash::error("Invoice".' '.__('messages.not_found'));
+
+            return redirect(route('invoice.index'));
+        }
+        $data=compact('invoice','products','service','data');
+        return view('invoices.edit')->with($data);
     }
 
     /**
@@ -135,7 +151,30 @@ class InvoiceController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $invoice = $this->invoiceRepository->find($id);
+
+        if (empty($invoice)) {
+            Flash::error(__('messages.not_found', ['model' => 'invoice']));
+
+            return redirect(route('invoice.index'));
+        }
+        $invoice = $this->invoiceRepository->update($request->all(), $id);
+        
+        // update products associated with invoice
+        $products=Product::where('invoice_no','=',$invoice->invoice_no)->get();
+        foreach ($products as $product) {
+            $product = $this->invoiceRepository->updateProduct($request->all(), $product->product_id);
+        }
+        
+        // update service associated with invoice
+        if($request['type']=='service'){
+            $service=Service::where('invoice_no','=',$invoice->invoice_no)->first();
+            $service = $this->invoiceRepository->updateservice($request->all(), $service->service_id);
+        }
+
+        Flash::success(__('messages.updated', ['model' => 'invoice']));
+
+        return redirect(route('invoice.index'));
     }
 
     /**

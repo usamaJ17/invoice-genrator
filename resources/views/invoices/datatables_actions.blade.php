@@ -3,7 +3,7 @@
     <a href="{{ route('invoice.show', $invoice_no) }}" class='btn btn-success'>
        <i class="fa fa-eye"></i>
     </a>
-    <a href="#" class='btn btn-info'>
+    <a href="{{ route('invoice.edit', $invoice_no) }}" class='btn btn-info'>
        <i class="fa fa-edit"></i>
     </a>
     {!! Form::button('<i class="fa fa-trash"></i>', [

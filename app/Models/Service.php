@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Service extends Model
 {
     public $table = 'service';
-    public $primaryKey = 'service_id ';
+    public $primaryKey = 'service_id';
     public $fillable = [
     'number',
     'name',
