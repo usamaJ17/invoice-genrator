@@ -111,6 +111,17 @@
     </div>
     <div class="col-sm-4">
         <div class="form-group ">
+            {!! Form::label('reference', __('models/invoices.fields.reference') .' *') !!}
+            {!! Form::text('reference', null, ['class' => $errors->has('reference') ? 'form-control is-invalid' : 'form-control']) !!}
+            @if ($errors->has('reference'))
+                <span class="invalid-feedback">
+                    <strong>{{ $errors->first('reference') }}</strong>
+                </span>
+            @endif
+        </div>
+    </div>
+    <div class="col-sm-4">
+        <div class="form-group ">
             {!! Form::label('address', __('models/invoices.fields.address') .' *') !!}
             {!! Form::text('address', null, ['class' => $errors->has('address') ? 'form-control is-invalid' : 'form-control']) !!}
             @if ($errors->has('address'))
@@ -186,7 +197,7 @@
     <div class="col-sm-3">
         <div class="form-group ">
             {!! Form::label('total', __('models/invoices.fields.total') .' *') !!}
-            {!! Form::number('total', null, ['class' => $errors->has('total') ? 'form-control is-invalid' : 'form-control']) !!}
+            {!! Form::number('total', null, ['class' => $errors->has('total') ? 'form-control auto_amount_cal is-invalid' : 'form-control auto_amount_cal']) !!}
             @if ($errors->has('total'))
                 <span class="invalid-feedback">
                     <strong>{{ $errors->first('total') }}</strong>
@@ -197,7 +208,7 @@
     <div class="col-sm-3">
         <div class="form-group ">
             {!! Form::label('discount', __('models/invoices.fields.discount') .' *') !!}
-            {!! Form::number('discount', null, ['class' => $errors->has('discount') ? 'form-control is-invalid' : 'form-control']) !!}
+            {!! Form::number('discount', null, ['class' => $errors->has('discount') ? 'form-control auto_amount_cal is-invalid' : 'form-control auto_amount_cal']) !!}
             @if ($errors->has('discount'))
                 <span class="invalid-feedback">
                     <strong>{{ $errors->first('discount') }}</strong>
@@ -208,7 +219,7 @@
     <div class="col-sm-3">
         <div class="form-group ">
             {!! Form::label('gross', __('models/invoices.fields.gross') .' *') !!}
-            {!! Form::number('gross', null, ['class' => $errors->has('gross') ? 'form-control is-invalid' : 'form-control']) !!}
+            {!! Form::number('gross', null, ['class' => $errors->has('gross') ? 'form-control auto_amount_cal is-invalid' : 'form-control auto_amount_cal']) !!}
             @if ($errors->has('gross'))
                 <span class="invalid-feedback">
                     <strong>{{ $errors->first('gross') }}</strong>
@@ -219,7 +230,7 @@
     <div class="col-sm-3">
         <div class="form-group ">
             {!! Form::label('vat', __('models/invoices.fields.vat') .' *') !!}
-            {!! Form::number('vat', null, ['class' => $errors->has('vat') ? 'form-control is-invalid' : 'form-control']) !!}
+            {!! Form::number('vat', null, ['class' => $errors->has('vat') ? 'form-control auto_amount_cal is-invalid' : 'form-control auto_amount_cal']) !!}
             @if ($errors->has('vat'))
                 <span class="invalid-feedback">
                     <strong>{{ $errors->first('vat') }}</strong>
@@ -230,7 +241,7 @@
     <div class="col-sm-3">
         <div class="form-group ">
             {!! Form::label('vat_amount', __('models/invoices.fields.vat_amount') .' *') !!}
-            {!! Form::number('vat_amount', null, ['class' => $errors->has('vat_amount') ? 'form-control is-invalid' : 'form-control']) !!}
+            {!! Form::number('vat_amount', null, ['class' => $errors->has('vat_amount') ? 'form-control auto_amount_cal is-invalid' : 'form-control auto_amount_cal']) !!}
             @if ($errors->has('vat_amount'))
                 <span class="invalid-feedback">
                     <strong>{{ $errors->first('vat_amount') }}</strong>
@@ -268,12 +279,13 @@
                     format: 'YYYY-MM-DD'
                 }
             });
+            $('.date').val(null);
+            $('.sale_field').hide();
             // change fileds based on type
             @if(isset($invoice->type))
                 var type="{{$invoice->type}}"
                 handelFields(type);
             @endif
-            $('.sale_field').hide();
             $('input[type=radio][name=type]').change(function() {
                 handelFields(this.value);
             });
@@ -309,7 +321,18 @@
                     });
                 }
             }
-            // change fileds based on type -end
+            // amount calculation
+            $('.auto_amount_cal').on('change', function(){
+                    // $("input[name='amount_"+totalRow+"']").val($("input[name='price_"+totalRow+"']").val() * $("input[name='qty_"+totalRow+"']").val());
+                    var total=$("input[name=total]").val();
+                    var discount=$("input[name=discount]").val();
+                    var gross=$("input[name=gross]");
+                    gross.val(total-discount);
+                    var vat=$("input[name=vat]").val();
+                    vat_amount=$("input[name=vat_amount]").val ( Number(gross.val()) + Number(vat));
+
+            });
+
             
             // clone products row
             var totalRow=$('#total_row').val();
@@ -318,15 +341,20 @@
                 totalRow++;
                 $('#total_row').val(totalRow);
                 var copy=row.clone(false);
-                // console.log(copy.attr('id'));
+            
                 var fields=copy.find(':input');
                 $.each( fields, function( key, field ) {
                     field.name=field.name.replace(/\d+/,totalRow);
                 });
+                
                 copy.find('#exp_del').click(function() {
                     copy.remove();
                 });
                 $('#add_new_exp_field').after(copy);
+                //auto amount calculate
+                $("input[name='price_"+totalRow+"']").add("input[name='qty_"+totalRow+"']").on('change', function(){
+                    $("input[name='amount_"+totalRow+"']").val($("input[name='price_"+totalRow+"']").val() * $("input[name='qty_"+totalRow+"']").val());
+                });
                 //adjust new fields ased on type
                 var invoice_type=$('input[type=radio][name=type]:checked').val();
                 handelFields(invoice_type);

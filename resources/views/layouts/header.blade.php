@@ -1,7 +1,7 @@
 <!-- Navbar -->
 <nav class="main-header navbar navbar-expand-md navbar-light navbar-dark">
     <a href="{{ route('home') }}" class="navbar-brand">
-         <img src="{{ route('home') }}/dist/img/logo-top.png" alt="Fire Technical Services" class="brand-image">
+         {{-- <img src="{{ route('home') }}/dist/img/logo-top.png" alt="Fire Technical Services" class="brand-image"> --}}
         <!-- <span class="brand-text text-dark font-weight-bold">Fire Technical Services </span> -->
     </a>
 

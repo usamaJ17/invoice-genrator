@@ -17,6 +17,7 @@ class Invoice extends Model
     'type',
     'payment',
     'lpo',
+    'reference',
     'address',
     'remarks',
     'total',

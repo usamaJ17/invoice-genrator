@@ -14,6 +14,7 @@ return array (
     'sales'=>'Sales',
     'service'=>'Service',    
     'trn' => 'Client TRN no',
+    'reference' => 'Reference no',
     'payment' => 'Payment',
     'lpo' => 'Site / LPO',
     'address' => 'Address',

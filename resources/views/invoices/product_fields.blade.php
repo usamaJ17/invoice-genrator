@@ -146,8 +146,7 @@
     <div class="form-group">
         {!! Form::label('amount',__('models/products.fields.amount')) !!}
         <div class="input-group">           
-                {!! Form::number('amount_1', null, ['class' => $errors->has('amount') ? 'form-control is-invalid' : 'form-control','id'=>"doc_amount"]) !!}
-          
+                {!! Form::number('amount_1', null, ['class' => $errors->has('amount') ? 'form-control is-invalid' : 'form-control','id'=>"proc_amount"]) !!}
             @if ($errors->has('amount'))
                 <span class="invalid-feedback">
                     <strong>{{ $errors->first('amount') }}</strong>
@@ -160,6 +159,21 @@
 @if (str_contains(url()->current(), '/create'))
 <span id='exp_del'><a class="btn btn-danger mt-4"><i class="fa fa-trash"></i> Delete Products</a></span>
 @endif
+@section('scripts')
+    @parent
+    <script src="{{ asset('plugins/daterangepicker/daterangepicker.js') }}"></script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $("input[name='price_1']").add("input[name='qty_1']").on('change', function(){
+                    $("input[name='amount_1']").val($("input[name='price_1']").val() * $("input[name='qty_1']").val());
+                });
+            var row=$('#exp_file_row');
+            $('#exp_del').click(function(){
+                row.remove();
+            })
+        });
+    </script>
+@endsection
 
 
 
