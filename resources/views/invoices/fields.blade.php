@@ -273,11 +273,13 @@
        // in edit seting customer field value
         $(document).ready(function() {
             @if (str_contains(url()->current(), '/edit'))
-                var o = new Option("{{$invoice->customer}}", "{{$invoice->customer}}");
-                $(o).html("{{$invoice->customer}}");
-                $("#customer").append(o);
-                $('#customer').val("{{$invoice->customer}}"); // Select the option with a value of '1'
-                $('#customer').trigger('change'); // Notify any JS components that the value changed
+                if(!$("#customer option[value='{{$invoice->customer}}']").length > 0){
+                    var o = new Option("{{$invoice->customer}}", "{{$invoice->customer}}");
+                    $(o).html("{{$invoice->customer}}");
+                    $("#customer").append(o);
+                    $('#customer').val("{{$invoice->customer}}"); // Select the option with a value of '1'
+                    $('#customer').trigger('change'); // Notify any JS components that the value changed
+                }
             @endif
             $('.date').daterangepicker({
                 singleDatePicker: true,
