@@ -15,7 +15,7 @@ class CreateInvoiceTable extends Migration
     {
         Schema::create('invoice', function (Blueprint $table) {
             $table->id('invoice_no');
-            $table->unsignedBigInteger('user_id');
+            $table->string('customer')->nullable();
             $table->string('authorized')->nullable();
             $table->string('phone')->nullable();
             $table->string('trn')->nullable();
@@ -31,7 +31,6 @@ class CreateInvoiceTable extends Migration
             $table->integer('vat')->nullable();
             $table->integer('vat_amount')->nullable();     
             $table->timestamps();
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 

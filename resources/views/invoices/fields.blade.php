@@ -31,15 +31,12 @@
     @endsection
     <div class="col-sm-4">
         <div class="form-group ">
-            {!! Form::label('user_id', __('models/invoices.fields.name')) !!}
+            {!! Form::label('customer', __('models/invoices.fields.name')) !!}
             <div class="input-group">
-                {!! Form::select('user_id',$data, null , ['class' => $errors->has('user_id') ? 'form-control is-invalid' : 'form-control', 'id' => 'user_id']) !!}
-                <span class="input-group-append">
-                    <button type="button" data-toggle="modal" data-target="#modal-company" class="btn btn-danger"><i class="fas fa-plus"></i></button>
-                </span>
-                @if ($errors->has('user_id'))
+                {!! Form::select('customer',$data, null , ['class' => $errors->has('customer') ? 'form-control is-invalid' : 'form-control', 'id' => 'customer']) !!}
+                @if ($errors->has('customer'))
                     <span class="invalid-feedback">
-                        <strong>{{ $errors->first('user_id') }}</strong>
+                        <strong>{{ $errors->first('customer') }}</strong>
                     </span>
                 @endif
             </div>
@@ -49,8 +46,9 @@
     @parent
         <script src="{{ asset('plugins/select2/js/select2.full.min.js')}}"></script>
         <script>
-            $('#user_id').select2({
-            theme: 'bootstrap4'
+            $('#customer').select2({
+                theme: 'bootstrap4',
+                tags: true
             })
         </script>
     @endsection
@@ -374,98 +372,3 @@
         {{-- -- exp_doc uplode field name change script end-- --}}
 @endsection
 {{-- scrtipts (clone products row and change fileds based on type) -end --}}
-
-{{-- scrtipts (user search and add new) --}}
-@section('scripts')
-    @parent
-    <script>
-    // Add Company
-    function addUser(e){
-        e.preventDefault();
-
-        var user_name = $("input[name=user_name]").val();
-
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="token"]').attr('content')
-            }
-        });
-        $.ajax({
-            type:'POST',
-            url: "{{route('addUsers')}}",
-            data: {user_name:user_name},
-            success:function(data){
-                $("#user_id").append("<option value='"+data.id+"' selected>"+data.name+"</option>");
-                $('#user_id').trigger('change');
-                var num = $('#user_id option').length;
-                $('#user_id').prop('selectedIndex', num-1);
-
-                clearForm()
-                toast.fire({
-                    type: 'success',
-                    title: 'User added Successfully.'
-                });
-            },
-            error: function (xhr) {
-                if (xhr.status == 422) {
-                    var errors = JSON.parse(xhr.responseText);
-                    $.each(errors, function(key, value) {
-                        $("input[name="+key+"]").addClass('is-invalid');
-                        $("input[name="+key+"]").next('span').text(value[0]);
-                    });
-                }
-                if (xhr.status == 423) {
-                    var errors = JSON.parse(xhr.responseText);
-                    clearForm()
-                    toast.fire({
-                        type: 'error',
-                        title: errors
-                    });
-                }
-            }
-        });
-    }
-
-    // clear model
-    function clearForm(){
-        $("input").removeClass('is-invalid');
-        $(".invalid-feedback").text('');
-        $('#company-form')[0].reset();
-        $("#modal-company").modal('hide');
-        document.getElementById('submit').removeAttribute('disabled');
-    }
-    function clearFormType(){
-        $("input").removeClass('is-invalid');
-        $(".invalid-feedback").text('');
-        $('#type-form')[0].reset();
-        $("#modal-type").modal('hide');
-        document.getElementById('submit').removeAttribute('disabled');
-    }
-    </script>
-    {{-- Add company model --}}
-    <div class="modal fade" id="modal-company">
-        <div class="modal-dialog modal-sm">
-        <div class="modal-content">
-            <div class="modal-header">
-            <h4 class="modal-title"> Add User</h4>
-            </div>
-            <form id="company-form">
-                <div class="modal-body">
-                    <div class="form-group">
-                        <label>User Name:</label>
-                        <input type="text" name="user_name" class="form-control" />
-                        <span class="invalid-feedback" >
-                            <strong></strong>
-                        </span>
-                    </div>
-                </div>
-                <div class="modal-footer justify-content-between">
-                    <button type="button" onclick="clearForm()" class="btn btn-default">Close</button>
-                    <button type="button" id="submit" onclick="addUser(event)" class="btn btn-danger">Add</button>
-                </div>
-            </form>
-        </div>
-        </div>
-    </div>
-@endsection
-{{-- scrtipts (user search and add new) -end --}}

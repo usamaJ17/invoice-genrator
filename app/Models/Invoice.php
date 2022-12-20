@@ -10,7 +10,7 @@ class Invoice extends Model
    public $table = 'invoice';
    public $primaryKey = 'invoice_no';
    public $fillable = [
-    'user_id ',
+    'customer',
     'authorized',
     'phone',
     'trn',
@@ -32,7 +32,7 @@ class Invoice extends Model
      * @var array
      */
     public static $rules = [
-        // 'name' => 'required',
+        'name' => 'required',
         // 'last_name' => 'required',
         // 'joining_date' => 'required',
     ];

@@ -30,7 +30,7 @@ class InvoiceDataTable extends DataTable
      */
     public function query(Invoice $model)
     {
-        return $model->newQuery()->with('user')->orderBy('invoice_no','desc');
+        return $model->newQuery()->orderBy('invoice_no','desc');
     }
 
     /**
@@ -82,7 +82,7 @@ class InvoiceDataTable extends DataTable
         return [
             'created_at' => new Column(['title' => __('models/invoices.fields.date'), 'data' => 'created_at']),
             'invoice_no' => new Column(['title' => __('models/invoices.fields.no'), 'data' => 'invoice_no']),
-            'name' => new Column(['title' => __('models/invoices.fields.name'), 'data' => 'user.name']),
+            'name' => new Column(['title' => __('models/invoices.fields.name'), 'data' => 'customer']),
             'type' => new Column(['title' => __('models/invoices.fields.type'), 'data' => 'type','searchable' => false]),
             'authorized' => new Column(['title' => __('models/invoices.fields.authorized'), 'data' => 'authorized','searchable' => false]),
             'phone' => new Column(['title' => __('models/invoices.fields.phone'), 'data' => 'phone','searchable' => false]),

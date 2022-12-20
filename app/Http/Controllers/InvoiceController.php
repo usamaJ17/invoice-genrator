@@ -7,6 +7,7 @@ use App\Repositories\InvoiceRepository;
 use App\Models\Invoice;
 use App\Models\Product;
 use App\Models\Service;
+use App\Models\Customer;
 use App\User;
 
 use Flash;
@@ -41,11 +42,10 @@ class InvoiceController extends Controller
      */
     public function create()
     {
-        $users=User::orderby('name','asc')->select('id','name')->get();
-        // dd($user);
+        $customers=Customer::orderby('name','asc')->select('name')->get();
         $data = array();
-        foreach($users as $user){
-            $data += [$user->id=>$user->name];
+        foreach($customers as $customer){
+            $data += [$customer->name=>$customer->name];
         }
         return view('invoices.create')->with(compact('data'));
     }
@@ -58,43 +58,20 @@ class InvoiceController extends Controller
      */
     public function store(Request $request)
     {
+        // dd($request->all());
         // create Invoice
         $input = $request->all();
 
         $invoice = $this->invoiceRepository->create($input);
-        $invoice->user_id = $request['user_id'];
-        $invoice->save();
-        // create payments associated with invoice
-
-        for ($i=1; $i <= $request['total_row'] ; $i++) { 
-            if(isset($request['start_date_'.$i]) || isset($request['name_'.$i]) ||  isset($request['amount_'.$i])){
-                $product=new Product();
-                $product->invoice_no=$invoice->invoice_no;
-                $product->start_date=$request['start_date_'.$i];
-                $product->end_date=$request['end_date_'.$i];
-                $product->name=$request['name_'.$i];
-                $product->code=$request['code_'.$i];
-                $product->rental=$request['rental_'.$i];
-                $product->period=$request['period_'.$i];
-                $product->unit=$request['unit_'.$i];
-                $product->price=$request['price_'.$i];
-                $product->qty=$request['qty_'.$i];
-                $product->amount=$request['amount_'.$i];
-                $product->save();
-            }          
-        }
 
         // create payments associated with invoice
-        if($request['type']=='service'){
-            $service=new Service();
-            $service->name=$request['name'];
-            $service->model=$request['model'];
-            $service->brand=$request['brand'];
-            $service->amount=$request['amount'];
-            $service->number=$request['number'];
-            $service->invoice_no=$invoice->invoice_no;
-            $service->save();
-        }
+
+        $this->invoiceRepository->addProduct($input,$invoice->invoice_no);
+
+        // create service associated with invoice
+
+        $this->invoiceRepository->addService($input,$invoice->invoice_no);
+
         Flash::success(__('messages.saved', ['model' => "Invoice"]));
 
         return redirect(route('invoice.index'));
@@ -102,7 +79,7 @@ class InvoiceController extends Controller
 
     public function show($id)
     {
-        $invoice = Invoice::with('user')->find($id);
+        $invoice = Invoice::find($id);
         $products=Product::where('invoice_no','=',$invoice->invoice_no)->get();
         $service=Service::where('invoice_no','=',$invoice->invoice_no)->first();
 
@@ -126,11 +103,10 @@ class InvoiceController extends Controller
         $invoice = Invoice::with('user')->find($id);
         $products=Product::where('invoice_no','=',$invoice->invoice_no)->get();
         $service=Service::where('invoice_no','=',$invoice->invoice_no)->first();
-        $users=User::orderby('name','asc')->select('id','name')->get();
-        // dd($user);
+        $customers=Customer::orderby('name','asc')->select('name')->get();
         $data = array();
-        foreach($users as $user){
-            $data += [$user->id=>$user->name];
+        foreach($customers as $customer){
+            $data += [$customer->name=>$customer->name];
         }
 
         if (empty($invoice)) {

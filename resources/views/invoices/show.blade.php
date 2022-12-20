@@ -50,7 +50,7 @@
                             <tbody>
                                 <tr>
                                     <th>@lang('models/invoices.fields.name')</th>
-                                    <td>{{ $invoice->user->name }}</td>
+                                    <td>{{ $invoice->customer }}</td>
                                     <td rowspan="5" class="text-center"><strong>{{ strtoupper($invoice->type)}}</strong> Invoice </td>
                                     <th>@lang('models/invoices.fields.created_at')</th>
                                     <td>{{ $invoice->created_at }}</td>
@@ -78,51 +78,13 @@
                                 </tr>
                                 <tr >
                                     <th >@lang('models/invoices.fields.address')</th>  
-                                    <td>{{ $invoice->adress }}</td>
+                                    <td>{{ $invoice->address }}</td>
                                     
                                     <th >@lang('models/invoices.fields.lpo')</th>  
                                     <td>{{ $invoice->lpo }}</td>
                                 </tr>
                             </tbody>
                         </table>
-                        {{-- <table class="table mb-4" border="1">
-                          <thead>
-                            <tr class="bg-gy">
-                              <th>@lang('models/invoices.fields.created_at')</th>  
-                              <th>@lang('models/invoices.fields.no')</th>
-                              <th>@lang('models/invoices.fields.name')</th>
-                              <th>@lang('models/invoices.fields.authorized')</th>
-                              <th>@lang('models/invoices.fields.phone')</th>
-                              <th>@lang('models/invoices.fields.trn')</th>
-                              <th>@lang('models/invoices.fields.payment')</th>
-                              <th>@lang('models/invoices.fields.lpo')</th>
-                            </tr>
-                          </thead>
-                          <tbody>
-                                <tr >
-                                    <td>{{ $invoice->created_at }}</td>
-                                    <td>{{ $invoice->invoice_no }}</td>
-                                    <td>{{ $invoice->user->name }}</td>
-                                    <td>{{ $invoice->authorized }}</td>
-                                    <td>{{ $invoice->phone }}</td>
-                                    <td>{{ $invoice->trn }}</td>
-                                    <td>{{ $invoice->payment }}</td>
-                                    <td>{{ $invoice->lpo }}</td>
-                                </tr>
-                          </tbody>
-                          <thead>
-                            <tr>
-                              <th colspan="5">@lang('models/invoices.fields.address')</th>  
-                              <th colspan="6">@lang('models/invoices.fields.remarks')</th>
-                            </tr>
-                          </thead>
-                          <tbody>
-                                <tr class="expandable-header">
-                                    <td colspan="5">{{ $invoice->address }}</td>
-                                    <td colspan="6">{{ $invoice->remarks }}</td>
-                                </tr>
-                          </tbody>
-                        </table> --}}
                         @if ($invoice->type=='service')
                         <table class="table mb-4" border="1">
                             <thead>
@@ -150,9 +112,7 @@
                                 <tr class="bg-gy">
                                     @if ($invoice->type=='rental')
                                         <th>@lang('models/products.fields.start_date')</th>
-                                        <th>@lang('models/products.fields.end_date')</th>
-                                        <th>@lang('models/products.fields.period')</th>
-                                        <th>@lang('models/products.fields.rental')</th>  
+                                        <th>@lang('models/products.fields.end_date')</th> 
                                     @endif
                                     <th>@lang('models/products.fields.name')</th>
                                     <th>@lang('models/products.fields.unit')</th>
@@ -182,8 +142,6 @@
                                         @if ($invoice->type=='rental')
                                             <td>{{ $product->start_date }}</td>
                                             <td>{{ $product->end_date }}</td>
-                                            <td>{{ $product->period }}</td>
-                                            <td>{{ $product->rental }}</td>
                                         @endif
                                         <td>{{ $product->name }}</td>
                                         <td>{{ $product->unit }}</td>
@@ -202,7 +160,7 @@
 
                                 <tr class="bg-gy">
                                         @if ($invoice->type=='rental')
-                                            <td colspan="7"></td>
+                                            <td colspan="6"></td>
                                         @endif
                                         @if ($invoice->type!='rental')
                                             <td colspan="3"></td>
@@ -229,7 +187,7 @@
                                   <tr >
                                       <td>{{ $invoice->total }}</td>
                                       <td>{{ $invoice->discount }}</td>
-                                      <td>{{ $invoice->user->gross }}</td>
+                                      <td>{{ $invoice->gross }}</td>
                                       <td>{{ $invoice->vat }}</td>
                                       <td>{{ $invoice->vat_amount }}</td>
                                   </tr>

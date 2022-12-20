@@ -2,8 +2,6 @@
 
 namespace App\Repositories;
 
-use App\Models\Product;
-use App\Models\Service;
 use Illuminate\Container\Container as Application;
 use Illuminate\Database\Eloquent\Model;
 
@@ -171,47 +169,8 @@ abstract class BaseRepository
 
         $model->fill($input);
 
-        $model->user_id=$input['user_id'];
-
         $model->save();
 
-        return $model;
-    }
-
-    public function updateProduct($input, $id)
-    {
-        // $query = Product::newQuery();
-
-        $model = Product::find($id);
-
-        $model->start_date=$input['start_date_'.$id];
-        $model->end_date=$input['end_date_'.$id];
-        $model->name=$input['name_'.$id];
-        $model->code=$input['code_'.$id];
-        $model->rental=$input['rental_'.$id];
-        $model->period=$input['period_'.$id];
-        $model->unit=$input['unit_'.$id];
-        $model->price=$input['price_'.$id];
-        $model->qty=$input['qty_'.$id];
-        $model->amount=$input['amount_'.$id];
-        $model->save();
-        
-        return $model;
-    }
-
-    public function updateservice($input, $id)
-    {
-        // $query = Product::newQuery();
-
-        $model = Service::find($id);
-
-        $model->name=$input['name'];
-        $model->model=$input['model'];
-        $model->brand=$input['brand'];
-        $model->amount=$input['amount'];
-        $model->number=$input['number'];
-        $model->save();
-        
         return $model;
     }
 
