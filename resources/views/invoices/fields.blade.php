@@ -46,6 +46,7 @@
     @parent
         <script src="{{ asset('plugins/select2/js/select2.full.min.js')}}"></script>
         <script>
+
             $('#customer').select2({
                 theme: 'bootstrap4',
                 tags: true
@@ -269,7 +270,15 @@
     <script src="{{ asset('plugins/daterangepicker/daterangepicker.js') }}"></script>
     {{-- -- exp_doc uplode field name change script-- --}}
        <script type="text/javascript">
+       // in edit seting customer field value
         $(document).ready(function() {
+            @if (str_contains(url()->current(), '/edit'))
+                var o = new Option("{{$invoice->customer}}", "{{$invoice->customer}}");
+                $(o).html("{{$invoice->customer}}");
+                $("#customer").append(o);
+                $('#customer').val("{{$invoice->customer}}"); // Select the option with a value of '1'
+                $('#customer').trigger('change'); // Notify any JS components that the value changed
+            @endif
             $('.date').daterangepicker({
                 singleDatePicker: true,
                 timePicker: false,
