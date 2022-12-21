@@ -61,4 +61,44 @@ return [
         'USD' => 'USD',
         'INR' => 'INR',
     ],
+     /*
+    |--------------------------------------------------------------------------
+    | Invoice-types
+    |--------------------------------------------------------------------------
+    |
+    */
+    'invoice_type' => [
+        'Rental' => 'Rental',
+        'Sales' => 'Sales',
+        'Service' => 'Service',
+    ],
+         /*
+    |--------------------------------------------------------------------------
+    | payment-types
+    |--------------------------------------------------------------------------
+    |
+    */
+    'payment_type' => [
+        'Cash' => 'Cash',
+        'Credit' => 'Credit',
+        'Debit Card' => 'Debit Card',
+        'Cheque' => 'Cheque',
+        'Online' => 'Online',
+    ],
+    'unit' => [
+        ''=>'',
+        'PES' => 'PES',
+        'MTR' => 'MTR',
+        'BOX' => 'BOX',
+        'LTR' => 'LTR',
+        'ROLL' => 'ROLL',
+        'SET' => 'SET',
+    ],
+    'rental_unit' => [
+        ''=>'',
+        'Hourly' => 'Hourly',
+        'Daily' => 'Daily',
+        'Weekly' => 'Weekly',
+        'Monthly ' => 'Monthly ',
+    ],
 ];

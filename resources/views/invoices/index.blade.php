@@ -1,5 +1,8 @@
 @extends('layouts.master')
-
+@section('css')
+@parent
+    @include('invoices.filter_style')
+@endsection
 @section('content')
     <div class="content-header">
         <div class="container-fluid">

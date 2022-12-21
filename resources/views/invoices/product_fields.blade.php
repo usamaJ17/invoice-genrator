@@ -1,4 +1,4 @@
-<div class="col-sm-3 rental_field">
+<div class="col-sm-1 rental_field">
     <div class="form-group">
         {!! Form::label('start_date',   __('models/products.fields.start_date')) !!}
         <div class="input-group">
@@ -17,7 +17,7 @@
         </div>
     </div>
 </div>
-<div class="col-sm-3 rental_field">
+<div class="col-sm-1 rental_field">
     <div class="form-group">
         {!! Form::label('end_date',  __('models/products.fields.end_date')) !!}
         <div class="input-group">
@@ -36,7 +36,7 @@
         </div>
     </div>
 </div>
-<div class="col-sm-3">
+<div class="col-sm-2">
     <!-- File Field -->
     <div class="form-group">
         {!! Form::label('name',__('models/products.fields.name')) !!}
@@ -51,7 +51,7 @@
         </div>
     </div>
 </div>
-<div class="col-sm-3 sale_field">
+<div class="col-sm-2 sale_field">
     <!-- File Field -->
     <div class="form-group">
         {!! Form::label('code',__('models/products.fields.code')) !!}
@@ -66,13 +66,12 @@
         </div>
     </div>
 </div>
-<div class="col-sm-3 rental_field">
+<div class="col-sm-1 rental_field">
     <!-- File Field -->
     <div class="form-group">
         {!! Form::label('rental',__('models/products.fields.rental')) !!}
-        <div class="input-group">           
-                {!! Form::text('rental_1', null, ['class' => $errors->has('rental') ? 'form-control is-invalid' : 'form-control' ,'id'=>"doc_rental"]) !!}
-          
+        <div class="input-group">   
+            {!! Form::select('rental_1', config('enum.rental_unit'),null, ['class' => $errors->has('rental') ? 'form-control is-invalid' : 'form-control' ,'id'=>"doc_rental"]) !!}        
             @if ($errors->has('rental'))
                 <span class="invalid-feedback">
                     <strong>{{ $errors->first('rental') }}</strong>
@@ -81,27 +80,12 @@
         </div>
     </div>
 </div>
-<div class="col-sm-3 rental_field">
-    <!-- File Field -->
-    <div class="form-group">
-        {!! Form::label('period',__('models/products.fields.period')) !!}
-        <div class="input-group">           
-                {!! Form::text('period_1', null, ['class' => $errors->has('period') ? 'form-control is-invalid' : 'form-control' ,'id'=>"doc_period"]) !!}
-          
-            @if ($errors->has('period'))
-                <span class="invalid-feedback">
-                    <strong>{{ $errors->first('period') }}</strong>
-                </span>
-            @endif
-        </div>
-    </div>
-</div>
-<div class="col-sm-3">
+<div class="col-sm-1">
     <!-- File Field -->
     <div class="form-group">
         {!! Form::label('unit',__('models/products.fields.unit')) !!}
         <div class="input-group">           
-                {!! Form::text('unit_1', null, ['class' => $errors->has('unit') ? 'form-control is-invalid' : 'form-control' ,'id'=>"doc_unit"]) !!}
+            {!! Form::select('unit_1', config('enum.unit'),null,['class' => $errors->has('unit') ? 'form-control is-invalid' : 'form-control' ,'id'=>"doc_unit"]) !!}
           
             @if ($errors->has('unit'))
                 <span class="invalid-feedback">
@@ -111,22 +95,22 @@
         </div>
     </div>
 </div>
-<div class="col-sm-3">
+<div class="col-sm-1 rental_field">
     <!-- File Field -->
     <div class="form-group">
-        {!! Form::label('price',__('models/products.fields.price')) !!}
+        {!! Form::label('period',__('models/products.fields.period')) !!}
         <div class="input-group">           
-                {!! Form::number('price_1', null, ['class' => $errors->has('price') ? 'form-control num_type is-invalid' : 'form-control num_type' ,'id'=>"doc_price"]) !!}
+                {!! Form::number('period_1', null, ['class' => $errors->has('period') ? 'form-control is-invalid' : 'form-control' ,'id'=>"doc_period"]) !!}
           
-            @if ($errors->has('price'))
+            @if ($errors->has('period'))
                 <span class="invalid-feedback">
-                    <strong>{{ $errors->first('price') }}</strong>
+                    <strong>{{ $errors->first('period') }}</strong>
                 </span>
             @endif
         </div>
     </div>
 </div>
-<div class="col-sm-3">
+<div class="col-sm-1">
     <!-- File Field -->
     <div class="form-group">
         {!! Form::label('qty',__('models/products.fields.qty')) !!}
@@ -141,12 +125,27 @@
         </div>
     </div>
 </div>
-<div class="col-sm-3">
+<div class="col-sm-1">
+    <!-- File Field -->
+    <div class="form-group">
+        {!! Form::label('price',__('models/products.fields.price')) !!}
+        <div class="input-group">           
+                {!! Form::number('price_1', null, ['class' => $errors->has('price') ? 'form-control num_type is-invalid' : 'form-control num_type' ,'id'=>"doc_price"]) !!}
+          
+            @if ($errors->has('price'))
+                <span class="invalid-feedback">
+                    <strong>{{ $errors->first('price') }}</strong>
+                </span>
+            @endif
+        </div>
+    </div>
+</div>
+<div class="col-sm-1">
     <!-- File Field -->
     <div class="form-group">
         {!! Form::label('amount',__('models/products.fields.amount')) !!}
         <div class="input-group">           
-                {!! Form::number('amount_1', null, ['class' => $errors->has('amount') ? 'form-control is-invalid' : 'form-control','id'=>"proc_amount"]) !!}
+                {!! Form::number('amount_1', null, [ 'class' => $errors->has('amount') ? 'form-control is-invalid' : 'form-control','id'=>"proc_amount", "readonly"]) !!}
             @if ($errors->has('amount'))
                 <span class="invalid-feedback">
                     <strong>{{ $errors->first('amount') }}</strong>
@@ -161,12 +160,18 @@
 @endif
 @section('scripts')
     @parent
-    <script src="{{ asset('plugins/daterangepicker/daterangepicker.js') }}"></script>
     <script type="text/javascript">
         $(document).ready(function() {
-            $("input[name='price_1']").add("input[name='qty_1']").on('change', function(){
+            $("input[name='price_1']").add("input[name='qty_1']").add("input[name='period_1']").on('change', function(){
+                var period=$("input[name='period_1']").val();
+                if(period != 0 && period !='0'){
+                    $("input[name='amount_1']").val($("input[name='price_1']").val() * $("input[name='qty_1']").val() * period);
+                }
+                else{
                     $("input[name='amount_1']").val($("input[name='price_1']").val() * $("input[name='qty_1']").val());
-                });
+                }
+                $( "#discount" ).trigger( "keyup" );
+            });
             var row=$('#exp_file_row');
             $('#exp_del').click(function(){
                 row.remove();

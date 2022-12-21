@@ -53,16 +53,16 @@ class InvoiceRepository extends BaseRepository
             if(isset($input['start_date_'.$i]) || isset($input['name_'.$i]) ||  isset($input['amount_'.$i])){
                 $product=new Product();
                 $product->invoice_no=$invoice_no;
-                $product->start_date=$input['start_date_'.$i];
-                $product->end_date=$input['end_date_'.$i];
-                $product->name=$input['name_'.$i];
-                $product->code=$input['code_'.$i];
-                $product->rental=$input['rental_'.$i];
-                $product->period=$input['period_'.$i];
-                $product->unit=$input['unit_'.$i];
-                $product->price=$input['price_'.$i];
-                $product->qty=$input['qty_'.$i];
-                $product->amount=$input['amount_'.$i];
+                $product->start_date=(isset($input['start_date_'.$i])) ? $input['start_date_'.$i] : null ;
+                $product->end_date=(isset($input['end_date_'.$i])) ? $input['end_date_'.$i] : null ;
+                $product->name=(isset($input['name_'.$i])) ? $input['name_'.$i] : null ;
+                $product->code=(isset($input['code_'.$i])) ? $input['code_'.$i] : null ;
+                $product->rental=(isset($input['rental_'.$i])) ? $input['rental_'.$i] : null ;
+                $product->period=(isset($input['period_'.$i])) ? $input['period_'.$i] : null ;
+                $product->unit=(isset($input['unit_'.$i])) ? $input['unit_'.$i] : null ;
+                $product->price=(isset($input['price_'.$i])) ? $input['price_'.$i] : null ;
+                $product->qty=(isset($input['qty_'.$i])) ? $input['qty_'.$i] : null ;
+                $product->amount=(isset($input['amount_'.$i])) ? $input['amount_'.$i] : null ;
                 $product->save();
             }          
         }
@@ -94,16 +94,16 @@ class InvoiceRepository extends BaseRepository
 
         $model = Product::find($id);
 
-        $model->start_date=$input['start_date_'.$id];
-        $model->end_date=$input['end_date_'.$id];
-        $model->name=$input['name_'.$id];
-        $model->code=$input['code_'.$id];
-        $model->rental=$input['rental_'.$id];
-        $model->period=$input['period_'.$id];
-        $model->unit=$input['unit_'.$id];
-        $model->price=$input['price_'.$id];
-        $model->qty=$input['qty_'.$id];
-        $model->amount=$input['amount_'.$id];
+        $model->start_date=(isset($input['start_date_'.$id])) ? $input['start_date_'.$id] : null ;
+        $model->end_date=(isset($input['end_date_'.$id])) ? $input['end_date_'.$id] : null ;
+        $model->name=(isset($input['name_'.$id])) ? $input['name_'.$id] : null ;
+        $model->code=(isset($input['code_'.$id])) ? $input['code_'.$id] : null ;
+        $model->rental=(isset($input['rental_'.$id])) ? $input['rental_'.$id] : null ;
+        $model->period=(isset($input['period_'.$id])) ? $input['period_'.$id] : null ;
+        $model->unit=(isset($input['unit_'.$id])) ? $input['unit_'.$id] : null ;
+        $model->price=(isset($input['price_'.$id])) ? $input['price_'.$id] : null ;
+        $model->qty=(isset($input['qty_'.$id])) ? $input['qty_'.$id] : null ;
+        $model->amount=(isset($input['amount_'.$id])) ? $input['amount_'.$id] : null ;
         $model->save();
         
         return $model;

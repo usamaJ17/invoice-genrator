@@ -15,6 +15,7 @@ class CreateInvoiceTable extends Migration
     {
         Schema::create('invoice', function (Blueprint $table) {
             $table->id('invoice_no');
+            $table->dateTime('date')->nullable();
             $table->string('customer')->nullable();
             $table->string('authorized')->nullable();
             $table->string('phone')->nullable();

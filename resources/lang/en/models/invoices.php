@@ -6,6 +6,7 @@ return array (
   'fields' =>
   array (
     'no' => 'Invoice Number',
+    'date' => 'Date',
     'name' => 'Client name',
     'authorized' => 'Authorized',
     'phone'=>'Phone no',
@@ -19,11 +20,11 @@ return array (
     'lpo' => 'Site / LPO',
     'address' => 'Address',
     'remarks' => 'Remarks',
-    'total' => 'Total',
+    'total' => 'Amount',
     'discount' => 'Discount',
-    'gross' => 'Gross',
+    'gross' => 'Ex VAT',
     'vat' => 'VAT',
-    'vat_amount' => 'VAT Amount',
+    'vat_amount' => 'Total',
     'date'=>"Date",
     'created_at' => 'Created At',
     'updated_at' => 'Updated At',

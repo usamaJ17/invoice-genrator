@@ -101,7 +101,7 @@ class InvoiceController extends Controller
     public function edit($id)
     {
         $invoice = Invoice::with('user')->find($id);
-        $products=Product::where('invoice_no','=',$invoice->invoice_no)->get();
+        $products=Product::where('invoice_no','=',$invoice->invoice_no)->orderby('product_id','asc')->get();
         $service=Service::where('invoice_no','=',$invoice->invoice_no)->first();
         $customers=Customer::orderby('name','asc')->select('name')->get();
         $data = array();

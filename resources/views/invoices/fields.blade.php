@@ -23,13 +23,32 @@
 <br>
 {{-- basic invoice fields (same for all) --}}
 <div class="row">
+    <div class="col-sm-1">
+        <div class="form-group">
+            {!! Form::label('date',   __('models/invoices.fields.date')) !!}
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">
+                        <i class="far fa-calendar-alt"></i>
+                    </span>
+                </div>           
+                    {!! Form::text('date', null, ['class' => $errors->has('date') ? 'form-control  date is-invalid' : 'form-control  date', 'id' => 'date']) !!}
+    
+                @if ($errors->has('date'))
+                    <span class="invalid-feedback">
+                        <strong>{{ $errors->first('date') }}</strong>
+                    </span>
+                @endif
+            </div>
+        </div>
+    </div>
     {{-- echo Form::select('size', ['L' => 'Large', 'S' => 'Small']); --}}
     @section('css')
     @parent
         <link rel="stylesheet" href="{{ asset('plugins/select2/css/select2.min.css')}}">
         <link rel="stylesheet" href="{{ asset('plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css')}}">
     @endsection
-    <div class="col-sm-4">
+    <div class="col-sm-2">
         <div class="form-group ">
             {!! Form::label('customer', __('models/invoices.fields.name')) !!}
             <div class="input-group">
@@ -53,9 +72,9 @@
             })
         </script>
     @endsection
-    <div class="col-sm-4">
+    <div class="col-sm-1">
         <div class="form-group ">
-            {!! Form::label('authorized', __('models/invoices.fields.authorized') .' *') !!}
+            {!! Form::label('authorized', __('models/invoices.fields.authorized')) !!}
             {!! Form::text('authorized', null, ['class' => $errors->has('authorized') ? 'form-control is-invalid' : 'form-control']) !!}
             @if ($errors->has('authorized'))
                 <span class="invalid-feedback">
@@ -64,9 +83,9 @@
             @endif
         </div>
     </div>
-    <div class="col-sm-4">
+    <div class="col-sm-1">
         <div class="form-group ">
-            {!! Form::label('phone', __('models/invoices.fields.phone') .' *') !!}
+            {!! Form::label('phone', __('models/invoices.fields.phone')) !!}
             {!! Form::text('phone', null, ['class' => $errors->has('phone') ? 'form-control is-invalid' : 'form-control']) !!}
             @if ($errors->has('phone'))
                 <span class="invalid-feedback">
@@ -75,9 +94,9 @@
             @endif
         </div>
     </div>
-    <div class="col-sm-4">
+    <div class="col-sm-1">
         <div class="form-group ">
-            {!! Form::label('trn', __('models/invoices.fields.trn') .' *') !!}
+            {!! Form::label('trn', __('models/invoices.fields.trn')) !!}
             {!! Form::text('trn', null, ['class' => $errors->has('trn') ? 'form-control is-invalid' : 'form-control']) !!}
             @if ($errors->has('trn'))
                 <span class="invalid-feedback">
@@ -86,20 +105,22 @@
             @endif
         </div>
     </div>
-    <div class="col-sm-4">
+    <div class="col-sm-1">
         <div class="form-group ">
-            {!! Form::label('payment', __('models/invoices.fields.payment') .' *') !!}
-            {!! Form::number('payment', null, ['class' => $errors->has('payment') ? 'form-control is-invalid' : 'form-control']) !!}
-            @if ($errors->has('payment'))
-                <span class="invalid-feedback">
-                    <strong>{{ $errors->first('payment') }}</strong>
-                </span>
-            @endif
+            {!! Form::label('payment', __('models/invoices.fields.payment')) !!}
+            <div class="input-group">
+                {!! Form::select('payment', config('enum.payment_type'),null, ['class' => $errors->has('payment') ? 'form-control is-invalid' : 'form-control']) !!}
+                @if ($errors->has('payment'))
+                    <span class="invalid-feedback">
+                        <strong>{{ $errors->first('payment') }}</strong>
+                    </span>
+                @endif
+            </div>
         </div>
     </div>
-    <div class="col-sm-4">
+    <div class="col-sm-1">
         <div class="form-group ">
-            {!! Form::label('lpo', __('models/invoices.fields.lpo') .' *') !!}
+            {!! Form::label('lpo', __('models/invoices.fields.lpo')) !!}
             {!! Form::text('lpo', null, ['class' => $errors->has('lpo') ? 'form-control is-invalid' : 'form-control']) !!}
             @if ($errors->has('lpo'))
                 <span class="invalid-feedback">
@@ -108,9 +129,9 @@
             @endif
         </div>
     </div>
-    <div class="col-sm-4">
+    <div class="col-sm-1">
         <div class="form-group ">
-            {!! Form::label('reference', __('models/invoices.fields.reference') .' *') !!}
+            {!! Form::label('reference', __('models/invoices.fields.reference')) !!}
             {!! Form::text('reference', null, ['class' => $errors->has('reference') ? 'form-control is-invalid' : 'form-control']) !!}
             @if ($errors->has('reference'))
                 <span class="invalid-feedback">
@@ -119,20 +140,9 @@
             @endif
         </div>
     </div>
-    <div class="col-sm-4">
+    <div class="col-sm-1">
         <div class="form-group ">
-            {!! Form::label('address', __('models/invoices.fields.address') .' *') !!}
-            {!! Form::text('address', null, ['class' => $errors->has('address') ? 'form-control is-invalid' : 'form-control']) !!}
-            @if ($errors->has('address'))
-                <span class="invalid-feedback">
-                    <strong>{{ $errors->first('address') }}</strong>
-                </span>
-            @endif
-        </div>
-    </div>
-    <div class="col-sm-4">
-        <div class="form-group ">
-            {!! Form::label('remarks', __('models/invoices.fields.remarks') .' *') !!}
+            {!! Form::label('remarks', __('models/invoices.fields.remarks')) !!}
             {!! Form::text('remarks', null, ['class' => $errors->has('remarks') ? 'form-control is-invalid' : 'form-control']) !!}
             @if ($errors->has('remarks'))
                 <span class="invalid-feedback">
@@ -141,19 +151,31 @@
             @endif
         </div>
     </div>
-    {{-- <div class="col-sm-4">
+    <div class="col-sm-2">
         <div class="form-group ">
-            {!! Form::label('authorized', __('models/invoices.fields.authorized') .' *') !!}
-            {!! Form::text('authorized', null, ['class' => $errors->has('authorized') ? 'form-control is-invalid' : 'form-control']) !!}
-            @if ($errors->has('authorized'))
+            {!! Form::label('address', __('models/invoices.fields.address')) !!}
+            {!! Form::text('address', null, ['class' => $errors->has('address') ? 'form-control is-invalid' : 'form-control']) !!}
+            @if ($errors->has('address'))
                 <span class="invalid-feedback">
-                    <strong>{{ $errors->first('authorized') }}</strong>
+                    <strong>{{ $errors->first('address') }}</strong>
                 </span>
             @endif
         </div>
-    </div> --}}
+    </div>
+
+
 </div>
 {{-- basic invoice fields (same for all) end --}}
+
+{{-- products Services  --}}
+
+<br>
+<h3 class="services">Service :</h3>
+<div class="row services">
+    @include(strtolower(__('models/invoices.plural')).'.service_fields')
+</div>
+
+{{-- products service  -end --}}
 
 {{-- products fields (few difference-- will be handeled by a jquery script) --}}
 <h3>Products :</h3>
@@ -178,24 +200,13 @@
 
 {{-- products fields (few difference-- will be handeled by a jquery script) -end --}}
 
-{{-- products Services  --}}
-
-<br>
-<h3 class="services">Service :</h3>
-<div class="row services">
-    @include(strtolower(__('models/invoices.plural')).'.service_fields')
-</div>
-
-{{-- products fields (few difference-- will be handeled by a jquery script) -end --}}
-
-
 {{-- basic invoice fields (same for all) total --}}
 <h3>Total :</h3>
 <br>
 <div class="row">
-    <div class="col-sm-3">
+    <div class="col-sm-2">
         <div class="form-group ">
-            {!! Form::label('total', __('models/invoices.fields.total') .' *') !!}
+            {!! Form::label('total', __('models/invoices.fields.total')) !!}
             {!! Form::number('total', null, ['class' => $errors->has('total') ? 'form-control auto_amount_cal is-invalid' : 'form-control auto_amount_cal']) !!}
             @if ($errors->has('total'))
                 <span class="invalid-feedback">
@@ -204,10 +215,10 @@
             @endif
         </div>
     </div>
-    <div class="col-sm-3">
+    <div class="col-sm-2">
         <div class="form-group ">
-            {!! Form::label('discount', __('models/invoices.fields.discount') .' *') !!}
-            {!! Form::number('discount', null, ['class' => $errors->has('discount') ? 'form-control auto_amount_cal is-invalid' : 'form-control auto_amount_cal']) !!}
+            {!! Form::label('discount', __('models/invoices.fields.discount')) !!}
+            {!! Form::number('discount', null, ['class' => $errors->has('discount') ? 'form-control auto_amount_cal is-invalid' : 'form-control auto_amount_cal','id'=>'discount' ]) !!}
             @if ($errors->has('discount'))
                 <span class="invalid-feedback">
                     <strong>{{ $errors->first('discount') }}</strong>
@@ -215,9 +226,9 @@
             @endif
         </div>
     </div>
-    <div class="col-sm-3">
+    <div class="col-sm-2">
         <div class="form-group ">
-            {!! Form::label('gross', __('models/invoices.fields.gross') .' *') !!}
+            {!! Form::label('gross', __('models/invoices.fields.gross') ) !!}
             {!! Form::number('gross', null, ['class' => $errors->has('gross') ? 'form-control auto_amount_cal is-invalid' : 'form-control auto_amount_cal']) !!}
             @if ($errors->has('gross'))
                 <span class="invalid-feedback">
@@ -226,9 +237,9 @@
             @endif
         </div>
     </div>
-    <div class="col-sm-3">
+    <div class="col-sm-2">
         <div class="form-group ">
-            {!! Form::label('vat', __('models/invoices.fields.vat') .' *') !!}
+            {!! Form::label('vat', __('models/invoices.fields.vat') ) !!}
             {!! Form::number('vat', null, ['class' => $errors->has('vat') ? 'form-control auto_amount_cal is-invalid' : 'form-control auto_amount_cal']) !!}
             @if ($errors->has('vat'))
                 <span class="invalid-feedback">
@@ -237,9 +248,9 @@
             @endif
         </div>
     </div>
-    <div class="col-sm-3">
+    <div class="col-sm-2">
         <div class="form-group ">
-            {!! Form::label('vat_amount', __('models/invoices.fields.vat_amount') .' *') !!}
+            {!! Form::label('vat_amount', __('models/invoices.fields.vat_amount') ) !!}
             {!! Form::number('vat_amount', null, ['class' => $errors->has('vat_amount') ? 'form-control auto_amount_cal is-invalid' : 'form-control auto_amount_cal']) !!}
             @if ($errors->has('vat_amount'))
                 <span class="invalid-feedback">
@@ -268,6 +279,9 @@
 @section('scripts')
     @parent
     <script src="{{ asset('plugins/daterangepicker/daterangepicker.js') }}"></script>
+    <script>
+        var total_amount=0;
+    </script>
     {{-- -- exp_doc uplode field name change script-- --}}
        <script type="text/javascript">
        // in edit seting customer field value
@@ -283,17 +297,21 @@
             @endif
             $('.date').daterangepicker({
                 singleDatePicker: true,
-                timePicker: false,
+                timePicker: true,
                 locale: {
-                    format: 'YYYY-MM-DD'
+                    format: 'YYYY-MM-DD HH:mm'
                 }
             });
-            $('.date').val(null);
-            $('.sale_field').hide();
+            @if (str_contains(url()->current(), '/create'))
+                $('.date').val(null);
+            @endif
+            
             // change fileds based on type
             @if(isset($invoice->type))
                 var type="{{$invoice->type}}"
                 handelFields(type);
+            @else
+                handelFields('rental');
             @endif
             $('input[type=radio][name=type]').change(function() {
                 handelFields(this.value);
@@ -317,6 +335,7 @@
                     $.each($('.rental_field').find(':input'), function( key, field ) {
                             field.value=null;
                     });
+                    $("#doc_rental").val("").change();
                     $.each($('.services').find(':input'), function( key, field ) {
                             field.value=null;
                     });
@@ -328,21 +347,10 @@
                     $.each($('.rental_field').find(':input'), function( key, field ) {
                             field.value=null;
                     });
+                    $("#doc_rental").val("").change();
                 }
-            }
-            // amount calculation
-            $('.auto_amount_cal').on('change', function(){
-                    // $("input[name='amount_"+totalRow+"']").val($("input[name='price_"+totalRow+"']").val() * $("input[name='qty_"+totalRow+"']").val());
-                    var total=$("input[name=total]").val();
-                    var discount=$("input[name=discount]").val();
-                    var gross=$("input[name=gross]");
-                    gross.val(total-discount);
-                    var vat=$("input[name=vat]").val();
-                    vat_amount=$("input[name=vat_amount]").val ( Number(gross.val()) + Number(vat));
-
-            });
-
-            
+            }   
+         
             // clone products row
             var totalRow=$('#total_row').val();
             var row=$('#exp_file_row').clone(false);
@@ -361,9 +369,16 @@
                 });
                 $('#add_new_exp_field').after(copy);
                 //auto amount calculate
-                $("input[name='price_"+totalRow+"']").add("input[name='qty_"+totalRow+"']").on('change', function(){
-                    $("input[name='amount_"+totalRow+"']").val($("input[name='price_"+totalRow+"']").val() * $("input[name='qty_"+totalRow+"']").val());
-                });
+                $("input[name='price_"+totalRow+"']").add("input[name='qty_"+totalRow+"']").add("input[name='period_"+totalRow+"']").on('change', function(){
+                    var period=$("input[name='period_"+totalRow+"']").val();
+                    if(period != 0 && period !='0'){
+                        $("input[name='amount_"+totalRow+"']").val($("input[name='price_"+totalRow+"']").val() * $("input[name='qty_"+totalRow+"']").val() * period);
+                    }
+                    else{
+                        $("input[name='amount_"+totalRow+"']").val($("input[name='price_"+totalRow+"']").val() * $("input[name='qty_"+totalRow+"']").val());
+                    }
+                });  
+                
                 //adjust new fields ased on type
                 var invoice_type=$('input[type=radio][name=type]:checked').val();
                 handelFields(invoice_type);
@@ -376,8 +391,41 @@
                     }
                 });
                 copy.find('.date').val(null);
+            }); 
+            function update_amount_field(product_start=1,product_end=totalRow){
+                var sum=0;
+                for (let product_start = 1; product_start <= product_end; product_start++) {
+                    if($("input[name='amount_"+product_start+"']").val()){
+                        sum+=parseFloat($("input[name='amount_"+product_start+"']").val());
+                    }
+                }
+                $("input[name=total]").val(sum);
+                var discount=$("input[name=discount]").val();
+                var gross=$("input[name=gross]");
+                gross.val(sum-discount);
+                var vat=Math.round(gross.val()* 0.05);
+                $("input[name=vat]").val(vat);
+                vat_amount=$("input[name=vat_amount]").val( Number(gross.val()) + Number(vat));
+                return sum;
+            }
+            // amount calculation
+            $('.auto_amount_cal').on('click change', function(){
+                update_amount_field();
             });
-            // clone products row -end
+            $('#discount').on('keyup', function(){
+                @if (str_contains(url()->current(), '/edit'))
+                var prod=@json($products);
+                var start,end=0;
+                if (prod.length !== 0){
+                    end=prod[0]['product_id'];
+                    start=prod.pop()['product_id'];
+                    update_amount_field(start,end);
+                }
+                @else
+                update_amount_field();
+                @endif
+                
+            });
         });
     </script>
         {{-- -- exp_doc uplode field name change script end-- --}}

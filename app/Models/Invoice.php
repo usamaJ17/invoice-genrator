@@ -11,6 +11,7 @@ class Invoice extends Model
    public $primaryKey = 'invoice_no';
    public $fillable = [
     'customer',
+    'date',
     'authorized',
     'phone',
     'trn',

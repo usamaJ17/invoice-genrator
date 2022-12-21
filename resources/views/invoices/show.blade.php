@@ -45,41 +45,36 @@
                                 <img
                                 src="{{asset('dist/img/latter-header.jpeg')}}" style="width:100%;margin:auto;" />
                           </div> --}}
-                        <h2 class="text-center text-weight-bold pb-5" style="text-transform: uppercase;">@lang('models/invoices.singular')</h2>
+                        <h2 class="text-center text-weight-bold pb-5" style="text-transform: uppercase;">{{ strtoupper($invoice->type)}} @lang('models/invoices.singular')</h2>
                         <table class="table mb-4" border="2">
                             <tbody>
                                 <tr>
                                     <th>@lang('models/invoices.fields.name')</th>
                                     <td>{{ $invoice->customer }}</td>
-                                    <td rowspan="5" class="text-center"><strong>{{ strtoupper($invoice->type)}}</strong> Invoice </td>
-                                    <th>@lang('models/invoices.fields.created_at')</th>
-                                    <td>{{ $invoice->created_at }}</td>
+                                    <th>@lang('models/invoices.fields.date')</th>
+                                    <td>{{ $invoice->date }}</td>
                                   </tr>
                                   <tr >
                                     <th>@lang('models/invoices.fields.authorized')</th>
                                     <td>{{ $invoice->authorized }}</td>
-                                    
                                     <th>@lang('models/invoices.fields.no')</th>
                                     <td>{{ $invoice->invoice_no }}</td>
                                   </tr>
                                   <tr >
                                     <th>@lang('models/invoices.fields.phone')</th>
-                                    <td>{{ $invoice->phone }}</td>
-                                    
+                                    <td>{{ $invoice->phone }}</td>                                    
                                     <th>@lang('models/invoices.fields.reference')</th>
                                     <td>{{ $invoice->reference }}</td>
                                 </tr>
                                 <tr >
                                     <th>@lang('models/invoices.fields.trn')</th>
-                                    <td>{{ $invoice->trn }}</td>
-                                    
+                                    <td>{{ $invoice->trn }}</td>                                    
                                     <th>@lang('models/invoices.fields.payment')</th>
                                     <td>{{ $invoice->payment }}</td>
                                 </tr>
                                 <tr >
                                     <th >@lang('models/invoices.fields.address')</th>  
-                                    <td>{{ $invoice->address }}</td>
-                                    
+                                    <td>{{ $invoice->address }}</td>                                    
                                     <th >@lang('models/invoices.fields.lpo')</th>  
                                     <td>{{ $invoice->lpo }}</td>
                                 </tr>
