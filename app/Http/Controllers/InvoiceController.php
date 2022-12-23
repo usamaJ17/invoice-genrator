@@ -32,7 +32,6 @@ class InvoiceController extends Controller
     public function index(InvoiceDataTable $datatable)
     {
         return $datatable->render('invoices.index');
-        // dd(Invoice::with('user')->with('service')->with('product')->get());
     }
 
     /**
@@ -135,13 +134,13 @@ class InvoiceController extends Controller
             return redirect(route('invoice.index'));
         }
         $invoice = $this->invoiceRepository->update($request->all(), $id);
-        
+
         // update products associated with invoice
         $products=Product::where('invoice_no','=',$invoice->invoice_no)->get();
         foreach ($products as $product) {
             $product = $this->invoiceRepository->updateProduct($request->all(), $product->product_id);
         }
-        
+
         // update service associated with invoice
         if($request['type']=='service'){
             $service=Service::where('invoice_no','=',$invoice->invoice_no)->first();

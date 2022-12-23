@@ -14,7 +14,7 @@
     {{-- <link rel="stylesheet" href="{{ asset('plugins/fontawesome-free/css/all.min.css')}}"> --}}
     {{-- <link rel="stylesheet" href="{{ asset('plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css')}}"> --}}
     @yield('css')
-    
+
     {{-- <link rel="shortcut icon" type="image/ico" href="{{ asset('dist/img/logo.png')}}"> --}}
     <link rel="stylesheet" href="{{ asset('css/app.css')}}">
     {{-- <link rel="stylesheet" href="{{ asset('dist/css/adminlte.min.css')}}"> --}}
@@ -42,6 +42,7 @@
     <script src="{{ asset('plugins/sweetalert2/sweetalert2.min.js')}}"></script>
     <script src="{{ asset('plugins/moment/moment.min.js')}}"></script>
     @yield('scripts')
+    @stack('child-scripts')
     <script src="{{ asset('dist/js/adminlte.min.js')}}"></script>
     <script>
         window.baseUrl = function(path) {

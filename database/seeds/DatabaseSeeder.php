@@ -11,12 +11,6 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        $this->call(RolesAndPermissionsSeeder::class);
-        $this->call(LpoOutTypeSeeder::class);
-        $this->call(InvoiceTypeSeeder::class);
-        $this->call(ProjectTypeSeeder::class);
-        $this->call(InvoiceBankSeeder::class);
-        $this->call(LookupSeeder::class);
-        $this->call(BalanceAccountSeeder::class);
+        $this->call(UsersSeeder::class);
     }
 }
