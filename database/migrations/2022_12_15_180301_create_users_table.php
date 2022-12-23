@@ -22,12 +22,6 @@ class CreateUsersTable extends Migration
             $table->string('image')->nullable();
             $table->rememberToken();
             $table->timestamps();
-            $table->string('firebase_token')->nullable()->default(null);
-            $table->string('api_token', 80)
-                        ->unique()
-                        ->nullable()
-                        ->default(null);
-            $table->float('balance')->defualt(0);
             $table->softDeletes();
         });
     }
