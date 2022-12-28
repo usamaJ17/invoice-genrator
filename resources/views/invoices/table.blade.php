@@ -87,3 +87,90 @@
 @endsection
 
 
+@push('child-scripts')
+    {{-- password popup --}}
+    <script>
+        // checkPassword
+        // function checkPassword(e){
+        //     // e.preventDefault();
+
+        //     var password = $("input[name=password]").val();
+        //     var id = $("input[name=id]").val();
+
+        //     $.ajaxSetup({
+        //         headers: {
+        //             'X-CSRF-TOKEN': $('meta[name="token"]').attr('content')
+        //         }
+        //     });
+        //     $.ajax({
+        //         type:'POST',
+        //         url: window.baseUrl(`/invoice/edit/`+id),
+        //         data: {
+        //             password:password,
+        //         },
+        //         success:function(data){
+        //             clearFormType()
+        //             toast.fire({
+        //                 type: 'success',
+        //                 title: data
+        //             });
+        //         },
+        //         error: function (xhr) {
+        //             clearFormType()
+        //             toast.fire({
+        //                 type: 'error',
+        //                 title: 'password wrong'
+        //             });
+        //         }
+        //     });
+        // }
+        function clearFormType(){
+            $("input").removeClass('is-invalid');
+            $(".invalid-feedback").text('');
+            $('#type-form')[0].reset();
+            $("#modal-type").modal('hide');
+            // document.getElementById('submit').removeAttribute('disabled');
+        }
+    </script>
+    {{-- Add Quotation Type model --}}
+    <div class="modal fade" id="modal-type">
+        <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+            <h4 class="modal-title"> Edit Invoice</h4>
+            </div>
+            <form action="{{route('checkPassword')}}" method="POST" id="type-form">
+                @csrf
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label>Password:</label>
+                        <input type="password" name="password" class="form-control" />
+                        <input type="hidden" name="id" />
+                        <input type="hidden" name="type" />
+                        <span class="invalid-feedback" >
+                            <strong></strong>
+                        </span>
+                    </div>
+                </div>
+                <div class="modal-footer justify-content-between">
+                    <button type="button" onclick="clearFormType()" class="btn btn-outline-danger btn-flat btn-lg text-maroon">Close</button>
+                    <button type="submit" class="btn btn-danger btn-flat btn-lg">Submit</button>
+                </div>
+            </form>
+        </div>
+        </div>
+    </div>
+    <script>
+        //triggered when modal is about to be shown
+        $('#modal-type').on('show.bs.modal', function(e) {
+        //get data-id attribute of the clicked element
+        var id = $(e.relatedTarget).attr('id');
+        var type=$(e.relatedTarget).data('type');
+        // populate the textbox
+        $(e.currentTarget).find('input[name="id"]').val(id);
+        $(e.currentTarget).find('input[name="type"]').val(type);
+        });
+    </script>
+@endpush
+
+

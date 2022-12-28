@@ -37,6 +37,16 @@ class Invoice extends Model
         // 'last_name' => 'required',
         // 'joining_date' => 'required',
     ];
+    /**
+     * The attributes that should be mutated to dates.
+     *
+     * @var array
+     */
+    protected $dates = [
+        'created_at',
+        'updated_at',
+        'date'
+    ];
     public function user()
     {
         return $this->belongsTo(User::class,'user_id');

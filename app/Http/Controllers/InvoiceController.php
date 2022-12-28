@@ -9,6 +9,9 @@ use App\Models\Product;
 use App\Models\Service;
 use App\Models\Customer;
 use App\User;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Arr;
 
 use Flash;
 
@@ -41,12 +44,14 @@ class InvoiceController extends Controller
      */
     public function create()
     {
-        $customers=Customer::orderby('name','asc')->select('name')->get();
-        $data = array();
+        $customers=Customer::orderby('name','asc')->select('name','address','trn','phone')->get();
+        $name = array();
+        $data=array();
         foreach($customers as $customer){
-            $data += [$customer->name=>$customer->name];
+            $name += [$customer->name=>$customer->name];
+            $data = Arr::add($data, $customer->name, [$customer->address,$customer->trn,$customer->phone]);
         }
-        return view('invoices.create')->with(compact('data'));
+        return view('invoices.create')->with(compact('name','data'));
     }
 
     /**
@@ -79,14 +84,15 @@ class InvoiceController extends Controller
     public function show($id)
     {
         $invoice = Invoice::find($id);
-        $products=Product::where('invoice_no','=',$invoice->invoice_no)->get();
-        $service=Service::where('invoice_no','=',$invoice->invoice_no)->first();
-
         if (empty($invoice)) {
-            Flash::error("Invoice".' '.__('messages.not_found'));
+            Flash::error(__('messages.not_found', ['model' => 'invoice']));
 
             return redirect(route('invoice.index'));
         }
+
+        $products=Product::where('invoice_no','=',$invoice->invoice_no)->get();
+        $service=Service::where('invoice_no','=',$invoice->invoice_no)->first();
+
         $data=compact('invoice','products','service');
         return view('invoices.show')->with($data);
     }
@@ -99,22 +105,22 @@ class InvoiceController extends Controller
      */
     public function edit($id)
     {
-        $invoice = Invoice::with('user')->find($id);
-        $products=Product::where('invoice_no','=',$invoice->invoice_no)->orderby('product_id','asc')->get();
-        $service=Service::where('invoice_no','=',$invoice->invoice_no)->first();
-        $customers=Customer::orderby('name','asc')->select('name')->get();
-        $data = array();
-        foreach($customers as $customer){
-            $data += [$customer->name=>$customer->name];
-        }
+        // $invoice = Invoice::with('user')->find($id);
+        // $products=Product::where('invoice_no','=',$invoice->invoice_no)->orderby('product_id','asc')->get();
+        // $service=Service::where('invoice_no','=',$invoice->invoice_no)->first();
+        // $customers=Customer::orderby('name','asc')->select('name')->get();
+        // $data = array();
+        // foreach($customers as $customer){
+        //     $data += [$customer->name=>$customer->name];
+        // }
 
-        if (empty($invoice)) {
-            Flash::error("Invoice".' '.__('messages.not_found'));
+        // if (empty($invoice)) {
+        //     Flash::error("Invoice".' '.__('messages.not_found'));
 
-            return redirect(route('invoice.index'));
-        }
-        $data=compact('invoice','products','service','data');
-        return view('invoices.edit')->with($data);
+        //     return redirect(route('invoice.index'));
+        // }
+        // $data=compact('invoice','products','service','data');
+        // return view('invoices.edit')->with($data);
     }
 
     /**
@@ -140,6 +146,7 @@ class InvoiceController extends Controller
         foreach ($products as $product) {
             $product = $this->invoiceRepository->updateProduct($request->all(), $product->product_id);
         }
+        $this->invoiceRepository->updatedAddProduct($request->all(),$invoice->invoice_no);
 
         // update service associated with invoice
         if($request['type']=='service'){
@@ -165,7 +172,7 @@ class InvoiceController extends Controller
         if (empty($invoice)) {
             Flash::error(__('messages.not_found', ['model' => 'Invoice']));
 
-            return redirect(route('companies.index'));
+            return redirect(route('invoice.index'));
         }
 
         $status = $this->invoiceRepository->delete($id);
@@ -174,6 +181,33 @@ class InvoiceController extends Controller
         else
             Flash::error(__('messages.permisssion_error'));
 
+        return redirect(route('invoice.index'));
+    }
+    public function checkPassword(Request $request)
+    {
+
+        if (Hash::check($request->password, Auth::user()->password)) {
+            //if request is for delete invoice 
+            if($request->type=='delete'){
+                $this->destroy($request->id);
+            }
+            else{
+                //if for edit
+                $invoice = Invoice::with('user')->find($request->id);
+                $products=Product::where('invoice_no','=',$invoice->invoice_no)->orderby('product_id','asc')->get();
+                $service=Service::where('invoice_no','=',$invoice->invoice_no)->first();
+                $customers=Customer::orderby('name','asc')->select('name','address','trn','phone')->get();
+                $name = array();
+                $data=array();
+                foreach($customers as $customer){
+                    $name += [$customer->name=>$customer->name];
+                    $data = Arr::add($data, $customer->name, [$customer->address,$customer->trn,$customer->phone]);
+                }
+                $data=compact('invoice','products','service','name','data');
+                return view('invoices.edit')->with($data);
+            }
+        }
+        Flash::error(__('messages.wrong', ['model' => 'Password']));
         return redirect(route('invoice.index'));
     }
 }

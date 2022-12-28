@@ -22,6 +22,17 @@ class Product extends Model
     'amount'
     ];
     /**
+     * The attributes that should be mutated to dates.
+     *
+     * @var array
+     */
+    protected $dates = [
+        'created_at',
+        'updated_at',
+        'end_date',
+        'start_date'
+    ];
+    /**
      * Validation rules
      *
      * @var array

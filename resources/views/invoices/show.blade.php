@@ -24,9 +24,9 @@
     .bg-gy th{
         background: #c9c9c9;
     }
-    .sign-table{
+    /* .sign-table{
         width: 175%;
-    }
+    } */
 </style>
 
 @section('content')
@@ -45,7 +45,8 @@
                                 <img
                                 src="{{asset('dist/img/latter-header.jpeg')}}" style="width:100%;margin:auto;" />
                           </div> --}}
-                        <h2 class="text-center text-weight-bold pb-5" style="text-transform: uppercase;">{{ strtoupper($invoice->type)}} @lang('models/invoices.singular')</h2>
+                        <h2 class="text-center text-weight-bold pb-1" style="text-transform: uppercase;">Tax @lang('models/invoices.singular')</h2>
+                        <p class="text-center pb-5">{{ $invoice->trn }}</p>
                         <table class="table mb-4" border="2">
                             <tbody>
                                 <tr>
@@ -107,7 +108,9 @@
                                 <tr class="bg-gy">
                                     @if ($invoice->type=='rental')
                                         <th>@lang('models/products.fields.start_date')</th>
+                                        <th>@lang('models/products.fields.time')</th>
                                         <th>@lang('models/products.fields.end_date')</th> 
+                                        <th>@lang('models/products.fields.time')</th> 
                                     @endif
                                     <th>@lang('models/products.fields.name')</th>
                                     <th>@lang('models/products.fields.unit')</th>
@@ -135,8 +138,10 @@
                                 @endphp
                                     <tr class="expandable-header">
                                         @if ($invoice->type=='rental')
-                                            <td>{{ $product->start_date }}</td>
-                                            <td>{{ $product->end_date }}</td>
+                                            <td>{{ $product->start_date->format('Y-m-d') }}</td>
+                                            <td>{{ $product->start_date->format('H:i:s') }}</td>
+                                            <td>{{ $product->end_date->format('Y-m-d') }}</td>
+                                            <td>{{ $product->end_date->format('H:i:s') }}</td>
                                         @endif
                                         <td>{{ $product->name }}</td>
                                         <td>{{ $product->unit }}</td>
@@ -155,7 +160,7 @@
 
                                 <tr class="bg-gy">
                                         @if ($invoice->type=='rental')
-                                            <td colspan="6"></td>
+                                            <td colspan="8"></td>
                                         @endif
                                         @if ($invoice->type!='rental')
                                             <td colspan="3"></td>
@@ -171,7 +176,6 @@
                         <table class="table mb-4" border="1">
                             <thead>
                               <tr class="bg-gy">
-                                <th>@lang('models/invoices.fields.total')</th>  
                                 <th>@lang('models/invoices.fields.discount')</th>
                                 <th>@lang('models/invoices.fields.gross')</th>
                                 <th>@lang('models/invoices.fields.vat')</th>
@@ -180,7 +184,6 @@
                             </thead>
                             <tbody>
                                   <tr >
-                                      <td>{{ $invoice->total }}</td>
                                       <td>{{ $invoice->discount }}</td>
                                       <td>{{ $invoice->gross }}</td>
                                       <td>{{ $invoice->vat }}</td>
@@ -189,13 +192,14 @@
                             </tbody>
                         </table>
                         <br>
-                        <table class="sign-table mb-5">
-                            <tr>
-                              <td>Lamiae rental</td>
-                              <td></td>
-                              <td>Client signature</td>
-                            </tr>
-                        </table>
+                        <div class="mb-4">
+                            <div class="float-left">
+                                Lamiae rental
+                            </div>
+                            <div class="float-right">
+                                Client signature
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

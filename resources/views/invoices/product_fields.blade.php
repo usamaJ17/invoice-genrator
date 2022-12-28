@@ -130,7 +130,7 @@
     <div class="form-group">
         {!! Form::label('price',__('models/products.fields.price')) !!}
         <div class="input-group">
-                {!! Form::number('price_1', null, ['class' => $errors->has('price') ? 'form-control num_type is-invalid' : 'form-control num_type' ,'id'=>"doc_price"]) !!}
+                {!! Form::number('price_1', null, ['class' => $errors->has('price') ? 'form-control num_type is-invalid' : 'form-control num_type' ,'id'=>"doc_price",'step'=>"any"]) !!}
 
             @if ($errors->has('price'))
                 <span class="invalid-feedback">
@@ -145,7 +145,7 @@
     <div class="form-group">
         {!! Form::label('amount',__('models/products.fields.amount')) !!}
         <div class="input-group">
-                {!! Form::number('amount_1', null, [ 'class' => $errors->has('amount') ? 'form-control is-invalid' : 'form-control','id'=>"proc_amount", "readonly"]) !!}
+                {!! Form::number('amount_1', null, [ 'class' => $errors->has('amount') ? 'form-control is-invalid' : 'form-control','id'=>"proc_amount", "readonly",'step'=>"any"]) !!}
             @if ($errors->has('amount'))
                 <span class="invalid-feedback">
                     <strong>{{ $errors->first('amount') }}</strong>
@@ -171,11 +171,11 @@
                     $("input[name='amount_1']").val($("input[name='price_1']").val() * $("input[name='qty_1']").val());
                 }
                 $( "#discount" ).trigger( "keyup" );
-                update_amount_field();
             });
             var row=$('#exp_file_row');
             $('#exp_del').click(function(){
                 row.remove();
+                $( "#discount" ).trigger( "keyup" );
             })
         });
     </script>

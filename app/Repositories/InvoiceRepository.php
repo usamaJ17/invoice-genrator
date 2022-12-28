@@ -67,6 +67,46 @@ class InvoiceRepository extends BaseRepository
             }          
         }
     }
+    public function updateProduct($input, $id)
+    {
+        // $query = Product::newQuery();
+
+        $model = Product::find($id);
+
+        $model->start_date=(isset($input['start_date_'.$id])) ? $input['start_date_'.$id] : null ;
+        $model->end_date=(isset($input['end_date_'.$id])) ? $input['end_date_'.$id] : null ;
+        $model->name=(isset($input['name_'.$id])) ? $input['name_'.$id] : null ;
+        $model->code=(isset($input['code_'.$id])) ? $input['code_'.$id] : null ;
+        $model->rental=(isset($input['rental_'.$id])) ? $input['rental_'.$id] : null ;
+        $model->period=(isset($input['period_'.$id])) ? $input['period_'.$id] : null ;
+        $model->unit=(isset($input['unit_'.$id])) ? $input['unit_'.$id] : null ;
+        $model->price=(isset($input['price_'.$id])) ? $input['price_'.$id] : null ;
+        $model->qty=(isset($input['qty_'.$id])) ? $input['qty_'.$id] : null ;
+        $model->amount=(isset($input['amount_'.$id])) ? $input['amount_'.$id] : null ;
+        $model->save();
+        
+        return $model;
+    }
+    public function updatedAddProduct($input, $invoice_no)
+    {
+        for ($i=1; $i <= $input['total_row'] ; $i++) { 
+            if(isset($input['start_new_date_'.$i]) || isset($input['name_new_'.$i]) ||  isset($input['amount_new_'.$i])){
+                $product=new Product();
+                $product->invoice_no=$invoice_no;
+                $product->start_date=(isset($input['start_new_date_'.$i])) ? $input['start_new_date_'.$i] : null ;
+                $product->end_date=(isset($input['end_new_date_'.$i])) ? $input['end_new_date_'.$i] : null ;
+                $product->name=(isset($input['name_new_'.$i])) ? $input['name_new_'.$i] : null ;
+                $product->code=(isset($input['code_new_'.$i])) ? $input['code_new_'.$i] : null ;
+                $product->rental=(isset($input['rental_new_'.$i])) ? $input['rental_new_'.$i] : null ;
+                $product->period=(isset($input['period_new_'.$i])) ? $input['period_new_'.$i] : null ;
+                $product->unit=(isset($input['unit_new_'.$i])) ? $input['unit_new_'.$i] : null ;
+                $product->price=(isset($input['price_new_'.$i])) ? $input['price_new_'.$i] : null ;
+                $product->qty=(isset($input['qty_new_'.$i])) ? $input['qty_new_'.$i] : null ;
+                $product->amount=(isset($input['amount_new_'.$i])) ? $input['amount_new_'.$i] : null ;
+                $product->save();
+            }          
+        }
+    }
 
      /**
      * add service to invoice
@@ -87,26 +127,6 @@ class InvoiceRepository extends BaseRepository
             $service->invoice_no=$invoice_no;
             $service->save();
         }
-    }
-    public function updateProduct($input, $id)
-    {
-        // $query = Product::newQuery();
-
-        $model = Product::find($id);
-
-        $model->start_date=(isset($input['start_date_'.$id])) ? $input['start_date_'.$id] : null ;
-        $model->end_date=(isset($input['end_date_'.$id])) ? $input['end_date_'.$id] : null ;
-        $model->name=(isset($input['name_'.$id])) ? $input['name_'.$id] : null ;
-        $model->code=(isset($input['code_'.$id])) ? $input['code_'.$id] : null ;
-        $model->rental=(isset($input['rental_'.$id])) ? $input['rental_'.$id] : null ;
-        $model->period=(isset($input['period_'.$id])) ? $input['period_'.$id] : null ;
-        $model->unit=(isset($input['unit_'.$id])) ? $input['unit_'.$id] : null ;
-        $model->price=(isset($input['price_'.$id])) ? $input['price_'.$id] : null ;
-        $model->qty=(isset($input['qty_'.$id])) ? $input['qty_'.$id] : null ;
-        $model->amount=(isset($input['amount_'.$id])) ? $input['amount_'.$id] : null ;
-        $model->save();
-        
-        return $model;
     }
 
     public function updateservice($input, $id)

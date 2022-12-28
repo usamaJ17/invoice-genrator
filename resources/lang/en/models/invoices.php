@@ -7,6 +7,7 @@ return array (
   array (
     'no' => 'Invoice Number',
     'date' => 'Date',
+    'time' => 'Time',
     'name' => 'Client name',
     'authorized' => 'Authorized',
     'phone'=>'Phone no',
@@ -24,7 +25,7 @@ return array (
     'discount' => 'Discount',
     'gross' => 'Ex VAT',
     'vat' => 'VAT',
-    'vat_amount' => 'Total',
+    'vat_amount' => 'Total included VAT',
     'date'=>"Date",
     'created_at' => 'Created At',
     'updated_at' => 'Updated At',

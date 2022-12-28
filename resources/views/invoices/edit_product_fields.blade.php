@@ -1,6 +1,6 @@
 <input type="hidden" name='product_id' value={{$product->product_id}}>
 <div class="row edit_product_row">
-    <div class="col-sm-1 rental_field">
+    <div class="col-sm-2 rental_field">
         <div class="form-group">
             {!! Form::label('start_date',   __('models/products.fields.start_date')) !!}
             <div class="input-group">
@@ -18,7 +18,7 @@
             </div>
         </div>
     </div>
-    <div class="col-sm-1 rental_field">
+    <div class="col-sm-2 rental_field">
         <div class="form-group">
             {!! Form::label('end_date',  __('models/products.fields.end_date')) !!}
             <div class="input-group">

@@ -20,6 +20,9 @@ class InvoiceDataTable extends DataTable
         $dataTable = new EloquentDataTable($query);
 
         return $dataTable->addIndexColumn()->addColumn('action', 'invoices.datatables_actions')
+        ->addColumn('date', function($query) {
+            return $query->date;
+        })
         ->rawColumns(['action']);
     }
 

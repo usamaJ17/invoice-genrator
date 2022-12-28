@@ -15,7 +15,7 @@ class CreateInvoiceTable extends Migration
     {
         Schema::create('invoice', function (Blueprint $table) {
             $table->id('invoice_no');
-            $table->dateTime('date')->nullable();
+            $table->timestamp('date')->nullable();
             $table->string('customer')->nullable();
             $table->string('authorized')->nullable();
             $table->string('phone')->nullable();
@@ -27,10 +27,10 @@ class CreateInvoiceTable extends Migration
             $table->text('address')->nullable();
             $table->string('remarks')->nullable();
             $table->integer('total')->nullable();
-            $table->integer('discount')->nullable();
-            $table->integer('gross')->nullable();
-            $table->integer('vat')->nullable();
-            $table->integer('vat_amount')->nullable();     
+            $table->float('discount')->nullable();
+            $table->float('gross')->nullable();
+            $table->float('vat')->nullable();
+            $table->float('vat_amount')->nullable();     
             $table->timestamps();
         });
     }

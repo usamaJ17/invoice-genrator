@@ -3,6 +3,7 @@
 return [
 
     'retrieved' => ':model retrieved successfully.',
+    'wrong' => ':model entered is wrong.',
     'saved'     => ':model saved successfully.',
     'updated'   => ':model updated successfully.',
     'deleted'   => ':model deleted successfully.',

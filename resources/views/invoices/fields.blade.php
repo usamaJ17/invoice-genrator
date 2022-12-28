@@ -52,7 +52,7 @@
         <div class="form-group ">
             {!! Form::label('customer', __('models/invoices.fields.name')) !!}
             <div class="input-group">
-                {!! Form::select('customer',$data, null , ['class' => $errors->has('customer') ? 'form-control is-invalid' : 'form-control', 'id' => 'customer']) !!}
+                {!! Form::select('customer',$name, null , ['class' => $errors->has('customer') ? 'form-control is-invalid' : 'form-control', 'id' => 'customer']) !!}
                 @if ($errors->has('customer'))
                     <span class="invalid-feedback">
                         <strong>{{ $errors->first('customer') }}</strong>
@@ -64,11 +64,18 @@
     @section('scripts')
     @parent
         <script src="{{ asset('plugins/select2/js/select2.full.min.js')}}"></script>
-        <script>
+        <script type="text/javascript">
 
             $('#customer').select2({
                 theme: 'bootstrap4',
                 tags: true
+            })
+            var customer_data = @json($data);
+            $('#customer').on('change',function(){
+                $('#customer_phone').val(customer_data[this.value][2]);
+                $('#customer_trn').val(customer_data[this.value][1]);
+                $('#customer_address').val(customer_data[this.value][0]);
+                
             })
         </script>
     @endsection
@@ -86,7 +93,7 @@
     <div class="col-sm-2">
         <div class="form-group ">
             {!! Form::label('phone', __('models/invoices.fields.phone')) !!}
-            {!! Form::text('phone', null, ['class' => $errors->has('phone') ? 'form-control is-invalid' : 'form-control']) !!}
+            {!! Form::text('phone', null, ['class' => $errors->has('phone') ? 'form-control is-invalid' : 'form-control' ,'id'=>'customer_phone']) !!}
             @if ($errors->has('phone'))
                 <span class="invalid-feedback">
                     <strong>{{ $errors->first('phone') }}</strong>
@@ -97,7 +104,7 @@
     <div class="col-sm-3">
         <div class="form-group ">
             {!! Form::label('trn', __('models/invoices.fields.trn')) !!}
-            {!! Form::text('trn', null, ['class' => $errors->has('trn') ? 'form-control is-invalid' : 'form-control']) !!}
+            {!! Form::text('trn', null, ['class' => $errors->has('trn') ? 'form-control is-invalid' : 'form-control','id'=>'customer_trn']) !!}
             @if ($errors->has('trn'))
                 <span class="invalid-feedback">
                     <strong>{{ $errors->first('trn') }}</strong>
@@ -154,7 +161,7 @@
     <div class="col-sm-3">
         <div class="form-group ">
             {!! Form::label('address', __('models/invoices.fields.address')) !!}
-            {!! Form::text('address', null, ['class' => $errors->has('address') ? 'form-control is-invalid' : 'form-control']) !!}
+            {!! Form::text('address', null, ['class' => $errors->has('address') ? 'form-control is-invalid' : 'form-control','id'=>'customer_address']) !!}
             @if ($errors->has('address'))
                 <span class="invalid-feedback">
                     <strong>{{ $errors->first('address') }}</strong>
@@ -180,10 +187,8 @@
 {{-- products fields (few difference-- will be handeled by a jquery script) --}}
 <h3>Products :</h3>
 <br>
-@if (str_contains(url()->current(), '/create'))
     <a class="btn btn-success mb-2" id="add_new_exp_field"><i class="fa fa-plus"></i> Add Product</a>
     <input type="hidden" name="total_row" value=1 id="total_row">
-@endif
 
 @if (str_contains(url()->current(), '/create'))
     <div class="row" id="exp_file_row">
@@ -208,7 +213,7 @@
     <div class="col-sm-2">
         <div class="form-group ">
             {!! Form::label('discount', __('models/invoices.fields.discount')) !!}
-            {!! Form::number('discount', null, ['class' => $errors->has('discount') ? 'form-control auto_amount_cal is-invalid' : 'form-control auto_amount_cal','id'=>'discount' ]) !!}
+            {!! Form::number('discount', null, ['class' => $errors->has('discount') ? 'form-control auto_amount_cal is-invalid' : 'form-control auto_amount_cal','step'=>"any",'id'=>'discount' ]) !!}
             @if ($errors->has('discount'))
                 <span class="invalid-feedback">
                     <strong>{{ $errors->first('discount') }}</strong>
@@ -219,7 +224,7 @@
     <div class="col-sm-2">
         <div class="form-group ">
             {!! Form::label('gross', __('models/invoices.fields.gross') ) !!}
-            {!! Form::number('gross', null, ['class' => $errors->has('gross') ? 'form-control auto_amount_cal is-invalid' : 'form-control auto_amount_cal']) !!}
+            {!! Form::number('gross', null, ['class' => $errors->has('gross') ? 'form-control auto_amount_cal is-invalid' : 'form-control auto_amount_cal','step'=>"any"]) !!}
             @if ($errors->has('gross'))
                 <span class="invalid-feedback">
                     <strong>{{ $errors->first('gross') }}</strong>
@@ -230,7 +235,7 @@
     <div class="col-sm-2">
         <div class="form-group ">
             {!! Form::label('vat', __('models/invoices.fields.vat') ) !!}
-            {!! Form::number('vat', null, ['class' => $errors->has('vat') ? 'form-control auto_amount_cal is-invalid' : 'form-control auto_amount_cal']) !!}
+            {!! Form::number('vat', null, ['class' => $errors->has('vat') ? 'form-control auto_amount_cal is-invalid' : 'form-control auto_amount_cal' ,'step'=>"any"]) !!}
             @if ($errors->has('vat'))
                 <span class="invalid-feedback">
                     <strong>{{ $errors->first('vat') }}</strong>
@@ -241,7 +246,7 @@
     <div class="col-sm-2">
         <div class="form-group ">
             {!! Form::label('vat_amount', __('models/invoices.fields.vat_amount') ) !!}
-            {!! Form::number('vat_amount', null, ['class' => $errors->has('vat_amount') ? 'form-control auto_amount_cal is-invalid' : 'form-control auto_amount_cal']) !!}
+            {!! Form::number('vat_amount', null, ['class' => $errors->has('vat_amount') ? 'form-control auto_amount_cal is-invalid' : 'form-control auto_amount_cal','step'=>"any"]) !!}
             @if ($errors->has('vat_amount'))
                 <span class="invalid-feedback">
                     <strong>{{ $errors->first('vat_amount') }}</strong>
@@ -269,11 +274,11 @@
 @section('scripts')
     @parent
     <script src="{{ asset('plugins/daterangepicker/daterangepicker.js') }}"></script>
-    <script>
+    <script type="text/javascript">
         var total_amount=0;
     </script>
     {{-- -- exp_doc uplode field name change script-- --}}
-       <script type="text/javascript">
+    <script type="text/javascript">
        // in edit seting customer field value
         $(document).ready(function() {
             @if (str_contains(url()->current(), '/edit'))
@@ -343,6 +348,9 @@
 
             // clone products row
             var totalRow=$('#total_row').val();
+            @if (str_contains(url()->current(), '/edit'))
+                totalRow--;
+            @endif
             var row=$('#exp_file_row').clone(false);
             $('#add_new_exp_field').click(function() {
                 totalRow++;
@@ -352,60 +360,84 @@
                 var fields=copy.find(':input');
                 $.each( fields, function( key, field ) {
                     field.name=field.name.replace(/\d+/,totalRow);
+                    @if (str_contains(url()->current(), '/edit'))
+                        field.name=field.name.replace('_','_new_');
+                        field.value=null;
+                        // console.log(field);
+                    @endif
                 });
 
-                copy.find('#exp_del').click(function() {
-                    copy.remove();
-                });
-                $('#add_new_exp_field').after(copy);
                 //auto amount calculate
-                $("input[name='price_"+totalRow+"']").add("input[name='qty_"+totalRow+"']").add("input[name='period_"+totalRow+"']").on('change', function(){
-                    var period=$("input[name='period_"+totalRow+"']").val();
+                copy.find("input[name*='price']").add(copy.find("input[name*='qty']")).add(copy.find("input[name*='period']")).on('change', function(){
+                    var period=copy.find("input[name*='period']").val();
                     if(period != 0 && period !='0'){
-                        $("input[name='amount_"+totalRow+"']").val($("input[name='price_"+totalRow+"']").val() * $("input[name='qty_"+totalRow+"']").val() * period);
+                        copy.find("input[name*='amount']").val(copy.find("input[name*='price']").val() * copy.find("input[name*='qty']").val() * period);
                     }
                     else{
-                        $("input[name='amount_"+totalRow+"']").val($("input[name='price_"+totalRow+"']").val() * $("input[name='qty_"+totalRow+"']").val());
+                        copy.find("input[name*='amount']").val(copy.find("input[name*='price']").val() * copy.find("input[name*='qty']").val());
                     }
+                    @if (str_contains(url()->current(), '/edit'))
+                        $( "#discount" ).trigger( "keyup" );
+                    @else
+                        update_amount_field();
+                    @endif
+                    
+                });
+                copy.find('#exp_del').click(function() {
+                    copy.remove();
                     update_amount_field();
                 });
 
-                //adjust new fields ased on type
-                var invoice_type=$('input[type=radio][name=type]:checked').val();
-                handelFields(invoice_type);
                 //add date picker to coppied row
                 copy.find('.date').daterangepicker({
                     singleDatePicker: true,
-                    timePicker: false,
+                    timePicker: true,
                     locale: {
-                        format: 'YYYY-MM-DD'
+                        format: 'YYYY-MM-DD HH:mm'
                     }
                 });
-                copy.find('.date').val(null);
+                @if (str_contains(url()->current(), '/create'))
+                    copy.find('.date').val(null);
+                @endif
+
+                $('#add_new_exp_field').after(copy);
+                //adjust new fields ased on type
+                var invoice_type=$('input[type=radio][name=type]:checked').val();
+                handelFields(invoice_type);
             });
             function update_amount_field(product_start=1,product_end=totalRow){
                 var sum=0;
-                for (let product_start = 1; product_start <= product_end; product_start++) {
+                while(product_start <= product_end){
                     if($("input[name='amount_"+product_start+"']").val()){
                         sum+=parseFloat($("input[name='amount_"+product_start+"']").val());
                     }
+                    product_start++;
                 }
-                $("input[name=total]").val(sum);
+                // add amount of new fields in total
+                @if (str_contains(url()->current(), '/edit'))
+                    product_start =1
+                    while(product_start <= totalRow){
+                        if($("input[name='amount_new_"+product_start+"']").val()){
+                            sum+=parseFloat($("input[name='amount_new_"+product_start+"']").val());
+                        }
+                        product_start++;
+                    }
+                @endif
                 var discount=$("input[name=discount]").val();
                 var gross=$("input[name=gross]");
                 gross.val(sum-discount);
-                var vat=Math.round(gross.val()* 0.05);
+                var vat=(gross.val()* 0.05).toFixed(3);
                 $("input[name=vat]").val(vat);
                 vat_amount=$("input[name=vat_amount]").val( Number(gross.val()) + Number(vat));
                 return sum;
             }
-            $('#discount').on('keyup', function(){
+            $('#discount').on('keyup change', function(){
                 @if (str_contains(url()->current(), '/edit'))
                     var prod=@json($products);
                     var start,end=0;
                     if (prod.length !== 0){
-                        end=prod[0]['product_id'];
-                        start=prod.pop()['product_id'];
+                        start=prod[0]['product_id'];
+                        end=prod.pop()['product_id'];
                         update_amount_field(start,end);
                     }
                 @else

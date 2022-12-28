@@ -19,7 +19,7 @@ class CreateServiceTable extends Migration
             $table->string('name')->nullable();
             $table->string('model')->nullable();
             $table->string('brand')->nullable();
-            $table->integer('amount')->nullable();
+            $table->float('amount')->nullable();
             $table->unsignedBigInteger('invoice_no')->nullable();
             $table->foreign('invoice_no')->references('invoice_no')->on('invoice')->onDelete('cascade');
             $table->timestamps();
