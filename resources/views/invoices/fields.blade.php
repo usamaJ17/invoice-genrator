@@ -48,7 +48,20 @@
         <link rel="stylesheet" href="{{ asset('plugins/select2/css/select2.min.css')}}">
         <link rel="stylesheet" href="{{ asset('plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css')}}">
     @endsection
-    <div class="col-sm-3">
+    @if (str_contains(url()->current(), '/create'))
+        <div class="col-sm-1">
+            <div class="form-group ">
+                {!! Form::label('no', __('models/invoices.fields.no')) !!}
+                {!! Form::text('no', $nextId, ['class' => $errors->has('no') ? 'form-control is-invalid' : 'form-control', 'disabled']) !!}
+                @if ($errors->has('no'))
+                    <span class="invalid-feedback">
+                        <strong>{{ $errors->first('no') }}</strong>
+                    </span>
+                @endif
+            </div>
+        </div>
+    @endif    
+    <div class="col-sm-2">
         <div class="form-group ">
             {!! Form::label('customer', __('models/invoices.fields.name')) !!}
             <div class="input-group">
@@ -81,6 +94,17 @@
     @endsection
     <div class="col-sm-2">
         <div class="form-group ">
+            {!! Form::label('manual', __('models/invoices.fields.manual')) !!}
+            {!! Form::text('manual', null, ['class' => $errors->has('manual') ? 'form-control is-invalid' : 'form-control']) !!}
+            @if ($errors->has('manual'))
+                <span class="invalid-feedback">
+                    <strong>{{ $errors->first('manual') }}</strong>
+                </span>
+            @endif
+        </div>
+    </div>
+    <div class="col-sm-1">
+        <div class="form-group ">
             {!! Form::label('authorized', __('models/invoices.fields.authorized')) !!}
             {!! Form::text('authorized', null, ['class' => $errors->has('authorized') ? 'form-control is-invalid' : 'form-control']) !!}
             @if ($errors->has('authorized'))
@@ -101,7 +125,7 @@
             @endif
         </div>
     </div>
-    <div class="col-sm-3">
+    <div class="col-sm-2">
         <div class="form-group ">
             {!! Form::label('trn', __('models/invoices.fields.trn')) !!}
             {!! Form::text('trn', null, ['class' => $errors->has('trn') ? 'form-control is-invalid' : 'form-control','id'=>'customer_trn']) !!}

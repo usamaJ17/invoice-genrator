@@ -35,7 +35,7 @@ class InvoiceDataTable extends DataTable
     public function query(Invoice $model)
     {
         // return $model->newQuery()->orderBy('invoice_no','desc');
-        $model = $model->newQuery();
+        $model = $model->newQuery()->with('customer');
 
         if(request('from_date') && request('to_date'))
         $model->whereDate('date', '>=', request('from_date'))
@@ -105,7 +105,8 @@ class InvoiceDataTable extends DataTable
             'S.no' => new Column(['title' =>"S.no", 'data' => 'DT_RowIndex']),
             'date' => new Column(['title' => __('models/invoices.fields.date'), 'data' => 'date']),
             'invoice_no' => new Column(['title' => __('models/invoices.fields.no'), 'data' => 'invoice_no']),
-            'name' => new Column(['title' => __('models/invoices.fields.name'), 'data' => 'customer']),
+            'manual' => new Column(['title' => __('models/invoices.fields.manual'), 'data' => 'manual']),
+            'name' => new Column(['title' => __('models/invoices.fields.name'), 'data' => 'customer.name']),
             'type' => new Column(['title' => __('models/invoices.fields.type'), 'data' => 'type','searchable' => false]),
             'authorized' => new Column(['title' => __('models/invoices.fields.authorized'), 'data' => 'authorized','searchable' => false]),
             'phone' => new Column(['title' => __('models/invoices.fields.phone'), 'data' => 'phone','searchable' => false]),

@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use App\User;
+use App\Models\Customer;
 use Illuminate\Database\Eloquent\Model;
 
 class Invoice extends Model
@@ -12,6 +12,7 @@ class Invoice extends Model
    public $fillable = [
     'customer',
     'date',
+    'manual',
     'authorized',
     'phone',
     'trn',
@@ -47,9 +48,9 @@ class Invoice extends Model
         'updated_at',
         'date'
     ];
-    public function user()
+    public function customer()
     {
-        return $this->belongsTo(User::class,'user_id');
+        return $this->belongsTo(Customer::class,'customer');
     }
      /**
      * Get the products that associated with invoice.

@@ -5,7 +5,8 @@ return array (
   'plural' => 'Invoices',
   'fields' =>
   array (
-    'no' => 'Invoice Number',
+    'no' => 'Invoice No',
+    'manual' => 'Manual Invoice Number',
     'date' => 'Date',
     'time' => 'Time',
     'name' => 'Client name',

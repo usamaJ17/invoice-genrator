@@ -5,6 +5,7 @@ namespace App\Repositories;
 use App\Models\Invoice;
 use App\Models\Product;
 use App\Models\Service;
+use App\Models\Customer;
 use App\Repositories\BaseRepository;
 
 /**
@@ -143,5 +144,39 @@ class InvoiceRepository extends BaseRepository
         $model->save();
         
         return $model;
+    }
+     /**
+     * create a new customer
+     *
+     * @param array $input
+     *
+     * @return id
+     */
+    public function createCustomer($input)
+    {
+        $customer=new Customer();
+        $customer->name=$input['customer'];
+        $customer->phone=$input['phone'];
+        $customer->trn=$input['trn'];
+        $customer->address=$input['address'];
+        $customer->save();
+        return (string)$customer->id;
+    }
+
+         /**
+     * update a customer 
+     *
+     * @param array $input
+     *
+     * @return Model
+     */
+    public function updateCustomer($input)
+    {
+        $customer=Customer::find($input['customer']);
+        $customer->phone=$input['phone'];
+        $customer->trn=$input['trn'];
+        $customer->address=$input['address'];
+        $customer->save();
+        return ;
     }
 }

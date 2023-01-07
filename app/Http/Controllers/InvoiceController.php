@@ -12,6 +12,7 @@ use App\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Arr;
+use DB;
 
 use Flash;
 
@@ -44,14 +45,15 @@ class InvoiceController extends Controller
      */
     public function create()
     {
-        $customers=Customer::orderby('name','asc')->select('name','address','trn','phone')->get();
+        $nextId = DB::select("SHOW TABLE STATUS LIKE 'invoice'")[0]->Auto_increment;
+        $customers=Customer::orderby('name','asc')->select('id','name','address','trn','phone')->get();
         $name = array();
         $data=array();
         foreach($customers as $customer){
-            $name += [$customer->name=>$customer->name];
-            $data = Arr::add($data, $customer->name, [$customer->address,$customer->trn,$customer->phone]);
+            $name += [$customer->id=>$customer->name];
+            $data = Arr::add($data, $customer->id, [$customer->address,$customer->trn,$customer->phone]);
         }
-        return view('invoices.create')->with(compact('name','data'));
+        return view('invoices.create')->with(compact('name','data','nextId'));
     }
 
     /**
@@ -64,7 +66,15 @@ class InvoiceController extends Controller
     {
         // dd($request->all());
         // create Invoice
+        if (!ctype_digit($request->customer)) {
+            $customer_id = $this->invoiceRepository->createCustomer($request->all());
+            $request->merge([
+                'customer' => $customer_id,
+            ]);
+        }
         $input = $request->all();
+
+        $this->invoiceRepository->updateCustomer($input);
 
         $invoice = $this->invoiceRepository->create($input);
 
@@ -139,6 +149,14 @@ class InvoiceController extends Controller
 
             return redirect(route('invoice.index'));
         }
+        if (!ctype_digit($request->customer)) {
+            $customer_id = $this->invoiceRepository->createCustomer($request->all());
+            $request->merge([
+                'customer' => $customer_id,
+            ]);
+        }
+        $this->invoiceRepository->updateCustomer($request->all());
+
         $invoice = $this->invoiceRepository->update($request->all(), $id);
 
         // update products associated with invoice
@@ -193,15 +211,15 @@ class InvoiceController extends Controller
             }
             else{
                 //if for edit
-                $invoice = Invoice::with('user')->find($request->id);
+                $invoice = Invoice::with('customer')->find($request->id);
                 $products=Product::where('invoice_no','=',$invoice->invoice_no)->orderby('product_id','asc')->get();
                 $service=Service::where('invoice_no','=',$invoice->invoice_no)->first();
-                $customers=Customer::orderby('name','asc')->select('name','address','trn','phone')->get();
+                $customers=Customer::orderby('name','asc')->select('id','name','address','trn','phone')->get();
                 $name = array();
                 $data=array();
                 foreach($customers as $customer){
-                    $name += [$customer->name=>$customer->name];
-                    $data = Arr::add($data, $customer->name, [$customer->address,$customer->trn,$customer->phone]);
+                    $name += [$customer->id=>$customer->name];
+                    $data = Arr::add($data, $customer->id, [$customer->address,$customer->trn,$customer->phone]);
                 }
                 $data=compact('invoice','products','service','name','data');
                 return view('invoices.edit')->with($data);
