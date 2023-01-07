@@ -67,8 +67,8 @@ class InvoiceDataTable extends DataTable
             ])
             ->addAction(['width' => '120px', 'printable' => false, 'title' => __('crud.action')])
             ->parameters([
+                'pageLength' => '25',
                 'dom'       => '<"row" <"col-md-3"B> <"col-md-7"<"table-filter">> <"col-md-2"f> >rt<"row" <"col-md-6"li> <"col-md-6"p> >',
-                'stateSave' => true,
                 'bSort' => false,
                 'order'     => [[0, 'desc']],
                 'buttons'   => [
@@ -102,9 +102,8 @@ class InvoiceDataTable extends DataTable
     protected function getColumns()
     {
         return [
-            'S.no' => new Column(['title' =>"S.no", 'data' => 'DT_RowIndex']),
-            'date' => new Column(['title' => __('models/invoices.fields.date'), 'data' => 'date']),
             'invoice_no' => new Column(['title' => __('models/invoices.fields.no'), 'data' => 'invoice_no']),
+            'date' => new Column(['title' => __('models/invoices.fields.date'), 'data' => 'date']),
             'manual' => new Column(['title' => __('models/invoices.fields.manual'), 'data' => 'manual']),
             'name' => new Column(['title' => __('models/invoices.fields.name'), 'data' => 'customer.name']),
             'type' => new Column(['title' => __('models/invoices.fields.type'), 'data' => 'type','searchable' => false]),

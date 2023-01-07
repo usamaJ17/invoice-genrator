@@ -100,7 +100,7 @@
     <div class="form-group">
         {!! Form::label('period',__('models/products.fields.period')) !!}
         <div class="input-group">
-                {!! Form::number('period_1', null, ['class' => $errors->has('period') ? 'form-control is-invalid' : 'form-control' ,'id'=>"doc_period"]) !!}
+                {!! Form::number('period_1', null, ['class' => $errors->has('period') ? 'form-control is-invalid' : 'form-control' ,'id'=>"doc_period" ,'step'=>"any"]) !!}
 
             @if ($errors->has('period'))
                 <span class="invalid-feedback">

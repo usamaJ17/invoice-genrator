@@ -2,7 +2,7 @@
     <a href="{{ route('home') }}" class="nav-link {{ Request::is('/*') ? 'active' : '' }}">Dashboard</a>
 </li> --}}
 <li class="nav-item dropdown">
-    <a href="#" class="nav-link">Home</a> 
+    <a href="{{url('/')}}" class="nav-link">Home</a> 
 </li>
 <li class="nav-item dropdown">
     <a href="{{route('invoice.index')}}" class="nav-link">Invoice</a> 

@@ -101,7 +101,7 @@
         <div class="form-group">
             {!! Form::label('period',__('models/products.fields.period')) !!}
             <div class="input-group">
-                    {!! Form::number('period_'.$product->product_id,$product->period, ['class' => $errors->has('period') ? 'form-control is-invalid' : 'form-control' ,'id'=>"doc_period"]) !!}
+                    {!! Form::number('period_'.$product->product_id,$product->period, ['class' => $errors->has('period') ? 'form-control is-invalid' : 'form-control' ,'id'=>"doc_period", 'step'=>"any"]) !!}
                 @if ($errors->has('period'))
                     <span class="invalid-feedback">
                         <strong>{{ $errors->first('period') }}</strong>
@@ -129,7 +129,7 @@
         <div class="form-group">
             {!! Form::label('price',__('models/products.fields.price')) !!}
             <div class="input-group">    
-                    {!! Form::number('price_'.$product->product_id,$product->price, ['class' => $errors->has('price') ? 'form-control num_type is-invalid' : 'form-control num_type' ,'id'=>"doc_price"]) !!}
+                    {!! Form::number('price_'.$product->product_id,$product->price, ['class' => $errors->has('price') ? 'form-control num_type is-invalid' : 'form-control num_type' ,'id'=>"doc_price", 'step'=>"any"]) !!}
                 @if ($errors->has('price'))
                     <span class="invalid-feedback">
                         <strong>{{ $errors->first('price') }}</strong>

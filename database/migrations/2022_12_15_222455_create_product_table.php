@@ -21,7 +21,7 @@ class CreateProductTable extends Migration
             $table->string('name')->nullable();
             $table->string('code')->nullable();
             $table->string('rental')->nullable();
-            $table->integer('period')->nullable();
+            $table->float('period')->nullable();
             $table->string('unit')->nullable();
             $table->float('price')->nullable();
             $table->integer('qty')->nullable();

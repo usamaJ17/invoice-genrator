@@ -53,7 +53,7 @@
                                     <th>@lang('models/invoices.fields.name')</th>
                                     <td>{{ $invoice->customer }}</td>
                                     <th>@lang('models/invoices.fields.date')</th>
-                                    <td>{{ $invoice->date }}</td>
+                                    <td>{{ ($invoice->date) ? $invoice->date->format('Y-m-d H:i') : "" }}</td>
                                   </tr>
                                   <tr >
                                     <th>@lang('models/invoices.fields.authorized')</th>
@@ -139,9 +139,9 @@
                                     <tr class="expandable-header">
                                         @if ($invoice->type=='rental')
                                             <td>{{ $product->start_date->format('Y-m-d') }}</td>
-                                            <td>{{ $product->start_date->format('H:i:s') }}</td>
+                                            <td>{{ $product->start_date->format('H:i') }}</td>
                                             <td>{{ $product->end_date->format('Y-m-d') }}</td>
-                                            <td>{{ $product->end_date->format('H:i:s') }}</td>
+                                            <td>{{ $product->end_date->format('H:i') }}</td>
                                         @endif
                                         <td>{{ $product->name }}</td>
                                         <td>{{ $product->unit }}</td>
