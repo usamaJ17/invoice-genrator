@@ -22,6 +22,10 @@
 </div>
 <br>
 {{-- basic invoice fields (same for all) --}}
+@section('css')
+@parent
+    <link rel="stylesheet" href="{{ asset('plugins/flatpickr/flatpickr.min.css')}}">
+@endsection
 <div class="row">
     <div class="col-sm-2">
         <div class="form-group">
@@ -297,7 +301,7 @@
 {{-- scrtipts (clone products row and change fileds based on type ) --}}
 @section('scripts')
     @parent
-    <script src="{{ asset('plugins/daterangepicker/daterangepicker.js') }}"></script>
+    <script src="{{ asset('plugins\flatpickr\flatpickr.min.js') }}"></script>
     <script type="text/javascript">
         var total_amount=0;
     </script>
@@ -314,12 +318,9 @@
                     $('#customer').trigger('change'); // Notify any JS components that the value changed
                 }
             @endif
-            $('.date').daterangepicker({
-                singleDatePicker: true,
-                timePicker: true,
-                locale: {
-                    format: 'YYYY-MM-DD HH:mm'
-                }
+            $('.date').flatpickr({
+                enableTime: true,
+                dateFormat: "Y-m-d H:i",
             });
             @if (str_contains(url()->current(), '/create'))
                 $('.date').val(null);
@@ -413,12 +414,9 @@
                 });
 
                 //add date picker to coppied row
-                copy.find('.date').daterangepicker({
-                    singleDatePicker: true,
-                    timePicker: true,
-                    locale: {
-                        format: 'YYYY-MM-DD HH:mm'
-                    }
+                copy.find('.date').flatpickr({
+                    enableTime: true,
+                    dateFormat: "Y-m-d H:i",
                 });
                 @if (str_contains(url()->current(), '/create'))
                     copy.find('.date').val(null);

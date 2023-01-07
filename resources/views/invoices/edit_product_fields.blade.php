@@ -1,3 +1,7 @@
+@section('css')
+@parent
+    <link rel="stylesheet" href="{{ asset('plugins/flatpickr/flatpickr.min.css')}}">
+@endsection
 <input type="hidden" name='product_id' value={{$product->product_id}}>
 <div class="row edit_product_row">
     <div class="col-sm-2 rental_field">
@@ -151,7 +155,7 @@
 </div>
 @section('scripts')
     @parent
-    <script src="{{ asset('plugins/daterangepicker/daterangepicker.js') }}"></script>
+    <script src="{{ asset('plugins\flatpickr\flatpickr.min.js') }}"></script>
     <script type="text/javascript">
         $(document).ready(function() {
             $("input[name='price_"+{{$product->product_id}}+"']").add("input[name='qty_"+{{$product->product_id}}+"']").add("input[name='period_"+{{$product->product_id}}+"']").on('change', function(){
