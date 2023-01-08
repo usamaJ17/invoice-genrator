@@ -128,7 +128,7 @@
         <!-- File Field -->
         <div class="form-group">
             {!! Form::label('price',__('models/products.fields.price')) !!}
-            <div class="input-group">    
+            <div class="input-group">
                     {!! Form::number('price_'.$product->product_id,$product->price, ['class' => $errors->has('price') ? 'form-control num_type is-invalid' : 'form-control num_type' ,'id'=>"doc_price", 'step'=>"any"]) !!}
                 @if ($errors->has('price'))
                     <span class="invalid-feedback">
