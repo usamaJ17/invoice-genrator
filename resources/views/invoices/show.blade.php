@@ -37,14 +37,16 @@
                 <div class="col-md-12">
                     <div class="invoice p-3 mb-3">
                         <div class="row no-print">
-                            <div class="col-12" style="position: absolute;width: 100%;right: 15px;">
-                              <button type="button" onclick="return window.print();" class="btn btn-default float-right"><i class="fas fa-print"></i> Print</button>
+                            <div class="col-12">
+                              <button type="button" class="btn btn-default float-right" onclick="printWithoutlogo()"><i class="fas fa-print"></i> Print Invoice</button>
+                              <button type="button" class="btn btn-default float-right" onclick="printWithlogo()"><i class="fas fa-print"></i> Print Invoice With Logo's</button>
                             </div>
                           </div>
-                          {{-- <div class="col-xs-12 text-center">
-                                <img
-                                src="{{asset('dist/img/latter-header.jpeg')}}" style="width:100%;margin:auto;" />
-                          </div> --}}
+                        <div class="row" id="header">
+                            <div class="col-md-12">
+                                    <img src="{{url('/uploads/invoice_header.jpg')}}" width="100%" />
+                            </div>
+                        </div>
                         <h2 class="text-center text-weight-bold pb-1" style="text-transform: uppercase;">Tax @lang('models/invoices.singular') <span class="k-code-list">(<span>{{ $invoice->trn }}</span>)</span></h2>
                         <div class="row justify-content-between">
                             <div class="col-md-5">
@@ -219,12 +221,29 @@
                             </div>
                         </div>
                     </div>
+                    <div class="row" id="footer">
+                        <div class="col-md-12">
+                            <img src="{{url('/uploads/invoice_footer.jpg')}}" width="100%" />
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 @endsection
-
+<script type="text/javascript">
+    function printWithlogo() {
+        console.log("sss");
+        document.getElementById('header').style.display = 'block';
+        document.getElementById('footer').style.display = 'block';
+        window.print();
+    }
+    function printWithoutlogo() {
+        document.getElementById('header').style.display = 'none';
+        document.getElementById('footer').style.display = 'none';
+        window.print();
+    }
+</script>
 <style>
     .k-bg-gy{
         background-color:#f1f0f0 !important;

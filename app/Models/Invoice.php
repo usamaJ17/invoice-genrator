@@ -4,9 +4,10 @@ namespace App\Models;
 
 use App\Models\Customer;
 use Illuminate\Database\Eloquent\Model;
+use Carbon\Carbon;
 
 class Invoice extends Model
-{   
+{
    public $table = 'invoice';
    public $primaryKey = 'invoice_no';
    public $fillable = [
@@ -51,6 +52,11 @@ class Invoice extends Model
     public function customer()
     {
         return $this->belongsTo(Customer::class,'customer');
+    }
+
+    public function getDateAttribute($value)
+    {
+        return Carbon::parse($value)->format('Y-m-d H:i');
     }
      /**
      * Get the products that associated with invoice.
