@@ -76,7 +76,7 @@
                                 </table>
                             </div>
                             <div class="col-md-3">
-                                <p class="mb-1">@lang('models/invoices.fields.date') <span>{{ ($invoice->date) ? $invoice->date->format('Y-m-d H:i') : "" }}</span></p>
+                                <p class="mb-1">@lang('models/invoices.fields.date') <span>{{ $invoice->date }}</span></p>
                                 <table class="table mb-4">
                                     <tbody>
                                         <tr >
