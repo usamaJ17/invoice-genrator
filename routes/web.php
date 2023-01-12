@@ -33,5 +33,8 @@ Route::group(['middleware' => ['auth']], function() {
     // invoice routes
     Route::resource('invoice', 'InvoiceController');
     Route::post('/invoice/edit','InvoiceController@checkPassword')->name('checkPassword');
+    //purchase routes
+    Route::resource('purchase', 'PurchaseController');
+    Route::post('/purchase/edit','PurchaseController@checkPassword')->name('checkPassword_purchase');
     // Route::post('user/add','UserController@addUser')->name('addUsers');
 });

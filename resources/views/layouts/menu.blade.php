@@ -7,5 +7,7 @@
 <li class="nav-item dropdown">
     <a href="{{route('invoice.index')}}" class="nav-link">Invoice</a> 
 </li>
-
+<li class="nav-item dropdown">
+    <a href="{{route('purchase.index')}}" class="nav-link">Purchase</a> 
+</li>
 
