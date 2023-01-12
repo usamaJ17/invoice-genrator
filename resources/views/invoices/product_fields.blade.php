@@ -1,3 +1,4 @@
+
 <div class="col-sm-2 rental_field">
     <div class="form-group">
         {!! Form::label('start_date',   __('models/products.fields.start_date')) !!}
@@ -152,12 +153,13 @@
                 </span>
             @endif
         </div>
+        @if (str_contains(url()->current(), '/create'))
+    <span id='exp_del' style="position: absolute;top: -15px;right: 7px;line-height:2;"><a class="btn btn-danger btn-xs"><i class="fa fa-trash"></i></a></span>
+@endif
     </div>
 </div>
 
-@if (str_contains(url()->current(), '/create'))
-    <span id='exp_del'><a class="btn btn-danger btn-sm"><i class="fa fa-trash"></i> Delete Products</a></span>
-@endif
+
 
 @push('child-scripts')
     <script type="text/javascript">
@@ -183,3 +185,29 @@
 
 
 
+
+<style>
+    label:not(.form-check-label):not(.custom-file-label) {
+    font-weight: 500 !important;
+    font-size: 13px;
+    margin-bottom:2px;
+}
+.form-control {
+    display: block;
+    width: 100%;
+    height: calc(2.05rem + 1px) !important;
+    padding: 0.275rem 0.75rem !important;
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 1;
+    }
+    .k-btn-sub{
+        margin-top:22px;
+    }
+    .text-sm {
+    font-size: .775rem!important;
+}
+.select2-container--bootstrap4 .select2-selection--single {
+    height: calc(2.05rem + 1px)!important;
+}
+    </style>

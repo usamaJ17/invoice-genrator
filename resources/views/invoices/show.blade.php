@@ -37,55 +37,75 @@
                 <div class="col-md-12">
                     <div class="invoice p-3 mb-3">
                         <div class="row no-print">
-                            <div class="col-12" style="position: absolute;width: 100%;right: 15px;">
-                              <button type="button" onclick="return window.print();" class="btn btn-default float-right"><i class="fas fa-print"></i> Print</button>
+                            <div class="col-12">
+                              <button type="button" class="btn btn-default float-right" onclick="printWithoutlogo()"><i class="fas fa-print"></i> Print Invoice</button>
+                              <button type="button" class="btn btn-default float-right" onclick="printWithlogo()"><i class="fas fa-print"></i> Print Invoice With Logo's</button>
                             </div>
                           </div>
-                          {{-- <div class="col-xs-12 text-center">
-                                <img
-                                src="{{asset('dist/img/latter-header.jpeg')}}" style="width:100%;margin:auto;" />
-                          </div> --}}
-                        <h2 class="text-center text-weight-bold pb-1" style="text-transform: uppercase;">Tax @lang('models/invoices.singular')</h2>
-                        <p class="text-center pb-5">{{ $invoice->trn }}</p>
-                        <table class="table mb-4" border="2">
-                            <tbody>
-                                <tr>
-                                    <th>@lang('models/invoices.fields.name')</th>
-                                    <td>{{ $invoice->customer }}</td>
-                                    <th>@lang('models/invoices.fields.date')</th>
-                                    <td>{{ ($invoice->date) ? $invoice->date->format('Y-m-d H:i') : "" }}</td>
-                                  </tr>
-                                  <tr >
-                                    <th>@lang('models/invoices.fields.authorized')</th>
-                                    <td>{{ $invoice->authorized }}</td>
-                                    <th>@lang('models/invoices.fields.no')</th>
-                                    <td>{{ $invoice->invoice_no }}</td>
-                                  </tr>
-                                  <tr >
-                                    <th>@lang('models/invoices.fields.phone')</th>
-                                    <td>{{ $invoice->phone }}</td>                                    
-                                    <th>@lang('models/invoices.fields.reference')</th>
-                                    <td>{{ $invoice->reference }}</td>
-                                </tr>
-                                <tr >
-                                    <th>@lang('models/invoices.fields.trn')</th>
-                                    <td>{{ $invoice->trn }}</td>                                    
-                                    <th>@lang('models/invoices.fields.payment')</th>
-                                    <td>{{ $invoice->payment }}</td>
-                                </tr>
-                                <tr >
-                                    <th >@lang('models/invoices.fields.address')</th>  
-                                    <td>{{ $invoice->address }}</td>                                    
-                                    <th >@lang('models/invoices.fields.lpo')</th>  
-                                    <td>{{ $invoice->lpo }}</td>
-                                </tr>
-                            </tbody>
-                        </table>
+                        <div class="row" id="header">
+                            <div class="col-md-12">
+                                    <img src="{{url('/uploads/invoice_header.jpg')}}" width="100%" />
+                            </div>
+                        </div>
+                        <h2 class="text-center text-weight-bold pb-1" style="text-transform: uppercase;">Tax @lang('models/invoices.singular') <span class="k-code-list">(<span>{{ $invoice->trn }}</span>)</span></h2>
+                        <div class="row justify-content-between">
+                            <div class="col-md-5">
+                                <table class="table1 mb-4" border=0 style="border-color: #fff !important;">
+                                    <tbody>
+                                        <tr>
+                                            <th class="k-top-th">@lang('models/invoices.fields.name') :</th>
+                                            <td class="k-bot-b">{{ $invoice->customer }}</td>
+                                        </tr>
+                                        <tr >
+                                            <th class="k-top-th">@lang('models/invoices.fields.authorized') :</th>
+                                            <td class="k-bot-b">{{ $invoice->authorized }}</td>
+                                        </tr>
+                                        <tr >
+                                            <th class="k-top-th">@lang('models/invoices.fields.phone') :</th>
+                                            <td class="k-bot-b">{{ $invoice->phone }}</td>
+                                        </tr>
+                                        <tr >
+                                            <th class="k-top-th">@lang('models/invoices.fields.trn') :</th>
+                                            <td class="k-bot-b">{{ $invoice->trn }}</td>
+                                        </tr>
+                                        <tr >
+                                            <th class="k-top-th">@lang('models/invoices.fields.address') :</th>
+                                            <td class="k-bot-b">{{ $invoice->address }}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="col-md-3">
+                                <p class="mb-1">@lang('models/invoices.fields.date') <span>{{ $invoice->date }}</span></p>
+                                <table class="table mb-4">
+                                    <tbody>
+                                        <tr >
+                                            <th>@lang('models/invoices.fields.no')</th>
+                                            <td>{{ $invoice->invoice_no }}</td>
+                                        </tr>
+                                        <tr >
+                                            <th>@lang('models/invoices.fields.reference')</th>
+                                            <td>{{ $invoice->reference }}</td>
+                                        </tr>
+                                        <tr >
+                                            <th>@lang('models/invoices.fields.payment')</th>
+                                            <td>{{ $invoice->payment }}</td>
+                                        </tr>
+                                        <tr >
+                                            <th >@lang('models/invoices.fields.lpo')</th>
+                                            <td>{{ $invoice->lpo }}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+
                         @if ($invoice->type=='service')
                         <table class="table mb-4" border="1">
                             <thead>
-                              <tr class="bg-gy">
-                                <th>@lang('models/services.fields.number')</th>  
+                              <tr class="k-bg-gy">
+                                <th>@lang('models/services.fields.number')</th>
                                 <th>@lang('models/services.fields.name')</th>
                                 <th>@lang('models/services.fields.model')</th>
                                 <th>@lang('models/services.fields.brand')</th>
@@ -105,12 +125,12 @@
                         @endif
                         <table class="table  mb-4 expandable-table" border="1">
                             <thead>
-                                <tr class="bg-gy">
+                                <tr class="k-bg-gy">
                                     @if ($invoice->type=='rental')
                                         <th>@lang('models/products.fields.start_date')</th>
                                         <th>@lang('models/products.fields.time')</th>
-                                        <th>@lang('models/products.fields.end_date')</th> 
-                                        <th>@lang('models/products.fields.time')</th> 
+                                        <th>@lang('models/products.fields.end_date')</th>
+                                        <th>@lang('models/products.fields.time')</th>
                                     @endif
                                     <th>@lang('models/products.fields.name')</th>
                                     <th>@lang('models/products.fields.unit')</th>
@@ -151,31 +171,31 @@
                                         @if ($invoice->type=='rental')
                                             <td>{{ $product->period }}</td>
                                             <td>{{ $product->rental }}</td>
-                                        @endif                      
-                                        <td>{{ $product->price }}</td>          
+                                        @endif
+                                        <td>{{ $product->price }}</td>
                                         <td>{{ $product->qty }}</td>
                                         <td>{{ $product->amount }}</td>
                                     </tr>
                                 @endforeach
 
-                                <tr class="bg-gy">
+                                <tr class="k-bg-gy">
                                         @if ($invoice->type=='rental')
                                             <td colspan="8"></td>
                                         @endif
                                         @if ($invoice->type!='rental')
                                             <td colspan="3"></td>
-                                        @endif     
-                                        <th>Total</th>                      
+                                        @endif
+                                        <th>Total</th>
                                         <td>{{ $total_qty }}</td>
                                         <td>{{ $total_amount }}</td>
-                                   
-                                    
+
+
                                 </tr>
                             </tbody>
                         </table>
-                        <table class="table mb-4" border="1">
+                        <table class="table mb-4" border="1" style="width:40% !important;float:right;">
                             <thead>
-                              <tr class="bg-gy">
+                              <tr class="k-bg-gy">
                                 <th>@lang('models/invoices.fields.discount')</th>
                                 <th>@lang('models/invoices.fields.gross')</th>
                                 <th>@lang('models/invoices.fields.vat')</th>
@@ -192,7 +212,7 @@
                             </tbody>
                         </table>
                         <br>
-                        <div class="mb-4">
+                        <div class="k-signa">
                             <div class="float-left">
                                 Lamiae rental
                             </div>
@@ -201,14 +221,67 @@
                             </div>
                         </div>
                     </div>
+                    <div class="row" id="footer">
+                        <div class="col-md-12">
+                            <img src="{{url('/uploads/invoice_footer.jpg')}}" width="100%" />
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 @endsection
-
+<script type="text/javascript">
+    function printWithlogo() {
+        console.log("sss");
+        document.getElementById('header').style.display = 'block';
+        document.getElementById('footer').style.display = 'block';
+        window.print();
+    }
+    function printWithoutlogo() {
+        document.getElementById('header').style.display = 'none';
+        document.getElementById('footer').style.display = 'none';
+        window.print();
+    }
+</script>
 <style>
+    .k-bg-gy{
+        background-color:#f1f0f0 !important;
+    }
+    .k-bot-b{
+        border-bottom: 1px solid #888;
+    }
+    th{
+        font-weight:600;
+        font-size: 12px !important;
+    }
+    td{
+        font-size: 12px !important;
+    }
+    .k-top-th{
+        text-transform: capitalize;
+        font-weight: 600;
+        font-size: 12px !important;
+    }
 .k-term ul li{
     font-size:14px;
+}
+.k-code-list{
+    font-size:12px;
+    font-weight:400 !important;
+}
+.k-signa{
+    margin-top: 55px;
+    padding-bottom: 5px;
+}
+table > thead > tr > th {
+    padding: 6px 10px !important;
+    font-weight: 500 !important;
+    font-size: 12px !important;
+}
+.table td, .table th {
+    padding: 0.002rem 0.6rem;
+    vertical-align: middle;
+    font-size: 12px !important;
 }
 </style>

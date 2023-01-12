@@ -1,26 +1,27 @@
-<h4>Type: </h4>
-<br>
+<!-- <h4>Type: </h4>
+<br> -->
+
 <div class="row">
-    <div class="col-sm-4">
-        <div class="form-group ">
+    <div class="col-sm-2">
+        <div class="form-group k-checked mb-0">
             {!! Form::radio('type','rental',true,['id' => 'type_1'])!!}
             {!! Form::label('type_1', __('models/invoices.fields.rental')) !!}
         </div>
     </div>
-    <div class="col-sm-4">
-        <div class="form-group ">
+    <div class="col-sm-2">
+        <div class="form-group k-checked mb-0">
             {!! Form::radio('type','sales','',['id' => 'type_2'])!!}
             {!! Form::label('type_2', __('models/invoices.fields.sales')) !!}
         </div>
     </div>
-    <div class="col-sm-4">
-        <div class="form-group ">
+    <div class="col-sm-2">
+        <div class="form-group k-checked mb-0">
             {!! Form::radio('type','service','',['id' => 'type_3'])!!}
             {!! Form::label('type_3', __('models/invoices.fields.service')) !!}
         </div>
     </div>
 </div>
-<br>
+<hr>
 {{-- basic invoice fields (same for all) --}}
 @section('css')
 @parent
@@ -64,8 +65,8 @@
                 @endif
             </div>
         </div>
-    @endif    
-    <div class="col-sm-2">
+    @endif
+    <div class="col-sm-3">
         <div class="form-group ">
             {!! Form::label('customer', __('models/invoices.fields.name')) !!}
             <div class="input-group">
@@ -92,7 +93,7 @@
                 $('#customer_phone').val(customer_data[this.value][2]);
                 $('#customer_trn').val(customer_data[this.value][1]);
                 $('#customer_address').val(customer_data[this.value][0]);
-                
+
             })
         </script>
     @endsection
@@ -129,7 +130,7 @@
             @endif
         </div>
     </div>
-    <div class="col-sm-2">
+    <div class="col-sm-3">
         <div class="form-group ">
             {!! Form::label('trn', __('models/invoices.fields.trn')) !!}
             {!! Form::text('trn', null, ['class' => $errors->has('trn') ? 'form-control is-invalid' : 'form-control','id'=>'customer_trn']) !!}
@@ -164,7 +165,7 @@
             @endif
         </div>
     </div>
-    <div class="col-sm-1">
+    <div class="col-sm-2">
         <div class="form-group ">
             {!! Form::label('reference', __('models/invoices.fields.reference')) !!}
             {!! Form::text('reference', null, ['class' => $errors->has('reference') ? 'form-control is-invalid' : 'form-control']) !!}
@@ -175,7 +176,7 @@
             @endif
         </div>
     </div>
-    <div class="col-sm-4">
+    <div class="col-sm-3">
         <div class="form-group ">
             {!! Form::label('remarks', __('models/invoices.fields.remarks')) !!}
             {!! Form::text('remarks', null, ['class' => $errors->has('remarks') ? 'form-control is-invalid' : 'form-control']) !!}
@@ -204,8 +205,8 @@
 
 {{-- products Services  --}}
 
-<br>
-<h3 class="services">Service :</h3>
+<!-- <br>
+<h3 class="services">Service :</h3> -->
 <div class="row services">
     @include(strtolower(__('models/invoices.plural')).'.service_fields')
 </div>
@@ -213,16 +214,27 @@
 {{-- products service  -end --}}
 
 {{-- products fields (few difference-- will be handeled by a jquery script) --}}
-<h3>Products :</h3>
-<br>
-    <a class="btn btn-success mb-2" id="add_new_exp_field"><i class="fa fa-plus"></i> Add Product</a>
+<!-- <h3>Products :</h3>
+<br> -->
+    <a class="btn btn-success mb-2" id="add_new_exp_field" style="line-height:2;"><i class="fa fa-plus"></i></a>
     <input type="hidden" name="total_row" value=1 id="total_row">
+
 
 @if (str_contains(url()->current(), '/create'))
     <div class="row" id="exp_file_row">
-        @include(strtolower(__('models/invoices.plural')).'.product_fields')
+            @include(strtolower(__('models/invoices.plural')).'.product_fields')
+
     </div>
 @endif
+
+<style>
+    label:not(.form-check-label):not(.custom-file-label) {
+    font-weight: 600 !important;
+}
+.accent-maroon .btn-link:hover, .accent-maroon a:not(.dropdown-item):hover {
+    color: #efefef;
+}
+    </style>
 <hr>
 @if (str_contains(url()->current(), '/edit'))
 @foreach ($products as $product)
@@ -234,11 +246,11 @@
 
 {{-- products fields (few difference-- will be handeled by a jquery script) -end --}}
 
-{{-- basic invoice fields (same for all) total --}}
-<h3>Total :</h3>
-<br>
 <div class="row">
-    <div class="col-sm-2">
+{{-- basic invoice fields (same for all) total --}}
+<!-- <h3>Total :</h3>
+<br> -->
+    <div class="col-sm-1">
         <div class="form-group ">
             {!! Form::label('discount', __('models/invoices.fields.discount')) !!}
             {!! Form::number('discount', null, ['class' => $errors->has('discount') ? 'form-control auto_amount_cal is-invalid' : 'form-control auto_amount_cal','step'=>"any",'id'=>'discount' ]) !!}
@@ -249,7 +261,7 @@
             @endif
         </div>
     </div>
-    <div class="col-sm-2">
+    <div class="col-sm-1">
         <div class="form-group ">
             {!! Form::label('gross', __('models/invoices.fields.gross') ) !!}
             {!! Form::number('gross', null, ['class' => $errors->has('gross') ? 'form-control auto_amount_cal is-invalid' : 'form-control auto_amount_cal','step'=>"any"]) !!}
@@ -260,7 +272,7 @@
             @endif
         </div>
     </div>
-    <div class="col-sm-2">
+    <div class="col-sm-1">
         <div class="form-group ">
             {!! Form::label('vat', __('models/invoices.fields.vat') ) !!}
             {!! Form::number('vat', null, ['class' => $errors->has('vat') ? 'form-control auto_amount_cal is-invalid' : 'form-control auto_amount_cal' ,'step'=>"any"]) !!}
@@ -282,20 +294,21 @@
             @endif
         </div>
     </div>
-</div>
-{{-- basic invoice fields (same for all) total -end --}}
-
-{{-- submit form (same for all) --}}
-<div class="row">
-    <div class="col-sm-12">
+    {{-- basic invoice fields (same for all) total -end --}}
+    {{-- submit form (same for all) --}}
+    <div class="col-sm-6 k-btn-sub">
         <!-- Submit Field -->
         <div class="form-group">
-            {!! Form::submit(__('crud.save'), ['class' => 'btn btn-danger btn-flat btn-lg']) !!}
-            <a href="{{ route('invoice.index') }}" class="btn btn-outline-danger btn-flat btn-lg text-maroon">@lang('crud.cancel')</a>
+            {!! Form::submit(__('crud.save'), ['class' => 'btn btn-danger btn-flat btn-sm']) !!}
+            <a href="{{ route('invoice.index') }}" class="btn btn-outline-danger btn-flat btn-sm text-maroon" style="line-height:2;">@lang('crud.cancel')</a>
         </div>
     </div>
+    {{-- submit form (same for all) -end --}}
 </div>
-{{-- submit form (same for all) -end --}}
+
+<div class="row">
+
+</div>
 
 
 {{-- scrtipts (clone products row and change fileds based on type ) --}}
@@ -406,7 +419,7 @@
                     @else
                         update_amount_field();
                     @endif
-                    
+
                 });
                 copy.find('#exp_del').click(function() {
                     copy.remove();
@@ -472,3 +485,106 @@
         {{-- -- exp_doc uplode field name change script end-- --}}
 @endsection
 {{-- scrtipts (clone products row and change fileds based on type) -end --}}
+
+
+<style>
+    label:not(.form-check-label):not(.custom-file-label) {
+    font-weight: 500 !important;
+    font-size: 13px;
+    margin-bottom:2px;
+}
+.form-control {
+    display: block;
+    width: 100%;
+    height: calc(2.05rem + 1px) !important;
+    padding: 0.275rem 0.75rem !important;
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 1;
+    }
+    .k-btn-sub{
+        margin-top:22px;
+    }
+    .text-sm {
+    font-size: .775rem!important;
+}
+.select2-container--bootstrap4 .select2-selection--single {
+    height: calc(2.05rem + 1px)!important;
+}
+.k-checked{
+    text-align: center;
+    /* border: 1px solid #f3f3f3; */
+    padding: 8px 15px;
+    border-radius: 7px;
+    display: flex;
+    justify-content: center;
+    /* background-color:#f3f3f3; */
+}
+.k-checked input[type=radio]:checked:before{
+       position: absolute;
+    /* background: red; */
+    right: -27px;
+    top: -5px;
+    left: -27px;
+    width: 127px;
+    border: 1px solid #d81b60;
+    height: 32px;
+    content: "";
+    border-radius: 7px;
+    /* height: 60px; */
+    /* position: absolute; */
+    /* width: 60px; */
+    z-index: 1;
+}
+.k-checked input[type=radio]{
+accent-color: #d81b60;
+}
+
+.k-checked input{
+    margin-right: 5px;
+    position: relative;
+}
+
+    .text-sm .card-title {
+    font-size: 12px;
+}
+.card-header{
+    padding:.50rem 1.25rem;
+}
+.text-sm .btn {
+    font-size: 11px !important;
+}
+.text-sm {
+    font-size: 11px !important;
+}
+label:not(.form-check-label):not(.custom-file-label) {
+    font-weight: 400;
+}
+ /* .btn-group-sm>.btn, .btn-sm { */
+    /* line-height: 1; */
+    /* padding: 7px 9px !important; */
+ /* } */
+table.dataTable.table-sm > thead > tr > th {
+    padding: 6px 10px !important;
+    font-weight: 500;
+    font-size: 12px;
+}
+.table td, .table th {
+    padding: 0.002rem 0.6rem !important;
+    vertical-align: middle;
+    font-size: 12px;
+}
+.btn {
+    padding: 0.275rem 0.75rem !important;
+    height: calc(2.05rem + 1px) !important;
+}
+.form-control {
+    display: block;
+    width: 100%;
+    height: calc(2.05rem + 1px) !important;
+    padding: 0.275rem 0.75rem !important;
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 1;
+    }
+</style>
