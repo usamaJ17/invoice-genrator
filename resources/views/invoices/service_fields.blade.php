@@ -1,10 +1,11 @@
 @if (str_contains(url()->current(), '/edit') && isset($service->service_id))
 <input type="hidden" name='service_id' value={{$service->service_id}}>
 @endif
-<div class="col-sm-2">
+<div class="col-sm-1">
     <!-- File Field -->
     <div class="form-group">
-        {!! Form::label('number',__('models/services.fields.number')) !!}
+        <!-- {!! Form::label('number',__('models/services.fields.number')) !!} -->
+        <label>Services No</label>
         <div class="input-group">
             @if (str_contains(url()->current(), '/edit') && isset($service->number))
                 {!! Form::text('number', $service->number, ['class' => $errors->has('number') ? 'form-control is-invalid' : 'form-control' ,'id'=>"doc_number"]) !!}
@@ -23,7 +24,8 @@
 <div class="col-sm-2">
     <!-- File Field -->
     <div class="form-group">
-        {!! Form::label('name',__('models/services.fields.name')) !!}
+        <!-- {!! Form::label('name',__('models/services.fields.name')) !!} -->
+        <label>Service Items</label>
         <div class="input-group">
             @if (str_contains(url()->current(), '/edit') && isset($service->name))
                 {!! Form::text('name', $service->name, ['class' => $errors->has('name') ? 'form-control is-invalid' : 'form-control' ,'id'=>"doc_name"]) !!}
@@ -39,7 +41,7 @@
         </div>
     </div>
 </div>
-<div class="col-sm-2">
+<div class="col-sm-1">
     <!-- File Field -->
     <div class="form-group">
         {!! Form::label('model',__('models/services.fields.model')) !!}
@@ -58,7 +60,7 @@
         </div>
     </div>
 </div>
-<div class="col-sm-2">
+<div class="col-sm-1">
     <!-- File Field -->
     <div class="form-group">
         {!! Form::label('brand',__('models/services.fields.brand')) !!}
@@ -77,10 +79,11 @@
         </div>
     </div>
 </div>
-<div class="col-sm-2">
+<div class="col-sm-1">
     <!-- File Field -->
     <div class="form-group">
-        {!! Form::label('amount',__('models/services.fields.amount')) !!}
+        <!-- {!! Form::label('amount',__('models/services.fields.amount')) !!} -->
+        <label>Deal Amount</label>
         <div class="input-group">
             @if (str_contains(url()->current(), '/edit') && isset($service->amount))
                 {!! Form::text('amount', $service->amount, ['class' => $errors->has('amount') ? 'form-control is-invalid' : 'form-control' ,'id'=>"doc_amount"]) !!}

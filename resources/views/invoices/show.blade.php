@@ -35,22 +35,27 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-md-12">
-                    <div class="invoice p-3 mb-3">
+                    <div class="invoice p-3 mb-3" id="withoutlogo1">
                         <div class="row no-print">
                             <div class="col-12">
                               <button type="button" class="btn btn-default float-right" onclick="printWithoutlogo()"><i class="fas fa-print"></i> Print Invoice</button>
                               <button type="button" class="btn btn-default float-right" onclick="printWithlogo()"><i class="fas fa-print"></i> Print Invoice With Logo's</button>
                             </div>
                           </div>
-                        <div class="row" id="header">
-                            <div class="col-md-12">
+                        <div class="row" style="width:100%;height:120px;">
+                            <div class="col-md-12" id="header">
                                     <img src="{{url('/uploads/invoice_header.jpg')}}" width="100%" />
                             </div>
                         </div>
-                        <h2 class="text-center text-weight-bold pb-1" style="text-transform: uppercase;">Tax @lang('models/invoices.singular') <span class="k-code-list">(<span>{{ $invoice->trn }}</span>)</span></h2>
+                        <br>
+                        <h5 class="text-center text-weight-bold pb-1" style="margin-top:15px;text-transform: uppercase;">Tax @lang('models/invoices.singular')
+                        <span class="k-code-list">(<span>
+                        {{ $invoice->trn }}
+                            <!-- TRN: 100238651200003 -->
+                        </span>)</span></h5>
                         <div class="row justify-content-between">
                             <div class="col-md-5">
-                                <table class="table1 mb-4" border=0 style="border-color: #fff !important;">
+                                <table class="table mb-4">
                                     <tbody>
                                         <tr>
                                             <th class="k-top-th">@lang('models/invoices.fields.name') :</th>
@@ -72,13 +77,24 @@
                                             <th class="k-top-th">@lang('models/invoices.fields.address') :</th>
                                             <td class="k-bot-b">{{ $invoice->address }}</td>
                                         </tr>
+                                        <tr >
+                                            <th class="k-top-th">Remarks :</th>
+                                            <td class="k-bot-b"></td>
+                                        </tr>
                                     </tbody>
                                 </table>
                             </div>
-                            <div class="col-md-3">
-                                <p class="mb-1">@lang('models/invoices.fields.date') <span>{{ $invoice->date }}</span></p>
+                            <div class="col-md-4">
                                 <table class="table mb-4">
                                     <tbody>
+                                        <tr >
+                                            <th>Invoice @lang('models/invoices.fields.date')</th>
+                                            <td>{{ $invoice->date }}</td>
+                                        </tr>
+                                        <tr >
+                                            <th>Manual Invoice</th>
+                                            <td></td>
+                                        </tr>
                                         <tr >
                                             <th>@lang('models/invoices.fields.no')</th>
                                             <td>{{ $invoice->invoice_no }}</td>
@@ -193,13 +209,23 @@
                                 </tr>
                             </tbody>
                         </table>
-                        <table class="table mb-4" border="1" style="width:40% !important;float:right;">
+                        <table class="table1 mb-4" style="width:50% !important;float:left;">
+                        <tr>
+                            <td>
+                            <div class="form-group "></div>
+                            </td>
+                        </tr>
+                        </table>
+                        <table class="table mb-4" border="1" style="width:40% !important;    margin: auto;right: 0;margin-right: 0;">
                             <thead>
                               <tr class="k-bg-gy">
                                 <th>@lang('models/invoices.fields.discount')</th>
                                 <th>@lang('models/invoices.fields.gross')</th>
                                 <th>@lang('models/invoices.fields.vat')</th>
-                                <th>@lang('models/invoices.fields.vat_amount')</th>
+                                <th>
+                                    <!-- @lang('models/invoices.fields.vat_amount') -->
+                                T-VAT
+                                </th>
                               </tr>
                             </thead>
                             <tbody>
@@ -214,10 +240,10 @@
                         <br>
                         <div class="k-signa">
                             <div class="float-left">
-                                Lamiae rental
+                            AL Lamaie Rental
                             </div>
                             <div class="float-right">
-                                Client signature
+                                Client Signature
                             </div>
                         </div>
                     </div>
@@ -262,6 +288,7 @@
         text-transform: capitalize;
         font-weight: 600;
         font-size: 12px !important;
+        width:32%;
     }
 .k-term ul li{
     font-size:14px;

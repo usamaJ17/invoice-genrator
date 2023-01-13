@@ -97,7 +97,7 @@
             })
         </script>
     @endsection
-    <div class="col-sm-2">
+    <div class="col-sm-1">
         <div class="form-group ">
             {!! Form::label('manual', __('models/invoices.fields.manual')) !!}
             {!! Form::text('manual', null, ['class' => $errors->has('manual') ? 'form-control is-invalid' : 'form-control']) !!}
@@ -119,7 +119,7 @@
             @endif
         </div>
     </div>
-    <div class="col-sm-2">
+    <div class="col-sm-1">
         <div class="form-group ">
             {!! Form::label('phone', __('models/invoices.fields.phone')) !!}
             {!! Form::text('phone', null, ['class' => $errors->has('phone') ? 'form-control is-invalid' : 'form-control' ,'id'=>'customer_phone']) !!}
@@ -130,7 +130,7 @@
             @endif
         </div>
     </div>
-    <div class="col-sm-3">
+    <div class="col-sm-2">
         <div class="form-group ">
             {!! Form::label('trn', __('models/invoices.fields.trn')) !!}
             {!! Form::text('trn', null, ['class' => $errors->has('trn') ? 'form-control is-invalid' : 'form-control','id'=>'customer_trn']) !!}
@@ -141,7 +141,7 @@
             @endif
         </div>
     </div>
-    <div class="col-sm-2">
+    <div class="col-sm-1">
         <div class="form-group ">
             {!! Form::label('payment', __('models/invoices.fields.payment')) !!}
             <div class="input-group">
@@ -154,7 +154,7 @@
             </div>
         </div>
     </div>
-    <div class="col-sm-2">
+    <div class="col-sm-1">
         <div class="form-group ">
             {!! Form::label('lpo', __('models/invoices.fields.lpo')) !!}
             {!! Form::text('lpo', null, ['class' => $errors->has('lpo') ? 'form-control is-invalid' : 'form-control']) !!}
@@ -165,7 +165,7 @@
             @endif
         </div>
     </div>
-    <div class="col-sm-2">
+    <div class="col-sm-1">
         <div class="form-group ">
             {!! Form::label('reference', __('models/invoices.fields.reference')) !!}
             {!! Form::text('reference', null, ['class' => $errors->has('reference') ? 'form-control is-invalid' : 'form-control']) !!}
@@ -283,9 +283,10 @@
             @endif
         </div>
     </div>
-    <div class="col-sm-2">
+    <div class="col-sm-1">
         <div class="form-group ">
-            {!! Form::label('vat_amount', __('models/invoices.fields.vat_amount') ) !!}
+            <!-- {!! Form::label('vat_amount', __('models/invoices.fields.vat_amount') ) !!} -->
+            <label>T-VAT</label>
             {!! Form::number('vat_amount', null, ['class' => $errors->has('vat_amount') ? 'form-control auto_amount_cal is-invalid' : 'form-control auto_amount_cal','step'=>"any"]) !!}
             @if ($errors->has('vat_amount'))
                 <span class="invalid-feedback">
@@ -586,5 +587,9 @@ table.dataTable.table-sm > thead > tr > th {
     font-size: 12px;
     font-weight: 400;
     line-height: 1;
+    }
+    .btn-xs {
+    padding: 0.125rem 0.25rem !important;
+    height: auto !important;
     }
 </style>
