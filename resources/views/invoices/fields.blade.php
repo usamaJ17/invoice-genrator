@@ -332,14 +332,19 @@
                     $('#customer').trigger('change'); // Notify any JS components that the value changed
                 }
             @endif
-            $('.date').flatpickr({
-                enableTime: true,
-                dateFormat: "Y-m-d H:i",
-                defaultDate: new Date(),
-                static: true
-            });
-            @if (str_contains(url()->current(), '/create'))
-                $('.date').val(null);
+            @if (str_contains(url()->current(), '/edit'))
+                $('.date').flatpickr({
+                    enableTime: true,
+                    dateFormat: "Y-m-d H:i",
+                    static: true,
+                });
+            @else
+                $('.date').flatpickr({
+                    enableTime: true,
+                    dateFormat: "Y-m-d H:i",
+                    static: true,
+                    defaultDate : new Date()
+                });
             @endif
 
             // change fileds based on type
@@ -433,10 +438,8 @@
                 copy.find('.date').flatpickr({
                     enableTime: true,
                     dateFormat: "Y-m-d H:i",
+                    defaultDate : new Date()
                 });
-                @if (str_contains(url()->current(), '/create'))
-                    copy.find('.date').val(null);
-                @endif
 
                 $('#add_new_exp_field').after(copy);
                 //adjust new fields ased on type

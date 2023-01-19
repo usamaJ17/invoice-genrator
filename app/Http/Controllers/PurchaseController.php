@@ -6,6 +6,7 @@ use App\Models\Purchase;
 use App\Models\Part;
 use Illuminate\Http\Request;
 use App\DataTables\PurchaseDataTable;
+use App\Models\Customer;
 use App\Repositories\PurchaseRepository;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -41,7 +42,14 @@ class PurchaseController extends Controller
     public function create()
     {
         $nextId = DB::select("SHOW TABLE STATUS LIKE 'purchase'")[0]->Auto_increment;
-        return view('purchases.create')->with(compact('nextId'));
+        $customers=Customer::orderby('name','asc')->select('id','name','trn','phone')->get();
+        $name = array();
+        $data=array();
+        foreach($customers as $customer){
+            $name += [$customer->id=>$customer->name];
+            $data = Arr::add($data, $customer->id, [$customer->trn,$customer->phone]);
+        }
+        return view('purchases.create')->with(compact('name','data','nextId'));
     }
 
     /**
@@ -52,7 +60,15 @@ class PurchaseController extends Controller
      */
     public function store(Request $request)
     {
+        if (!ctype_digit($request->sup_name)) {
+            $customer_id = $this->purchaseRepository->createCustomer($request->all());
+            $request->merge([
+                'sup_name' => $customer_id,
+            ]);
+        }
         $input = $request->all();
+
+        $this->purchaseRepository->updateCustomer($request->all());
 
         $purchase = $this->purchaseRepository->create($input);
 
@@ -114,6 +130,14 @@ class PurchaseController extends Controller
             return redirect(route('purchase.index'));
         }
 
+        if (!ctype_digit($request->sup_name)) {
+            $customer_id = $this->purchaseRepository->createCustomer($request->all());
+            $request->merge([
+                'sup_name' => $customer_id,
+            ]);
+        }
+        $this->purchaseRepository->updateCustomer($request->all());
+
         $purchase = $this->purchaseRepository->update($request->all(), $id);
 
         // update parts associated with purchase
@@ -164,7 +188,14 @@ class PurchaseController extends Controller
                 //if for edit
                 $purchase = Purchase::with('part')->find($request->id);
                 $parts=Part::where('purchase_no','=',$purchase->purchase_no)->orderby('part_id','asc')->get();
-                return view('purchases.edit')->with(compact('purchase','parts'));
+                $customers=Customer::orderby('name','asc')->select('id','name','trn','phone')->get();
+                $name = array();
+                $data=array();
+                foreach($customers as $customer){
+                    $name += [$customer->id=>$customer->name];
+                    $data = Arr::add($data, $customer->id, [$customer->trn,$customer->phone]);
+                }
+                return view('purchases.edit')->with(compact('purchase','parts','name','data'));
             }
         }
         Flash::error(__('messages.wrong', ['model' => 'Password']));

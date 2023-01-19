@@ -16,7 +16,7 @@ class CreatePurchaseTable extends Migration
         Schema::create('purchase', function (Blueprint $table) {
             $table->id('purchase_no');
             $table->timestamp('date')->nullable();
-            $table->string('sup_name')->nullable();
+            $table->unsignedBigInteger('sup_name')->nullable();
             $table->string('sup_invoice')->nullable();
             $table->string('sup_trn')->nullable();
             $table->string('phone')->nullable();
@@ -28,6 +28,7 @@ class CreatePurchaseTable extends Migration
             $table->float('gross')->nullable();
             $table->float('vat')->nullable();
             $table->float('vat_amount')->nullable();  
+            $table->foreign('sup_name')->references('id')->on('customers')->onDelete('cascade'); 
             $table->timestamps();
         });
     }

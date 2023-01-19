@@ -47,4 +47,8 @@ class Purchase extends Model
     {
         return $this->hasMany(Part::class,'purchase_no','part_id');
     }
+    public function supplier()
+    {
+        return $this->belongsTo(Customer::class,'sup_name');
+    }
 }

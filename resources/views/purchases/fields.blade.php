@@ -23,6 +23,11 @@
             </div>
         </div>
     </div>
+    @section('css')
+    @parent
+        <link rel="stylesheet" href="{{ asset('plugins/select2/css/select2.min.css')}}">
+        <link rel="stylesheet" href="{{ asset('plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css')}}">
+    @endsection
     @if (str_contains(url()->current(), '/create'))
         <div class="col-sm-1">
             <div class="form-group ">
@@ -35,22 +40,40 @@
                 @endif
             </div>
         </div>
-    @endif    
+    @endif  
     <div class="col-sm-2">
         <div class="form-group ">
             {!! Form::label('sup_name', __('models/purchases.fields.sup_name')) !!}
-            {!! Form::text('sup_name', null, ['class' => $errors->has('sup_name') ? 'form-control is-invalid' : 'form-control']) !!}
-            @if ($errors->has('sup_name'))
-                <span class="invalid-feedback">
-                    <strong>{{ $errors->first('sup_name') }}</strong>
-                </span>
-            @endif
+            <div class="input-group">
+                {!! Form::select('sup_name',$name, null , ['class' => $errors->has('sup_name') ? 'form-control is-invalid' : 'form-control', 'id' => 'sup_name']) !!}
+                @if ($errors->has('sup_name'))
+                    <span class="invalid-feedback">
+                        <strong>{{ $errors->first('sup_name') }}</strong>
+                    </span>
+                @endif
+            </div>
         </div>
-    </div>
+    </div>  
+    @section('scripts')
+    @parent
+    <script src="{{ asset('plugins/select2/js/select2.full.min.js')}}"></script>
+    <script type="text/javascript">
+
+        $('#sup_name').select2({
+            theme: 'bootstrap4',
+            tags: true,
+        })
+        var supplier_data = @json($data);
+        $('#sup_name').on('change',function(){
+            $('#supplier_phone').val(supplier_data[this.value][1]);
+            $('#supplier_trn').val(supplier_data[this.value][0]);
+        })
+        </script>
+    @endsection
     <div class="col-sm-2">
         <div class="form-group ">
             {!! Form::label('phone', __('models/purchases.fields.phone')) !!}
-            {!! Form::text('phone', null, ['class' => $errors->has('phone') ? 'form-control is-invalid' : 'form-control' ,'id'=>'customer_phone']) !!}
+            {!! Form::text('phone', null, ['class' => $errors->has('phone') ? 'form-control is-invalid' : 'form-control' ,'id'=>'supplier_phone']) !!}
             @if ($errors->has('phone'))
                 <span class="invalid-feedback">
                     <strong>{{ $errors->first('phone') }}</strong>
@@ -85,7 +108,7 @@
     <div class="col-sm-2">
         <div class="form-group ">
             {!! Form::label('sup_trn', __('models/purchases.fields.sup_trn')) !!}
-            {!! Form::text('sup_trn', null, ['class' => $errors->has('sup_trn') ? 'form-control is-invalid' : 'form-control','id'=>'customer_sup_trn']) !!}
+            {!! Form::text('sup_trn', null, ['class' => $errors->has('sup_trn') ? 'form-control is-invalid' : 'form-control','id'=>'supplier_trn']) !!}
             @if ($errors->has('sup_trn'))
                 <span class="invalid-feedback">
                     <strong>{{ $errors->first('sup_trn') }}</strong>
@@ -233,12 +256,19 @@
                     $('#customer').trigger('change'); // Notify any JS components that the value changed
                 }
             @endif
-            $('.date').flatpickr({
-                enableTime: true,
-                dateFormat: "Y-m-d H:i",
-            });
-            @if (str_contains(url()->current(), '/create'))
-                $('.date').val(null);
+            @if (str_contains(url()->current(), '/edit'))
+                $('.date').flatpickr({
+                    enableTime: true,
+                    dateFormat: "Y-m-d H:i",
+                    static: true,
+                });
+            @else
+                $('.date').flatpickr({
+                    enableTime: true,
+                    dateFormat: "Y-m-d H:i",
+                    static: true,
+                    defaultDate : new Date()
+                });
             @endif
 
             // change fileds based on type
@@ -284,10 +314,8 @@
                 copy.find('.date').flatpickr({
                     enableTime: true,
                     dateFormat: "Y-m-d H:i",
+                    defaultDate : new Date()
                 });
-                @if (str_contains(url()->current(), '/create'))
-                    copy.find('.date').val(null);
-                @endif
 
                 $('#add_new_exp_field').after(copy);
             });

@@ -2,6 +2,7 @@
 
 namespace App\Repositories;
 
+use App\Models\Customer;
 use App\Models\Purchase;
 use App\Models\Part;
 use App\Repositories\BaseRepository;
@@ -97,16 +98,15 @@ class PurchaseRepository extends BaseRepository
      *
      * @return id
      */
-    // public function createCustomer($input)
-    // {
-    //     $customer=new Customer();
-    //     $customer->name=$input['customer'];
-    //     $customer->phone=$input['phone'];
-    //     $customer->trn=$input['trn'];
-    //     $customer->address=$input['address'];
-    //     $customer->save();
-    //     return (string)$customer->id;
-    // }
+    public function createCustomer($input)
+    {
+        $customer=new Customer();
+        $customer->name=$input['sup_name'];
+        $customer->phone=$input['phone'];
+        $customer->trn=$input['sup_trn'];
+        $customer->save();
+        return (string)$customer->id;
+    }
 
          /**
      * update a customer 
@@ -115,13 +115,12 @@ class PurchaseRepository extends BaseRepository
      *
      * @return Model
      */
-    // public function updateCustomer($input)
-    // {
-    //     $customer=Customer::find($input['customer']);
-    //     $customer->phone=$input['phone'];
-    //     $customer->trn=$input['trn'];
-    //     $customer->address=$input['address'];
-    //     $customer->save();
-    //     return ;
-    // }
+    public function updateCustomer($input)
+    {
+        $customer=Customer::find($input['sup_name']);
+        $customer->phone=$input['phone'];
+        $customer->trn=$input['sup_trn'];
+        $customer->save();
+        return ;
+    }
 }
