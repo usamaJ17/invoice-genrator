@@ -49,6 +49,8 @@ class Invoice extends Model
         'updated_at',
         'date'
     ];
+    protected $appends = ['invoice_number'];
+
     public function customer()
     {
         return $this->belongsTo(Customer::class,'customer');
@@ -57,6 +59,11 @@ class Invoice extends Model
     public function getDateAttribute($value)
     {
         return Carbon::parse($value)->format('Y-m-d H:i');
+    }
+
+    public function getInvoiceNumberAttribute()
+    {
+        return 'ER'.(149 +  $this->invoice_no);
     }
      /**
      * Get the products that associated with invoice.

@@ -39,7 +39,7 @@ class PurchaseDataTable extends DataTable
 
         if(request('from_date') && request('to_date'))
         $model->whereDate('date', '>=', request('from_date'))
-            ->whereDate('date', '<=', request('to_date'));    
+            ->whereDate('date', '<=', request('to_date'));
         return $model->orderBy('purchase_no','desc');
 
     }
@@ -98,15 +98,15 @@ class PurchaseDataTable extends DataTable
     protected function getColumns()
     {
         return [
-            'purchase_no' => new Column(['title' => __('models/Purchases.fields.no'), 'data' => 'purchase_no']),
-            'date' => new Column(['title' => __('models/Purchases.fields.date'), 'data' => 'date']),
-            'sup_name' => new Column(['title' => __('models/Purchases.fields.sup_name'), 'data' => 'sup_name']),
-            'sup_invoice' => new Column(['title' => __('models/Purchases.fields.sup_invoice'), 'data' => 'sup_invoice']),
-            'sup_trn' => new Column(['title' => __('models/Purchases.fields.sup_trn'), 'data' => 'sup_trn','searchable' => false]),
-            'gross' => new Column(['title' => __('models/Purchases.fields.gross'), 'data' => 'gross','searchable' => false]),
-            'vat' => new Column(['title' => __('models/Purchases.fields.vat'), 'data' => 'vat','searchable' => false]),
-            'vat_amount' => new Column(['title' => __('models/Purchases.fields.vat_amount'), 'data' => 'vat_amount','searchable' => false]),
-            'remarks' => new Column(['title' => __('models/Purchases.fields.remarks'), 'data' => 'remarks','searchable' => false]),
+            'purchase_no' => new Column(['title' => __('models/purchases.fields.no'), 'data' => 'purchase_no']),
+            'date' => new Column(['title' => __('models/purchases.fields.date'), 'data' => 'date']),
+            'sup_name' => new Column(['title' => __('models/purchases.fields.sup_name'), 'data' => 'sup_name']),
+            'sup_invoice' => new Column(['title' => __('models/purchases.fields.sup_invoice'), 'data' => 'sup_invoice']),
+            'sup_trn' => new Column(['title' => __('models/purchases.fields.sup_trn'), 'data' => 'sup_trn','searchable' => false]),
+            'gross' => new Column(['title' => __('models/purchases.fields.gross'), 'data' => 'gross','searchable' => false]),
+            'vat' => new Column(['title' => __('models/purchases.fields.vat'), 'data' => 'vat','searchable' => false]),
+            'vat_amount' => new Column(['title' => __('models/purchases.fields.vat_amount'), 'data' => 'vat_amount','searchable' => false]),
+            'remarks' => new Column(['title' => __('models/purchases.fields.remarks'), 'data' => 'remarks','searchable' => false]),
         ];
     }
 

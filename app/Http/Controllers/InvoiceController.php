@@ -53,6 +53,7 @@ class InvoiceController extends Controller
             $name += [$customer->id=>$customer->name];
             $data = Arr::add($data, $customer->id, [$customer->address,$customer->trn,$customer->phone]);
         }
+        $nextId = 'ER' . (149 + $nextId);
         return view('invoices.create')->with(compact('name','data','nextId'));
     }
 
@@ -102,7 +103,10 @@ class InvoiceController extends Controller
 
         $products=Product::where('invoice_no','=',$invoice->invoice_no)->get();
         $service=Service::where('invoice_no','=',$invoice->invoice_no)->first();
-
+        // get customer as well
+        if(is_numeric($invoice->customer)){
+            $invoice->customer = \App\Models\Customer::find($invoice->customer)->name ?? $invoice->customer;
+        }
         $data=compact('invoice','products','service');
         return view('invoices.show')->with($data);
     }
@@ -205,7 +209,7 @@ class InvoiceController extends Controller
     {
 
         if (Hash::check($request->password, Auth::user()->password)) {
-            //if request is for delete invoice 
+            //if request is for delete invoice
             if($request->type=='delete'){
                 $this->destroy($request->id);
             }

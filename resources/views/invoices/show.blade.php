@@ -79,7 +79,7 @@
                                         </tr>
                                         <tr >
                                             <th class="k-top-th">Remarks :</th>
-                                            <td class="k-bot-b"></td>
+                                            <td class="k-bot-b">{{ $invoice->remarks }}</td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -93,11 +93,11 @@
                                         </tr>
                                         <tr >
                                             <th>Manual Invoice</th>
-                                            <td></td>
+                                            <td>{{ $invoice->manual }}</td>
                                         </tr>
                                         <tr >
                                             <th>@lang('models/invoices.fields.no')</th>
-                                            <td>{{ $invoice->invoice_no }}</td>
+                                            <td>{{ $invoice->invoice_number }}</td>
                                         </tr>
                                         <tr >
                                             <th>@lang('models/invoices.fields.reference')</th>

@@ -39,7 +39,7 @@ class InvoiceDataTable extends DataTable
 
         if(request('from_date') && request('to_date'))
         $model->whereDate('date', '>=', request('from_date'))
-            ->whereDate('date', '<=', request('to_date'));    
+            ->whereDate('date', '<=', request('to_date'));
 
         if(request('invoice_type'))
             $model->where('type','=',request('invoice_type'));
@@ -102,7 +102,7 @@ class InvoiceDataTable extends DataTable
     protected function getColumns()
     {
         return [
-            'invoice_no' => new Column(['title' => __('models/invoices.fields.no'), 'data' => 'invoice_no']),
+            'invoice_no' => new Column(['title' => __('models/invoices.fields.no'), 'data' => 'invoice_number']),
             'date' => new Column(['title' => __('models/invoices.fields.date'), 'data' => 'date']),
             'manual' => new Column(['title' => __('models/invoices.fields.manual'), 'data' => 'manual']),
             'name' => new Column(['title' => __('models/invoices.fields.name'), 'data' => 'customer.name']),
