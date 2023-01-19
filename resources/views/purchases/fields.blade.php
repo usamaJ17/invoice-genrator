@@ -247,6 +247,13 @@
     <script type="text/javascript">
        // in edit seting customer field value
         $(document).ready(function() {
+            function formatDate(date = new Date()) {
+                const year = date.toLocaleString('default', {year: 'numeric'});
+                const month = date.toLocaleString('default', {month: '2-digit'});
+                const day = date.toLocaleString('default', {day: '2-digit'});
+
+                return [year, month, day].join('-');
+            }
             @if (str_contains(url()->current(), '/edit'))
                 if(!$("#customer option[value='{{$purchase->customer}}']").length > 0){
                     var o = new Option("{{$purchase->customer}}", "{{$purchase->customer}}");
@@ -256,19 +263,13 @@
                     $('#customer').trigger('change'); // Notify any JS components that the value changed
                 }
             @endif
-            @if (str_contains(url()->current(), '/edit'))
-                $('.date').flatpickr({
-                    enableTime: true,
-                    dateFormat: "Y-m-d H:i",
-                    static: true,
-                });
-            @else
-                $('.date').flatpickr({
-                    enableTime: true,
-                    dateFormat: "Y-m-d H:i",
-                    static: true,
-                    defaultDate : new Date()
-                });
+            $('.date').flatpickr({
+                enableTime: true,
+                dateFormat: "Y-m-d H:i",
+                static: true,
+            });
+            @if (str_contains(url()->current(), '/create'))
+                $('.date').val(formatDate());
             @endif
 
             // change fileds based on type
@@ -314,8 +315,8 @@
                 copy.find('.date').flatpickr({
                     enableTime: true,
                     dateFormat: "Y-m-d H:i",
-                    defaultDate : new Date()
                 });
+                copy.find('.date').val(formatDate());
 
                 $('#add_new_exp_field').after(copy);
             });
