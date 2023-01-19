@@ -44,7 +44,7 @@
                           </div>
                         <div class="row" style="width:100%;height:120px;">
                             <div class="col-md-12" id="header">
-                                    <img src="{{url('/uploads/invoice_header.jpg')}}" width="100%" />
+                                    <img src="{{url('/uploads/invoice_header.jpeg')}}" width="100%" />
                             </div>
                         </div>
                         <br>
@@ -249,7 +249,7 @@
                     </div>
                     <div class="row" id="footer">
                         <div class="col-md-12">
-                            <img src="{{url('/uploads/invoice_footer.jpg')}}" width="100%" />
+                            <img src="{{url('/uploads/invoice_footer.jpeg')}}" width="100%" />
                         </div>
                     </div>
                 </div>
