@@ -53,7 +53,7 @@ class InvoiceController extends Controller
             $name += [$customer->id=>$customer->name];
             $data = Arr::add($data, $customer->id, [$customer->address,$customer->trn,$customer->phone]);
         }
-        $nextId = 'ER' . (149 + $nextId);
+        $nextId = 'ER' .$nextId;
         return view('invoices.create')->with(compact('name','data','nextId'));
     }
 
