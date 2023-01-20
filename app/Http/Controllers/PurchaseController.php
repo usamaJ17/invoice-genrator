@@ -6,7 +6,7 @@ use App\Models\Purchase;
 use App\Models\Part;
 use Illuminate\Http\Request;
 use App\DataTables\PurchaseDataTable;
-use App\Models\Customer;
+use App\Models\Supplier;
 use App\Repositories\PurchaseRepository;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -42,12 +42,12 @@ class PurchaseController extends Controller
     public function create()
     {
         $nextId = DB::select("SHOW TABLE STATUS LIKE 'purchase'")[0]->Auto_increment;
-        $customers=Customer::orderby('name','asc')->select('id','name','trn','phone')->get();
+        $suppliers=Supplier::orderby('name','asc')->select('id','name','trn','phone')->get();
         $name = array();
         $data=array();
-        foreach($customers as $customer){
-            $name += [$customer->id=>$customer->name];
-            $data = Arr::add($data, $customer->id, [$customer->trn,$customer->phone]);
+        foreach($suppliers as $supplier){
+            $name += [$supplier->id=>$supplier->name];
+            $data = Arr::add($data, $supplier->id, [$supplier->trn,$supplier->phone]);
         }
         return view('purchases.create')->with(compact('name','data','nextId'));
     }
@@ -61,14 +61,14 @@ class PurchaseController extends Controller
     public function store(Request $request)
     {
         if (!ctype_digit($request->sup_name)) {
-            $customer_id = $this->purchaseRepository->createCustomer($request->all());
+            $supplier_id = $this->purchaseRepository->createSupplier($request->all());
             $request->merge([
-                'sup_name' => $customer_id,
+                'sup_name' => $supplier_id,
             ]);
         }
         $input = $request->all();
 
-        $this->purchaseRepository->updateCustomer($request->all());
+        $this->purchaseRepository->updateSupplier($request->all());
 
         $purchase = $this->purchaseRepository->create($input);
 
@@ -89,7 +89,7 @@ class PurchaseController extends Controller
      */
     public function show($id)
     {
-        $purchase = purchase::find($id);
+        $purchase = purchase::with('supplier')->find($id);
         if (empty($purchase)) {
             Flash::error(__('messages.not_found', ['model' => 'purchase']));
 
@@ -131,12 +131,12 @@ class PurchaseController extends Controller
         }
 
         if (!ctype_digit($request->sup_name)) {
-            $customer_id = $this->purchaseRepository->createCustomer($request->all());
+            $supplier_id = $this->purchaseRepository->createSupplier($request->all());
             $request->merge([
-                'sup_name' => $customer_id,
+                'sup_name' => $supplier_id,
             ]);
         }
-        $this->purchaseRepository->updateCustomer($request->all());
+        $this->purchaseRepository->updateSupplier($request->all());
 
         $purchase = $this->purchaseRepository->update($request->all(), $id);
 
@@ -188,12 +188,12 @@ class PurchaseController extends Controller
                 //if for edit
                 $purchase = Purchase::with('part')->find($request->id);
                 $parts=Part::where('purchase_no','=',$purchase->purchase_no)->orderby('part_id','asc')->get();
-                $customers=Customer::orderby('name','asc')->select('id','name','trn','phone')->get();
+                $suppliers=Supplier::orderby('name','asc')->select('id','name','trn','phone')->get();
                 $name = array();
                 $data=array();
-                foreach($customers as $customer){
-                    $name += [$customer->id=>$customer->name];
-                    $data = Arr::add($data, $customer->id, [$customer->trn,$customer->phone]);
+                foreach($suppliers as $supplier){
+                    $name += [$supplier->id=>$supplier->name];
+                    $data = Arr::add($data, $supplier->id, [$supplier->trn,$supplier->phone]);
                 }
                 return view('purchases.edit')->with(compact('purchase','parts','name','data'));
             }

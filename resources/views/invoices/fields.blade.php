@@ -343,7 +343,6 @@
             $('.date').flatpickr({
                 enableTime: true,
                 dateFormat: "Y-m-d H:i",
-                static: true,
             });
             @if (str_contains(url()->current(), '/create'))
                 $('.date').val(formatDate());

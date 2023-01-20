@@ -35,7 +35,7 @@ class PurchaseDataTable extends DataTable
     public function query(Purchase $model)
     {
         // return $model->newQuery()->orderBy('Purchase_no','desc');
-        $model = $model->newQuery();
+        $model = $model->newQuery()->with('supplier');
 
         if(request('from_date') && request('to_date'))
         $model->whereDate('date', '>=', request('from_date'))
@@ -100,7 +100,7 @@ class PurchaseDataTable extends DataTable
         return [
             'purchase_no' => new Column(['title' => __('models/purchases.fields.no'), 'data' => 'purchase_no']),
             'date' => new Column(['title' => __('models/purchases.fields.date'), 'data' => 'date']),
-            'sup_name' => new Column(['title' => __('models/purchases.fields.sup_name'), 'data' => 'sup_name']),
+            'sup_name' => new Column(['title' => __('models/purchases.fields.sup_name'), 'data' => 'supplier.name']),
             'sup_invoice' => new Column(['title' => __('models/purchases.fields.sup_invoice'), 'data' => 'sup_invoice']),
             'sup_trn' => new Column(['title' => __('models/purchases.fields.sup_trn'), 'data' => 'sup_trn','searchable' => false]),
             'gross' => new Column(['title' => __('models/purchases.fields.gross'), 'data' => 'gross','searchable' => false]),

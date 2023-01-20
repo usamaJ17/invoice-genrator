@@ -47,7 +47,7 @@
                             <tbody>
                                 <tr>
                                     <th>@lang('models/purchases.fields.sup_name')</th>
-                                    <td>{{ $purchase->sup_name }}</td>
+                                    <td>{{ $purchase->supplier->name }}</td>
                                     <th>@lang('models/purchases.fields.date')</th>
                                     <td>{{ ($purchase->date) ? $purchase->date->format('Y-m-d H:i') : "" }}</td>
                                 </tr>

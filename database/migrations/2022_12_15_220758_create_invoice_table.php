@@ -17,7 +17,7 @@ class CreateInvoiceTable extends Migration
             $table->id('invoice_no');
             $table->string('manual')->nullable();
             $table->timestamp('date')->nullable();
-            $table->unsignedBigInteger('customer')->nullable();
+            $table->unsignedInteger('customer')->nullable();
             $table->string('authorized')->nullable();
             $table->string('phone')->nullable();
             $table->string('trn')->nullable();

@@ -2,7 +2,7 @@
 
 namespace App\Repositories;
 
-use App\Models\Customer;
+use App\Models\Supplier;
 use App\Models\Purchase;
 use App\Models\Part;
 use App\Repositories\BaseRepository;
@@ -92,35 +92,35 @@ class PurchaseRepository extends BaseRepository
         }
     }
      /**
-     * create a new customer
+     * create a new supplier
      *
      * @param array $input
      *
      * @return id
      */
-    public function createCustomer($input)
+    public function createSupplier($input)
     {
-        $customer=new Customer();
-        $customer->name=$input['sup_name'];
-        $customer->phone=$input['phone'];
-        $customer->trn=$input['sup_trn'];
-        $customer->save();
-        return (string)$customer->id;
+        $supplier=new Supplier();
+        $supplier->name=$input['sup_name'];
+        $supplier->phone=$input['phone'];
+        $supplier->trn=$input['sup_trn'];
+        $supplier->save();
+        return (string)$supplier->id;
     }
 
          /**
-     * update a customer 
+     * update a supplier 
      *
      * @param array $input
      *
      * @return Model
      */
-    public function updateCustomer($input)
+    public function updateSupplier($input)
     {
-        $customer=Customer::find($input['sup_name']);
-        $customer->phone=$input['phone'];
-        $customer->trn=$input['sup_trn'];
-        $customer->save();
+        $supplier=Supplier::find($input['sup_name']);
+        $supplier->phone=$input['phone'];
+        $supplier->trn=$input['sup_trn'];
+        $supplier->save();
         return ;
     }
 }
