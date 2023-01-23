@@ -14,7 +14,7 @@
             </div>
         </div>
     </div>
-    <div class="col-sm-2">
+    <div class="col-sm-1">
         <!-- File Field -->
         <div class="form-group">
             {!! Form::label('unit',__('models/products.fields.unit')) !!}
@@ -30,7 +30,7 @@
             </div>
         </div>
     </div>
-    <div class="col-sm-2">
+    <div class="col-sm-1">
         <!-- File Field -->
         <div class="form-group">
             {!! Form::label('qty',__('models/products.fields.qty')) !!}
@@ -46,7 +46,7 @@
             </div>
         </div>
     </div>
-    <div class="col-sm-2">
+    <div class="col-sm-1">
         <!-- File Field -->
         <div class="form-group">
             {!! Form::label('price',__('models/products.fields.price')) !!}

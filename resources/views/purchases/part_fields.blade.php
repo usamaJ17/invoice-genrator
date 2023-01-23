@@ -1,4 +1,4 @@
-<div class="col-sm-3">
+<div class="col-sm-2">
     <!-- File Field -->
     <div class="form-group">
         {!! Form::label('name',__('models/products.fields.name')) !!}
@@ -13,7 +13,7 @@
         </div>
     </div>
 </div>
-<div class="col-sm-2">
+<div class="col-sm-1">
     <!-- File Field -->
     <div class="form-group">
         {!! Form::label('unit',__('models/products.fields.unit')) !!}
@@ -28,7 +28,7 @@
         </div>
     </div>
 </div>
-<div class="col-sm-2">
+<div class="col-sm-1">
     <!-- File Field -->
     <div class="form-group">
         {!! Form::label('qty',__('models/products.fields.qty')) !!}
@@ -43,7 +43,7 @@
         </div>
     </div>
 </div>
-<div class="col-sm-2">
+<div class="col-sm-1">
     <!-- File Field -->
     <div class="form-group">
         {!! Form::label('price',__('models/products.fields.price')) !!}
@@ -80,7 +80,7 @@
     <div class="form-group">
         {!! Form::label('button','asd',['class'=>'invisible']) !!}
         <div class="input-group">
-            <span id='exp_del'><a class="btn btn-danger btn-sm"><i class="fa fa-trash"></i> Delete Products</a></span>
+            <span id='exp_del' style="position: absolute;top: -15px;line-height:2;"><a class="btn btn-danger btn-xs"><i class="fa fa-trash"></i> </a></span>
                 {{-- {!! Form::number('amount_1', null, [ 'class' => $errors->has('amount') ? 'form-control is-invalid' : 'form-control','id'=>"proc_amount", "readonly",'step'=>"any"]) !!} --}}
         </div>
     </div>
@@ -105,3 +105,29 @@
 
 
 
+
+<style>
+    label:not(.form-check-label):not(.custom-file-label) {
+    font-weight: 500 !important;
+    font-size: 13px;
+    margin-bottom:2px;
+}
+.form-control {
+    display: block;
+    width: 100%;
+    height: calc(2.05rem + 1px) !important;
+    padding: 0.275rem 0.75rem !important;
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 1;
+    }
+    .k-btn-sub{
+        margin-top:22px;
+    }
+    .text-sm {
+    font-size: .775rem!important;
+}
+.select2-container--bootstrap4 .select2-selection--single {
+    height: calc(2.05rem + 1px)!important;
+}
+    </style>

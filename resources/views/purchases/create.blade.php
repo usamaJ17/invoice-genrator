@@ -1,7 +1,7 @@
 @extends('layouts.master')
 
 @section('content')
-<div class="content-header">
+<div class="content-header d-none">
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
@@ -20,7 +20,7 @@
 <div class="content">
     <div class="row">
         <div class="col-md-12">
-            <div class="bg-white card-primary card-maroon">
+            <div class="bg-white card-primary card-maroon mt-3">
                 <div class="card-header">
                     <h3 class="card-title">@lang('crud.add_new') @lang('models/purchases.singular')</h3>
                 </div>

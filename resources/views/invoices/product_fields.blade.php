@@ -41,6 +41,7 @@
     <!-- File Field -->
     <div class="form-group">
         {!! Form::label('name',__('models/products.fields.name')) !!}
+        <!-- <label for="P-I Code">P-I Code</label> -->
         <div class="input-group">
                 {!! Form::text('name_1', null, ['class' => $errors->has('name') ? 'form-control is-invalid' : 'form-control' ,'id'=>"doc_name"]) !!}
 
@@ -52,10 +53,11 @@
         </div>
     </div>
 </div>
-<div class="col-sm-2 sale_field">
+<div class="col-sm-1 sale_field">
     <!-- File Field -->
     <div class="form-group">
-        {!! Form::label('code',__('models/products.fields.code')) !!}
+        <!-- {!! Form::label('code',__('models/products.fields.code')) !!} -->
+        <label for="P-I Code">P-I Code</label>
         <div class="input-group">
                 {!! Form::text('code_1', null, ['class' => $errors->has('code') ? 'form-control is-invalid' : 'form-control' ,'id'=>"doc_code"]) !!}
 

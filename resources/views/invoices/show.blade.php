@@ -48,10 +48,10 @@
                             </div>
                         </div>
                         <br>
-                        <h5 class="text-center text-weight-bold pb-1" style="margin-top:15px;text-transform: uppercase;">Tax @lang('models/invoices.singular')
+                        <h5 class="text-center text-weight-bold pb-1" style="margin-top:10px;margin-bottom:10px;text-transform: uppercase;">Tax @lang('models/invoices.singular')
                         <span class="k-code-list">(<span>
-                        {{ $invoice->trn }}
-                            <!-- TRN: 100238651200003 -->
+                        <!-- {{ $invoice->trn }} -->
+                        TRN: 100238651200003
                         </span>)</span></h5>
                         <div class="row justify-content-between">
                             <div class="col-md-5">

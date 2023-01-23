@@ -99,7 +99,8 @@
     @endsection
     <div class="col-sm-1">
         <div class="form-group ">
-            {!! Form::label('manual', __('models/invoices.fields.manual')) !!}
+            <!-- {!! Form::label('manual', __('models/invoices.fields.manual')) !!} -->
+            <label for="M-I No">M-I No</label>
             {!! Form::text('manual', null, ['class' => $errors->has('manual') ? 'form-control is-invalid' : 'form-control']) !!}
             @if ($errors->has('manual'))
                 <span class="invalid-feedback">
@@ -167,7 +168,8 @@
     </div>
     <div class="col-sm-1">
         <div class="form-group ">
-            {!! Form::label('reference', __('models/invoices.fields.reference')) !!}
+            <!-- {!! Form::label('reference', __('models/invoices.fields.reference')) !!} -->
+            <label for="Ref-No">Ref-No</label>
             {!! Form::text('reference', null, ['class' => $errors->has('reference') ? 'form-control is-invalid' : 'form-control']) !!}
             @if ($errors->has('reference'))
                 <span class="invalid-feedback">
@@ -347,7 +349,6 @@
             @if (str_contains(url()->current(), '/create'))
                 $('.date').val(formatDate());
             @endif
-
 
             // change fileds based on type
             @if(isset($invoice->type))

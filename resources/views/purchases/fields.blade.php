@@ -40,7 +40,7 @@
                 @endif
             </div>
         </div>
-    @endif  
+    @endif
     <div class="col-sm-2">
         <div class="form-group ">
             {!! Form::label('sup_name', __('models/purchases.fields.sup_name')) !!}
@@ -53,7 +53,7 @@
                 @endif
             </div>
         </div>
-    </div>  
+    </div>
     @section('scripts')
     @parent
     <script src="{{ asset('plugins/select2/js/select2.full.min.js')}}"></script>
@@ -141,9 +141,9 @@
 </div>
 
 {{-- products fields (few difference-- will be handeled by a jquery script) -end --}}
-<h3>Parts :</h3>
-<br>
-    <a class="btn btn-success mb-2" id="add_new_exp_field"><i class="fa fa-plus"></i> Add Parts</a>
+<!-- <h3>Parts :</h3> -->
+<!-- <br> -->
+    <a class="btn btn-success mb-2" id="add_new_exp_field" style="line-height:2;"><i class="fa fa-plus"></i></a>
     <input type="hidden" name="total_row" value=1 id="total_row">
 
 @if (str_contains(url()->current(), '/create'))
@@ -163,12 +163,13 @@
 {{-- products fields (few difference-- will be handeled by a jquery script) -end --}}
 
 {{-- basic purchase fields (same for all) total --}}
-<h3>Total :</h3>
-<br>
+<!-- <h3>Total :</h3> -->
+<!-- <br> -->
 <div class="row">
-    <div class="col-sm-2">
+    <div class="col-sm-1">
         <div class="form-group ">
-            {!! Form::label('total', __('models/purchases.fields.total')) !!}
+            <!-- {!! Form::label('total', __('models/purchases.fields.total')) !!} -->
+            <label for="t-amount">T-Amount</label>
             {!! Form::number('total', null, ['class' => $errors->has('total') ? 'form-control auto_amount_cal is-invalid' : 'form-control auto_amount_cal','step'=>"any",'id'=>'total' ]) !!}
             @if ($errors->has('total'))
                 <span class="invalid-feedback">
@@ -177,7 +178,7 @@
             @endif
         </div>
     </div>
-    <div class="col-sm-2">
+    <div class="col-sm-1">
         <div class="form-group ">
             {!! Form::label('discount', __('models/purchases.fields.discount')) !!}
             {!! Form::number('discount', null, ['class' => $errors->has('discount') ? 'form-control auto_amount_cal is-invalid' : 'form-control auto_amount_cal','step'=>"any",'id'=>'discount' ]) !!}
@@ -188,7 +189,7 @@
             @endif
         </div>
     </div>
-    <div class="col-sm-2">
+    <div class="col-sm-1">
         <div class="form-group ">
             {!! Form::label('gross', __('models/purchases.fields.gross') ) !!}
             {!! Form::number('gross', null, ['class' => $errors->has('gross') ? 'form-control auto_amount_cal is-invalid' : 'form-control auto_amount_cal','step'=>"any"]) !!}
@@ -199,7 +200,7 @@
             @endif
         </div>
     </div>
-    <div class="col-sm-2">
+    <div class="col-sm-1">
         <div class="form-group ">
             {!! Form::label('vat', __('models/purchases.fields.vat') ) !!}
             {!! Form::number('vat', null, ['class' => $errors->has('vat') ? 'form-control auto_amount_cal is-invalid' : 'form-control auto_amount_cal' ,'step'=>"any"]) !!}
@@ -210,9 +211,10 @@
             @endif
         </div>
     </div>
-    <div class="col-sm-2">
+    <div class="col-sm-1">
         <div class="form-group ">
-            {!! Form::label('vat_amount', __('models/purchases.fields.vat_amount') ) !!}
+            <!-- {!! Form::label('vat_amount', __('models/purchases.fields.vat_amount') ) !!} -->
+            <label for="T-VAT">T-VAT</label>
             {!! Form::number('vat_amount', null, ['class' => $errors->has('vat_amount') ? 'form-control auto_amount_cal is-invalid' : 'form-control auto_amount_cal','step'=>"any"]) !!}
             @if ($errors->has('vat_amount'))
                 <span class="invalid-feedback">
@@ -228,8 +230,8 @@
     <div class="col-sm-12">
         <!-- Submit Field -->
         <div class="form-group">
-            {!! Form::submit(__('crud.save'), ['class' => 'btn btn-danger btn-flat btn-lg']) !!}
-            <a href="{{ route('purchase.index') }}" class="btn btn-outline-danger btn-flat btn-lg text-maroon">@lang('crud.cancel')</a>
+            {!! Form::submit(__('crud.save'), ['class' => 'btn btn-danger btn-flat btn-sm']) !!}
+            <a href="{{ route('purchase.index') }}" class="btn btn-outline-danger btn-flat btn-sm text-maroon" style="line-height:2;">@lang('crud.cancel')</a>
         </div>
     </div>
 </div>
@@ -303,7 +305,7 @@
                     @else
                         update_amount_field();
                     @endif
-                    
+
                 });
                 copy.find('#exp_del').click(function() {
                     copy.remove();
@@ -365,3 +367,110 @@
         {{-- -- exp_doc uplode field name change script end-- --}}
 @endsection
 {{-- scrtipts (clone products row and change fileds based on type) -end --}}
+
+
+<style>
+    label:not(.form-check-label):not(.custom-file-label) {
+    font-weight: 500 !important;
+    font-size: 13px;
+    margin-bottom:2px;
+}
+.form-control {
+    display: block;
+    width: 100%;
+    height: calc(2.05rem + 1px) !important;
+    padding: 0.275rem 0.75rem !important;
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 1;
+    }
+    .k-btn-sub{
+        margin-top:22px;
+    }
+    .text-sm {
+    font-size: .775rem!important;
+}
+.select2-container--bootstrap4 .select2-selection--single {
+    height: calc(2.05rem + 1px)!important;
+}
+.k-checked{
+    text-align: center;
+    /* border: 1px solid #f3f3f3; */
+    padding: 8px 15px;
+    border-radius: 7px;
+    display: flex;
+    justify-content: center;
+    /* background-color:#f3f3f3; */
+}
+.k-checked input[type=radio]:checked:before{
+       position: absolute;
+    /* background: red; */
+    right: -27px;
+    top: -5px;
+    left: -27px;
+    width: 127px;
+    border: 1px solid #d81b60;
+    height: 32px;
+    content: "";
+    border-radius: 7px;
+    /* height: 60px; */
+    /* position: absolute; */
+    /* width: 60px; */
+    z-index: 1;
+}
+.k-checked input[type=radio]{
+accent-color: #d81b60;
+}
+
+.k-checked input{
+    margin-right: 5px;
+    position: relative;
+}
+
+    .text-sm .card-title {
+    font-size: 12px;
+}
+.card-header{
+    padding:.50rem 1.25rem;
+}
+.text-sm .btn {
+    font-size: 11px !important;
+}
+.text-sm {
+    font-size: 11px !important;
+}
+label:not(.form-check-label):not(.custom-file-label) {
+    font-weight: 400;
+}
+ /* .btn-group-sm>.btn, .btn-sm { */
+    /* line-height: 1; */
+    /* padding: 7px 9px !important; */
+ /* } */
+table.dataTable.table-sm > thead > tr > th {
+    padding: 6px 10px !important;
+    font-weight: 500;
+    font-size: 12px;
+}
+.table td, .table th {
+    padding: 0.002rem 0.6rem !important;
+    vertical-align: middle;
+    font-size: 12px;
+}
+.btn {
+    padding: 0.275rem 0.75rem !important;
+    height: calc(2.05rem + 1px) !important;
+}
+.form-control {
+    display: block;
+    width: 100%;
+    height: calc(2.05rem + 1px) !important;
+    padding: 0.275rem 0.75rem !important;
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 1;
+    }
+    .btn-xs {
+    padding: 0.125rem 0.25rem !important;
+    height: auto !important;
+    }
+</style>

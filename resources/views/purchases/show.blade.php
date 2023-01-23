@@ -59,13 +59,13 @@
                                 </tr>
                                 <tr >
                                     <th>@lang('models/purchases.fields.sup_trn')</th>
-                                    <td>{{ $purchase->sup_trn }}</td>                                    
+                                    <td>{{ $purchase->sup_trn }}</td>
                                     <th>@lang('models/purchases.fields.payment')</th>
                                     <td>{{ $purchase->payment }}</td>
                                 </tr>
                                 <tr >
                                     <th>@lang('models/purchases.fields.remarks')</th>
-                                    <td>{{ $purchase->remarks }}</td>                                    
+                                    <td>{{ $purchase->remarks }}</td>
                                     <th>@lang('models/purchases.fields.bank')</th>
                                     <td>{{ $purchase->bank }}</td>
                                 </tr>
@@ -93,21 +93,21 @@
                                 @endphp
                                     <tr class="expandable-header">
                                         <td>{{ $part->name }}</td>
-                                        <td>{{ $part->unit }}</td>           
-                                        <td>{{ $part->qty }}</td>        
-                                        <td>{{ $part->price }}</td>          
+                                        <td>{{ $part->unit }}</td>
+                                        <td>{{ $part->qty }}</td>
+                                        <td>{{ $part->price }}</td>
                                         <td>{{ $part->amount }}</td>
                                     </tr>
                                 @endforeach
 
                                 <tr class="bg-gy">
-                                        <td colspan="1"></td>   
-                                        <th>Total</th>                      
+                                        <td colspan="1"></td>
+                                        <th>Total</th>
                                         <td>{{ $total_qty }}</td>
                                         <td></td>
                                         <td>{{ $total_amount }}</td>
-                                   
-                                    
+
+
                                 </tr>
                             </tbody>
                         </table>
@@ -150,5 +150,48 @@
 <style>
 .k-term ul li{
     font-size:14px;
+}
+</style>
+
+<style>
+    .k-bg-gy{
+        background-color:#f1f0f0 !important;
+    }
+    .k-bot-b{
+        border-bottom: 1px solid #888;
+    }
+    th{
+        font-weight:600;
+        font-size: 12px !important;
+    }
+    td{
+        font-size: 12px !important;
+    }
+    .k-top-th{
+        text-transform: capitalize;
+        font-weight: 600;
+        font-size: 12px !important;
+        width:32%;
+    }
+.k-term ul li{
+    font-size:14px;
+}
+.k-code-list{
+    font-size:12px;
+    font-weight:400 !important;
+}
+.k-signa{
+    margin-top: 55px;
+    padding-bottom: 5px;
+}
+table > thead > tr > th {
+    padding: 6px 10px !important;
+    font-weight: 500 !important;
+    font-size: 12px !important;
+}
+.table td, .table th {
+    padding: 0.002rem 0.6rem;
+    vertical-align: middle;
+    font-size: 12px !important;
 }
 </style>
