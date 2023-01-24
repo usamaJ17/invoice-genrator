@@ -102,19 +102,19 @@ class InvoiceDataTable extends DataTable
     protected function getColumns()
     {
         return [
-            'invoice_no' => new Column(['title' => __('models/invoices.fields.no'), 'data' => 'invoice_number']),
+            'invoice_no' => new Column(['title' => __('models/invoices.fields.no'), 'data' => 'invoice_number','searchable' => false]),
             'date' => new Column(['title' => __('models/invoices.fields.date'), 'data' => 'date']),
             'manual' => new Column(['title' => __('models/invoices.fields.manual'), 'data' => 'manual']),
             'name' => new Column(['title' => __('models/invoices.fields.name'), 'data' => 'customer.name']),
-            'type' => new Column(['title' => __('models/invoices.fields.type'), 'data' => 'type','searchable' => false]),
-            'authorized' => new Column(['title' => __('models/invoices.fields.authorized'), 'data' => 'authorized','searchable' => false]),
-            'phone' => new Column(['title' => __('models/invoices.fields.phone'), 'data' => 'phone','searchable' => false]),
-            'lpo' => new Column(['title' => __('models/invoices.fields.lpo'), 'data' => 'lpo','searchable' => false]),
-            'payment' => new Column(['title' => __('models/invoices.fields.payment'), 'data' => 'payment','searchable' => false]),
-            'gross' => new Column(['title' => __('models/invoices.fields.gross'), 'data' => 'gross','searchable' => false]),
-            'vat' => new Column(['title' => __('models/invoices.fields.vat'), 'data' => 'vat','searchable' => false]),
-            'vat_amount' => new Column(['title' => __('models/invoices.fields.vat_amount'), 'data' => 'vat_amount','searchable' => false]),
-            'remarks' => new Column(['title' => __('models/invoices.fields.remarks'), 'data' => 'remarks','searchable' => false]),
+            'type' => new Column(['title' => __('models/invoices.fields.type'), 'data' => 'type']),
+            'authorized' => new Column(['title' => __('models/invoices.fields.authorized'), 'data' => 'authorized']),
+            'phone' => new Column(['title' => __('models/invoices.fields.phone'), 'data' => 'phone']),
+            'lpo' => new Column(['title' => __('models/invoices.fields.lpo'), 'data' => 'lpo']),
+            'payment' => new Column(['title' => __('models/invoices.fields.payment'), 'data' => 'payment']),
+            'gross' => new Column(['title' => __('models/invoices.fields.gross'), 'data' => 'gross']),
+            'vat' => new Column(['title' => __('models/invoices.fields.vat'), 'data' => 'vat']),
+            'vat_amount' => new Column(['title' => __('models/invoices.fields.vat_amount'), 'data' => 'vat_amount']),
+            'remarks' => new Column(['title' => __('models/invoices.fields.remarks'), 'data' => 'remarks']),
         ];
     }
 

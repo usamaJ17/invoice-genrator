@@ -102,11 +102,11 @@ class PurchaseDataTable extends DataTable
             'date' => new Column(['title' => __('models/purchases.fields.date'), 'data' => 'date']),
             'sup_name' => new Column(['title' => __('models/purchases.fields.sup_name'), 'data' => 'supplier.name']),
             'sup_invoice' => new Column(['title' => __('models/purchases.fields.sup_invoice'), 'data' => 'sup_invoice']),
-            'sup_trn' => new Column(['title' => __('models/purchases.fields.sup_trn'), 'data' => 'sup_trn','searchable' => false]),
-            'gross' => new Column(['title' => __('models/purchases.fields.gross'), 'data' => 'gross','searchable' => false]),
-            'vat' => new Column(['title' => __('models/purchases.fields.vat'), 'data' => 'vat','searchable' => false]),
-            'vat_amount' => new Column(['title' => __('models/purchases.fields.vat_amount'), 'data' => 'vat_amount','searchable' => false]),
-            'remarks' => new Column(['title' => __('models/purchases.fields.remarks'), 'data' => 'remarks','searchable' => false]),
+            'sup_trn' => new Column(['title' => __('models/purchases.fields.sup_trn'), 'data' => 'sup_trn']),
+            'gross' => new Column(['title' => __('models/purchases.fields.gross'), 'data' => 'gross']),
+            'vat' => new Column(['title' => __('models/purchases.fields.vat'), 'data' => 'vat']),
+            'vat_amount' => new Column(['title' => __('models/purchases.fields.vat_amount'), 'data' => 'vat_amount']),
+            'remarks' => new Column(['title' => __('models/purchases.fields.remarks'), 'data' => 'remarks']),
         ];
     }
 
