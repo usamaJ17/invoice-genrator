@@ -63,7 +63,7 @@ class Invoice extends Model
 
     public function getInvoiceNumberAttribute()
     {
-        return 'ER'.$this->invoice_no;
+        return 'ER-'.$this->invoice_no;
     }
      /**
      * Get the products that associated with invoice.

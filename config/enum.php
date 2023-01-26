@@ -87,7 +87,7 @@ return [
     ],
     'unit' => [
         ''=>'',
-        'PES' => 'PES',
+        'PCS' => 'PCS',
         'MTR' => 'MTR',
         'BOX' => 'BOX',
         'LTR' => 'LTR',

@@ -4,7 +4,7 @@ namespace App\DataTables;
 
 use App\Models\Purchase;
 use Yajra\DataTables\Services\DataTable;
-use Yajra\DataTables\EloquentDataTable;
+use Yajra\DataTables\CollectionDataTable;
 use Yajra\DataTables\Html\Column;
 
 class PurchaseDataTable extends DataTable
@@ -17,7 +17,7 @@ class PurchaseDataTable extends DataTable
      */
     public function dataTable($query)
     {
-        $dataTable = new EloquentDataTable($query);
+        $dataTable = new CollectionDataTable($query);
 
         return $dataTable->addIndexColumn()->addColumn('action', 'purchases.datatables_actions')
         ->addColumn('date', function($query) {
@@ -40,7 +40,8 @@ class PurchaseDataTable extends DataTable
         if(request('from_date') && request('to_date'))
         $model->whereDate('date', '>=', request('from_date'))
             ->whereDate('date', '<=', request('to_date'));
-        return $model->orderBy('purchase_no','desc');
+
+        return $model->orderBy('purchase_no','desc')->get();
 
     }
 

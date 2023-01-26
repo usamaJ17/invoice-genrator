@@ -4,7 +4,7 @@ namespace App\DataTables;
 
 use App\Models\Invoice;
 use Yajra\DataTables\Services\DataTable;
-use Yajra\DataTables\EloquentDataTable;
+use Yajra\DataTables\CollectionDataTable;
 use Yajra\DataTables\Html\Column;
 
 class InvoiceDataTable extends DataTable
@@ -17,7 +17,7 @@ class InvoiceDataTable extends DataTable
      */
     public function dataTable($query)
     {
-        $dataTable = new EloquentDataTable($query);
+        $dataTable = new CollectionDataTable($query);
 
         return $dataTable->addIndexColumn()->addColumn('action', 'invoices.datatables_actions')
         ->addColumn('date', function($query) {
@@ -43,7 +43,8 @@ class InvoiceDataTable extends DataTable
 
         if(request('invoice_type'))
             $model->where('type','=',request('invoice_type'));
-        return $model->orderBy('invoice_no','desc');
+
+        return $model->orderBy('invoice_no','desc')->get();
 
     }
 
@@ -102,7 +103,7 @@ class InvoiceDataTable extends DataTable
     protected function getColumns()
     {
         return [
-            'invoice_no' => new Column(['title' => __('models/invoices.fields.no'), 'data' => 'invoice_number','searchable' => false]),
+            'invoice_no' => new Column(['title' => __('models/invoices.fields.no'), 'data' => 'invoice_number']),
             'date' => new Column(['title' => __('models/invoices.fields.date'), 'data' => 'date']),
             'manual' => new Column(['title' => __('models/invoices.fields.manual'), 'data' => 'manual']),
             'name' => new Column(['title' => __('models/invoices.fields.name'), 'data' => 'customer.name']),
