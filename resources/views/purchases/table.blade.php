@@ -76,44 +76,4 @@
             // document.getElementById('submit').removeAttribute('disabled');
         }
     </script>
-    {{-- Add Quotation Type model --}}
-    <div class="modal fade" id="modal-type">
-        <div class="modal-dialog modal-sm">
-        <div class="modal-content">
-            <div class="modal-header">
-            <h4 class="modal-title"> Edit Purchase</h4>
-            </div>
-            <form action="{{route('checkPassword_purchase')}}" method="POST" id="type-form">
-                @csrf
-                <div class="modal-body">
-                    <div class="form-group">
-                        <label>Password:</label>
-                        <input type="password" name="password" class="form-control" />
-                        <input type="hidden" name="id" />
-                        <input type="hidden" name="type" />
-                        <input type="hidden" name="page" value="purchase" />
-                        <span class="invalid-feedback" >
-                            <strong></strong>
-                        </span>
-                    </div>
-                </div>
-                <div class="modal-footer justify-content-between">
-                    <button type="button" onclick="clearFormType()" class="btn btn-outline-danger btn-flat btn-lg text-maroon">Close</button>
-                    <button type="submit" class="btn btn-danger btn-flat btn-lg">Submit</button>
-                </div>
-            </form>
-        </div>
-        </div>
-    </div>
-    <script>
-        //triggered when modal is about to be shown
-        $('#modal-type').on('show.bs.modal', function(e) {
-        //get data-id attribute of the clicked element
-        var id = $(e.relatedTarget).attr('id');
-        var type=$(e.relatedTarget).data('type');
-        // populate the textbox
-        $(e.currentTarget).find('input[name="id"]').val(id);
-        $(e.currentTarget).find('input[name="type"]').val(type);
-        });
-    </script>
 @endpush

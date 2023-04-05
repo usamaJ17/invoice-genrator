@@ -108,9 +108,19 @@ class PurchaseController extends Controller
      * @param  \App\Purchase  $purchase
      * @return \Illuminate\Http\Response
      */
-    public function edit(Purchase $purchase)
+    public function edit($id)
     {
-        //
+        $purchase = Purchase::with('part')->find($id);
+        $parts=Part::where('purchase_no','=',$purchase->purchase_no)->orderby('part_id','asc')->get();
+        $suppliers=Supplier::orderby('name','asc')->select('id','name','trn','phone')->get();
+        $name = array();
+        $data=array();
+        foreach($suppliers as $supplier){
+            $name += [$supplier->id=>$supplier->name];
+            $data = Arr::add($data, $supplier->id, [$supplier->trn,$supplier->phone]);
+        }
+        return view('purchases.edit')->with(compact('purchase','parts','name','data'));
+
     }
 
     /**
@@ -174,31 +184,6 @@ class PurchaseController extends Controller
         else
             Flash::error(__('messages.permisssion_error'));
 
-        return redirect(route('purchase.index'));
-    }
-    public function checkPassword(Request $request)
-    {
-
-        if (Hash::check($request->password, Auth::user()->password)) {
-            //if request is for delete purchase 
-            if($request->type=='delete'){
-                $this->destroy($request->id);
-            }
-            else{
-                //if for edit
-                $purchase = Purchase::with('part')->find($request->id);
-                $parts=Part::where('purchase_no','=',$purchase->purchase_no)->orderby('part_id','asc')->get();
-                $suppliers=Supplier::orderby('name','asc')->select('id','name','trn','phone')->get();
-                $name = array();
-                $data=array();
-                foreach($suppliers as $supplier){
-                    $name += [$supplier->id=>$supplier->name];
-                    $data = Arr::add($data, $supplier->id, [$supplier->trn,$supplier->phone]);
-                }
-                return view('purchases.edit')->with(compact('purchase','parts','name','data'));
-            }
-        }
-        Flash::error(__('messages.wrong', ['model' => 'Password']));
         return redirect(route('purchase.index'));
     }
 }

@@ -1,11 +1,15 @@
+{!! Form::open(['route' => ['purchase.destroy', $purchase_no], 'method' => 'delete']) !!}
 <div class='btn-group'>
-    <a href="{{ route('purchase.show', $purchase_no) }}" class='btn btn-success'>
-       <i class="fa fa-eye"></i>
+    <a href="{{ route('purchase.show', $purchase_no) }}" class='btn btn-success1'>
+        <i class="fa fa-eye"></i>
     </a>
-    <button type="button" data-toggle="modal" data-target="#modal-type" data-type="edit" id="{{$purchase_no}}" class='btn btn-info'>
+    <a href="{{ route('purchase.edit', $purchase_no) }}" class='btn btn-info'>
        <i class="fa fa-edit"></i>
-    </button>
-    <button type="button" data-toggle="modal" data-target="#modal-type" data-type="delete" id="{{$purchase_no}}" class='btn btn-danger'>
-        <i class="fa fa-trash"></i>
-     </button>
+    </a>
+    {!! Form::button('<i class="fa fa-trash"></i>', [
+        'type' => 'submit',
+        'class' => 'btn btn-danger',
+        'onclick' => "return confirm('Are you sure?')"
+    ]) !!}
 </div>
+{!! Form::close() !!}

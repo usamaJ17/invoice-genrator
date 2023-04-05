@@ -1,11 +1,15 @@
+{!! Form::open(['route' => ['invoice.destroy', $invoice_no], 'method' => 'delete']) !!}
 <div class='btn-group'>
     <a href="{{ route('invoice.show', $invoice_no) }}" class='btn btn-success1'>
-       <i class="fa fa-eye"></i>
+        <i class="fa fa-eye"></i>
     </a>
-    <button type="button" data-toggle="modal" data-target="#modal-type" data-type="edit" id="{{$invoice_no}}" class='btn btn-info1'>
+    <a href="{{ route('invoice.edit', $invoice_no) }}" class='btn btn-info'>
        <i class="fa fa-edit"></i>
-    </button>
-    <button type="button" data-toggle="modal" data-target="#modal-type" data-type="delete" id="{{$invoice_no}}" class='btn btn-danger1'>
-        <i class="fa fa-trash"></i>
-     </button>
+    </a>
+    {!! Form::button('<i class="fa fa-trash"></i>', [
+        'type' => 'submit',
+        'class' => 'btn btn-danger',
+        'onclick' => "return confirm('Are you sure?')"
+    ]) !!}
 </div>
+{!! Form::close() !!}

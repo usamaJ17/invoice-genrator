@@ -119,22 +119,18 @@ class InvoiceController extends Controller
      */
     public function edit($id)
     {
-        // $invoice = Invoice::with('user')->find($id);
-        // $products=Product::where('invoice_no','=',$invoice->invoice_no)->orderby('product_id','asc')->get();
-        // $service=Service::where('invoice_no','=',$invoice->invoice_no)->first();
-        // $customers=Customer::orderby('name','asc')->select('name')->get();
-        // $data = array();
-        // foreach($customers as $customer){
-        //     $data += [$customer->name=>$customer->name];
-        // }
-
-        // if (empty($invoice)) {
-        //     Flash::error("Invoice".' '.__('messages.not_found'));
-
-        //     return redirect(route('invoice.index'));
-        // }
-        // $data=compact('invoice','products','service','data');
-        // return view('invoices.edit')->with($data);
+        $invoice = Invoice::with('customer')->find($id);
+        $products=Product::where('invoice_no','=',$invoice->invoice_no)->orderby('product_id','asc')->get();
+        $service=Service::where('invoice_no','=',$invoice->invoice_no)->first();
+        $customers=Customer::orderby('name','asc')->select('id','name','address','trn','phone')->get();
+        $name = array();
+        $data=array();
+        foreach($customers as $customer){
+            $name += [$customer->id=>$customer->name];
+            $data = Arr::add($data, $customer->id, [$customer->address,$customer->trn,$customer->phone]);
+        }
+        $data=compact('invoice','products','service','name','data');
+        return view('invoices.edit')->with($data);
     }
 
     /**
@@ -203,33 +199,6 @@ class InvoiceController extends Controller
         else
             Flash::error(__('messages.permisssion_error'));
 
-        return redirect(route('invoice.index'));
-    }
-    public function checkPassword(Request $request)
-    {
-
-        if (Hash::check($request->password, Auth::user()->password)) {
-            //if request is for delete invoice
-            if($request->type=='delete'){
-                $this->destroy($request->id);
-            }
-            else{
-                //if for edit
-                $invoice = Invoice::with('customer')->find($request->id);
-                $products=Product::where('invoice_no','=',$invoice->invoice_no)->orderby('product_id','asc')->get();
-                $service=Service::where('invoice_no','=',$invoice->invoice_no)->first();
-                $customers=Customer::orderby('name','asc')->select('id','name','address','trn','phone')->get();
-                $name = array();
-                $data=array();
-                foreach($customers as $customer){
-                    $name += [$customer->id=>$customer->name];
-                    $data = Arr::add($data, $customer->id, [$customer->address,$customer->trn,$customer->phone]);
-                }
-                $data=compact('invoice','products','service','name','data');
-                return view('invoices.edit')->with($data);
-            }
-        }
-        Flash::error(__('messages.wrong', ['model' => 'Password']));
         return redirect(route('invoice.index'));
     }
 }
