@@ -15,6 +15,7 @@ return array (
     'code' => 'Product id code',
     'period' => 'Period',
     'price' => 'Price',
+    'vat' => 'Vat 5%',
     'qty' => 'Qty',
     'amount' => 'Amount',
     'created_at' => 'Created At',
